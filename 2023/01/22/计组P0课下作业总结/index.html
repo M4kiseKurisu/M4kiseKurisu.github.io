@@ -1,0 +1,882 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对计组P0(Logisim，状态机)实验课下作业写法的总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组P0课下作业总结">
+<meta property="og:url" content="http://example.com/2023/01/22/%E8%AE%A1%E7%BB%84P0%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对计组P0(Logisim，状态机)实验课下作业写法的总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/makise1.jpg">
+<meta property="article:published_time" content="2023-01-22T14:57:50.000Z">
+<meta property="article:modified_time" content="2023-01-22T15:10:02.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/makise1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>计组P0课下作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计组P0课下作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 22:57" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计组P0课下作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="P0-Q1-CRC校验"><a href="#P0-Q1-CRC校验" class="headerlink" title="P0.Q1 CRC校验"></a>P0.Q1 CRC校验</h3><p>使用Logisim搭建一个除数为四位，原数据帧为8位的CRC校验码计算电路，模块端口定义如下：</p>
+<table>
+<thead>
+<tr>
+<th>信号名</th>
+<th>方向</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A[7:0]</td>
+<td>I</td>
+<td>8位原数据帧</td>
+</tr>
+<tr>
+<td>B[3:0]</td>
+<td>I</td>
+<td>4位除数</td>
+</tr>
+<tr>
+<td>C[10:0]</td>
+<td>O</td>
+<td>8位原数据帧+3位校验码</td>
+</tr>
+</tbody></table>
+<p>校验方法：将原帧补上( 除数位数 -1 )个 0 作为被除数，然后进行模二除法即可。举个例子，我们要发送的帧A为 10011，发送端和接收端共同选定的除数B为 1110。因为 B 是 4 位二进制数，我们需要在 A 的后面补上 3 个 0，从而得到 A’&#x3D;10011000。我们将 A’ 作被除数，B 作除数，进行”模二除法”。如下图：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/crc1.png" srcset="/img/loading.gif" lazyload></p>
+<p>最后得到的余数是一个三位数(注意如果不是三位，也要在前面补零来凑齐三位)，这就是要求的校验码。我们将得到的校验码 110 拼接在原数据帧的后面，就得到了要发送的新帧 A’’&#x3D;10011110。这样就完成了 CRC 校验码的生成。</p>
+<p>层次化目标：</p>
+<ul>
+<li>设计四位模二除法器</li>
+<li>使用四位模二除法器搭建 8 位 CRC 校验码计算电路</li>
+</ul>
+<p>（模二除法：它与算术除法类似，但在做减法时既不向上借位，也不比较除数和被除数相同位数值的大小；它的运算法则为1-1&#x3D;0，0-1&#x3D;1，1-0&#x3D;1，0-0&#x3D;0，例如1100-1001&#x3D;0101）</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20220929103433733.png" srcset="/img/loading.gif" lazyload></p>
+<p>四位模二除法器的构建：</p>
+<table>
+<thead>
+<tr>
+<th>信号名</th>
+<th>方向</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A[3:0]</td>
+<td>I</td>
+<td>4位被除数</td>
+</tr>
+<tr>
+<td>B[3:0]</td>
+<td>I</td>
+<td>4位除数</td>
+</tr>
+<tr>
+<td>C[2:0]</td>
+<td>O</td>
+<td>3位余数</td>
+</tr>
+<tr>
+<td>D</td>
+<td>O</td>
+<td>1位商</td>
+</tr>
+</tbody></table>
+<ul>
+<li>思路：所谓四位模二除法器只有两种情况：当被除数最高位为1时，商恒为1，余数即为被除数和除数的按位异或结果，当被除数最高位为0时，商恒为0，余数即为被除数第三位，因此可以分别输出这两种方法算出的商（利用最高位是否为1进行分辨），放入MUX选择，利用商为0为1进行选择输出。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20220929124721907.png" srcset="/img/loading.gif" lazyload></p>
+<p>CRC校验电路的组成：</p>
+<ul>
+<li>思路：对于输入的被除数，从最高位四位和除数进行除法器运算，取出余数再和低一位的数组成新被除数，继续取余，直到最后被除数全部输入，这是还要连续往被除数中加3个0进行取余，最后取出的余数连接到被除数后（Spliter）输出即可。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20220929125403764.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="P0-Q2-实现GRF"><a href="#P0-Q2-实现GRF" class="headerlink" title="P0.Q2 实现GRF"></a>P0.Q2 实现GRF</h3><p>使用logisim搭建一个GRF</p>
+<ul>
+<li><p>GRF中包含32个32位寄存器，分别对应0~31号寄存器，其中0号寄存器读取的结果恒为0。具体模块端口定义如下：</p>
+<table>
+<thead>
+<tr>
+<th>信号名</th>
+<th>方向</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>clk</td>
+<td>I</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>I</td>
+<td>复位信号，将32个寄存器中的值全部清零，1：清零、0：无效</td>
+</tr>
+<tr>
+<td>WE</td>
+<td>I</td>
+<td>写使能信号，1：可以向GRF写入数据、0：不能写入数据</td>
+</tr>
+<tr>
+<td>A1</td>
+<td>I</td>
+<td>5位地址输入信号，指定32个寄存器中的一个，将其中存储数据读出到RD1</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>I</td>
+<td>5位地址输入信号，指定32个寄存器中的一个，将其中存储数据读出到RD2</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>I</td>
+<td>5位地址输入信号，指定32个寄存器中的一个作为写入的目标寄存器</td>
+</tr>
+<tr>
+<td>WD</td>
+<td>I</td>
+<td>32位数据输入信号</td>
+</tr>
+<tr>
+<td>RD1</td>
+<td>O</td>
+<td>输出A1指定的寄存器中的32位数据</td>
+</tr>
+<tr>
+<td>RD2</td>
+<td>O</td>
+<td>输出A2指定的寄存器中的32位数据</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>模块功能定义如下：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>功能名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>复位</td>
+<td>reset信号有效时所有寄存器存储数值清零，行为和logisim自带register的reset接口完全相同</td>
+</tr>
+<tr>
+<td>2</td>
+<td>读数据</td>
+<td>读出A1,A2地址对应寄存器中存储的数据到RD1，RD2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>写数据</td>
+<td>当WE有效且时钟上升沿来临时，将WD写入A3所对应的寄存器中</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>要求0号寄存器读出的数据在任意时刻都为0</p>
+</li>
+<li><p>思路：</p>
+</li>
+<li><p>1.首先考虑输入，即A3和WD（还要考虑WE的影响），考虑到A3对输入地址有选择的效果，可以考虑使用多路选择器MUX，将A3输入作为选择输入。同时利用缓冲器，当WE的输入为0时就利用缓冲器阻拦WD的输入，达到使能的效果。注意，本题中MUX需要打开三态开关，这样可以在一条通路没有被选择时断开而不是置零，如果不打开的话每个时钟上升沿都只有被选择的寄存器置数，其他都被置零。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20220929230738923.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>2.考虑寄存和CLK，Reset。很明显本题的储存是利用32个32位寄存器完成，而每个寄存器都需要接入clk和reset信号以达到效果，同时每一个寄存器都需要一个输入和一个输出信号，为了美观可以都使用tunnel进行构建。（由于0号寄存器只能输出0，因此可以不设置输入）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20220929231205415.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>3.输出就是输入的反过程，利用解复用器DMX就可以进行输出的选择，因此只需要利用五位的A1和A2进行选择输出即可。下图为A1，A2完全相同。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20220929231435721.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>反思：本题我的做法过于简单粗暴，因此导致布线过于凌乱，应该采取模块化思路进行分块完成，比如我之前思路提到的三部分就可以分开完成，这样的解答较为优雅。</li>
+</ul>
+<h3 id="P0-Q3-Logisim导航"><a href="#P0-Q3-Logisim导航" class="headerlink" title="P0.Q3 Logisim导航"></a>P0.Q3 Logisim导航</h3><ul>
+<li><p>计小组只能往东南西北四个方向行走，且若能行走，则每次只能行走一格。若下一步不存在机房让计小组行走，那么计小组会撞到墙壁并且hit置高一周期，此时计小组仍保持原地不会移动，等待下一周期再进行运动。（如果下一步依旧撞墙， 则hit仍然置高；若下一步不会撞墙，则计小组将会继续行进，hit在此周期置0）</p>
+</li>
+<li><p>计小组走到B机房后，“到达”信号需要置位，并保持一周期。到达B机房后计小组将会在下一周期回到原点，（下一周期的输入将被忽略掉）等待下下周期的输入，继续测试他的序列。</p>
+</li>
+<li><p>要求使用Moore型有限状态机</p>
+</li>
+<li><p>端口定义：</p>
+<table>
+<thead>
+<tr>
+<th>信号名</th>
+<th>方向</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dir[1:0]</td>
+<td>I</td>
+<td>表示行走的方向：00：向北走 01：向东走 10：向南走 11：向西走</td>
+</tr>
+<tr>
+<td>clk</td>
+<td>I</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>I</td>
+<td>异步复位信号</td>
+</tr>
+<tr>
+<td>arrive</td>
+<td>O</td>
+<td>是否到达</td>
+</tr>
+<tr>
+<td>hit</td>
+<td>O</td>
+<td>是否撞上墙壁</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>1.构建次态逻辑（状态图，真值表）<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002234247904.png" srcset="/img/loading.gif" lazyload><br>然后将真值表利用Logisim进行分析就能给出次态逻辑电路。（由于本题需要五个状态，四种操作，所以需要三位状态输入和两位操作输入，另外Hit输出也能够通过输入和操作判断，在这里也可以一并计算）（大概输入输出如下，截取不全）<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003001719301.png" srcset="/img/loading.gif" lazyload><br>这样次态逻辑电路就构建完成了。</p>
+</li>
+<li><p>2.构建储存电路<br>正常的三维数据输入输出，加上时钟输入端clk和复位输入端reset即可。<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003001917485.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>3.构建输出电路<br>由于是Moore型状态机，因此输出只和状态有关，利用比较器判断出状态编码分别是”1“”0“”0“（状态4）即可输出到达，否则未到达。<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003002059705.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>4.组成整个电路<br>按照正常的状态机的组成即可组装，具体略。要注意hit信号的输出也是每个周期才有所改变，因此在次态逻辑中的Hit输出值同样要用寄存器进行储存。<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003002252311.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<h3 id="P0-Q4-Logisim中的FSM"><a href="#P0-Q4-Logisim中的FSM" class="headerlink" title="P0.Q4 Logisim中的FSM"></a>P0.Q4 Logisim中的FSM</h3><ul>
+<li><p>使用Logisim搭建一个Mealy型有限状态机，检测串行输入字符串中的能匹配正则表达式b{1,2}[ac]{2}的子串并输出。具体模块端口定义如下：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/9-1.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>模块功能定义如下：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/9-2.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>注意: 每当匹配到一个子串时，需要输出一次1。例如对字符串bacbacac,模块应当在第1个c输入和第2个c输入时输出1,而在其他时刻保持输出为0</p>
+</li>
+<li><p>注意：有限状态机的设计是Mealy型有限状态机</p>
+</li>
+<li><p>1.构建次态逻辑电路（状态图+真值表）<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003003955089.png" srcset="/img/loading.gif" lazyload><br>(一共6个状态，logisim自动生成即可)</p>
+</li>
+<li><p>2.构建储存电路<br>经典的五输入（S1,S2,S3,CLK,Reset）三输出（S1,S2,S3）结构，唯一的问题在于要求同步复位，这代表只有在上升沿复位信号会发动，清空寄存器。一开始我的电路存在bug，如下图。<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/fsm4.png" srcset="/img/loading.gif" lazyload><br>这种电路的思路是利用寄存器寄存reset信号，直到上升沿才能输出。但是问题在于，在下一个上升沿之前这个reset信号一直有效，而经过测试，在下一个上升沿时优先判定寄存器左端输入，这个瞬间reset信号还没有归0，因此导致新的状态无法读入，因此出现Bug，所以我用了另一种方法来完成同步复位（感谢华哥）</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/fsm5.png" srcset="/img/loading.gif" lazyload></p>
+<p>就是利用reset信号取反后和状态分别与门连接。这样如果reset信号为1，自然与门输出0，在下一个上升沿时就可以把0写入寄存器，即清空。而reset信号为0时，输出取决于状态的输入，因此不影响正常的工作。</p>
+<ul>
+<li>3.构建输出电路<br>此处的输出电路需要同时对读取的状态以及当前的操作进行处理（因为要求meely型状态机，需要利用当前操作进行“预判”）其实也可以让Logisim自动生成逻辑，但是我自己写了一个，相当于只有在“b[a&#x2F;c]”或“bb[a&#x2F;c]”条件并下一个操作为a&#x2F;c时可以输出1。如下图。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003122107546.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>4.总结<br>将这三个模块进行meely型连接即可（即输入也要连到输出电路模块处），但是进行Logisim测试时要注意，测试时电路会在之前输入为“ba”时就直接输出1，究其原因，是人无法同时点击clk和操作输入。因此你在点击clk时没改变a，相当于又多输入了一个a，判定到ba和输入a自然输出1。如果想测试，可以在输出1时将输入改成b”01”，此时如无意外输出会立刻变成0。<br>下图为合成的fsm电路。（接线接的有点丑陋）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003122456291.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="P0附加题：ftoi"><a href="#P0附加题：ftoi" class="headerlink" title="P0附加题：ftoi"></a>P0附加题：ftoi</h3><p>使用Logisim进行组合逻辑设计，要求输入一个16位的单精度浮点数（符合IEEE-754标准），输出该浮点数的整数部分(包含符号)，用32位二进制符号数表示。<br>具体如图，有四种情况：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003204900477.png" srcset="/img/loading.gif" lazyload><br>以及两个例子：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003204946132.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>其实可以将其和十进制的科学计数法进行对比，最高位是符号位，中间五位和01111相减后是指数位，决定小数点左右移动程度，然后最后是数字位，相当于1.023 * 10^3中的“.23”，如果中间五位不是00000则需要记得小数点前还有一个没被显示的“1”，而若为00000则只有小数部分不需要补充前导1。具体端口定义如下：</p>
+<table>
+<thead>
+<tr>
+<th>信号名</th>
+<th>方向</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float[15:0]</td>
+<td>I</td>
+<td>16位半精度浮点数（IEEE-754标准）</td>
+</tr>
+<tr>
+<td>int[31:0]</td>
+<td>O</td>
+<td>该浮点数的整数部分（带符号），用32位符号数的补码来表示，超出表示范围则取低32位。 第3类Infinity和第4类NaN为了简化直接输出0即可</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>思路：<br>其实就是移位思路，相当于如果指数是正数，则整数部分就是小数部分的前几位，而如果指数是负数，整数部分恒为0。<br>具体到这个题上，后两种情况（指数为全1）输出0，第二种情况（指数全为0）其实也只能输出0，因为此时本来整数位就为0，而00000-01111也肯定为负，此时整数位必然为0。因此只考虑指数为00000与11111之间情况。<br>对于这种情况，其实也可以分成两种。当指数-01111为负数时，相当于小数点左移，但小数点前只有一位1，则此时输出也一定为0。只需要考虑指数为0或正数。<br>下面给出电路图：</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221003210219270.png" srcset="/img/loading.gif" lazyload></p>
+<p>通过下面这个or gate可以发现把之前提到的三种输出必为0的情况进行汇总，在多路选择器中确保当其中一种情况发生时直接选择输出常数0。</p>
+<p>而对于正常需要计算的情况，先分离中间5位和01111做减法，求出左移位数并进行左移，然后此时取高位（相当于整数部分）作为输出的低位，并在高位补0形成一个新的32位二进制数。</p>
+<p>这里的关键在于：如何判断符号位并求补码？首先我们需要知道logisim中的补码器就是单纯的取反加1。我的思路是：首先将其的符号进行判断，利用输入的最高位，如果是0，则直接原样输出，因为正数的补码就是其本身。如果是1呢？此时要注意我们形成新32位时一定最高位不能补符号位，而是应该补0。假设是负数，那么最高位补0相当于其相反数。而相反数是正数，其补码是自身，而要求原先负数的补码，就只需要对对应正数的补码取反加一即可。此时即可应用Logisim中的补码器了。最后进行选择输出即可。</p>
+<p>终于把P0课下作业做完了~希望第一次上机一定要过啊QAQ</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">#计算机组成原理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P1%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P1课下作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计组P1课下作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/oo-pre%E7%AC%AC%E4%B8%83%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="oo-pre第七次作业总结">
+                        <span class="hidden-mobile">oo-pre第七次作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1159 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对计组P4(Verilog构建单周期CPU)实验课下作业写法的总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组P4课下作业总结">
+<meta property="og:url" content="http://example.com/2023/01/22/%E8%AE%A1%E7%BB%84P4%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对计组P4(Verilog构建单周期CPU)实验课下作业写法的总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/bocchi1.jpg">
+<meta property="article:published_time" content="2023-01-22T15:54:10.000Z">
+<meta property="article:modified_time" content="2023-01-22T16:03:04.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/bocchi1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>计组P4课下作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计组P4课下作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 23:54" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          74 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计组P4课下作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="部件建模"><a href="#部件建模" class="headerlink" title="部件建模"></a>部件建模</h3><h4 id="PC-v"><a href="#PC-v" class="headerlink" title="PC.v"></a>PC.v</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>处理时钟</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>复位信号（同步复位）</td>
+</tr>
+<tr>
+<td>DI[31:0]</td>
+<td>I</td>
+<td>32位输入下一条指令地址</td>
+</tr>
+<tr>
+<td>DO[31:0]</td>
+<td>O</td>
+<td>32位输出本条指令地址</td>
+</tr>
+</tbody></table>
+<p>注意P4和P3要求的差别：首先Reset信号变成了同步复位，则不需要放入敏感表，同时初始及复位时默认PC指向0x00003000，用来配合MIPS的.text位置设定。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%201.png" srcset="/img/loading.gif" lazyload></p>
+<p>代码：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] pc; <span class="hljs-comment">//pc address</span><br><span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span><br>    pc=<span class="hljs-number">32&#x27;h00003000</span>;<br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> CLK) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">if</span>(Reset==<span class="hljs-number">1&#x27;b1</span>)<br>	     pc&lt;=<span class="hljs-number">32&#x27;h00003000</span>;<br>    <span class="hljs-keyword">else</span><br>	     pc&lt;=DI;<br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">assign</span> DO=pc;<br></code></pre></td></tr></table></figure>
+
+<h4 id="NPC-v"><a href="#NPC-v" class="headerlink" title="NPC.v"></a>NPC.v</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PC[31:0]</td>
+<td>I</td>
+<td>输入当前指令的地址</td>
+</tr>
+<tr>
+<td>NPCOp[1:0]</td>
+<td>I</td>
+<td>NPC计算方法控制: 00：PC+4 01：beq 10：jal 11:jr</td>
+</tr>
+<tr>
+<td>Zero</td>
+<td>I</td>
+<td>判断beq指令中rs和rt是否相等的比较结果</td>
+</tr>
+<tr>
+<td>Imm26[25:0]</td>
+<td>I</td>
+<td>26位立即数（beq，jal跳转指令地址）</td>
+</tr>
+<tr>
+<td>RA[31:0]</td>
+<td>I</td>
+<td>rs寄存器保存的32位返回地址</td>
+</tr>
+<tr>
+<td>NPC[31:0]</td>
+<td>O</td>
+<td>32位输出（下一条指令的地址）</td>
+</tr>
+<tr>
+<td>PC4[31:0]</td>
+<td>O</td>
+<td>32位输出PC+4，便于存入rs寄存器</td>
+</tr>
+</tbody></table>
+<p>P4需要新加入jal和jr指令，所以说对比P3，其功能选择控制器NPCOp需要输入两位来判断四种地址跳转方式。其次是我们根据这两条指令的描述：</p>
+<p>jal:PC&lt;-PC[31,28]║instr_index║0^2    R[31]&lt;-PC+4 因此我们需要将imm扩展为26位用来存放jal的index，同时由于要把PC+4存入31号寄存器，因此需要输出PC+4的值来存入，因此需要新添加PC4输出。</p>
+<p>jr:PC&lt;-R[rs] 因此我们需要将rs的值再通过PC端口输出，所以只需要设定NPCOp值即可。</p>
+<p>此处要注意：由于Beq的判断有两个条件（即npcop和zero），则针对npcop&#x3D;&#x3D;1但zero&#x3D;&#x3D;0的情况，我们需要让pc+4，不能让他进入异常状态！</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%202.png" srcset="/img/loading.gif" lazyload></p>
+<p>代码：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> PC4=PC+<span class="hljs-number">4</span>;<br><span class="hljs-keyword">assign</span> NPC=(NPCOp==<span class="hljs-number">2&#x27;b00</span>||((NPCOp==<span class="hljs-number">2&#x27;b01</span>)&amp;&amp;(Zero==<span class="hljs-number">0</span>)))?(PC+<span class="hljs-number">4</span>): <span class="hljs-comment">//pc+4</span><br>           ((NPCOp==<span class="hljs-number">2&#x27;b01</span>)&amp;&amp;(Zero==<span class="hljs-number">1</span>))?&#123;&#123;<span class="hljs-number">14</span>&#123;Imm26[<span class="hljs-number">15</span>]&#125;&#125;,&#123;Imm26[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>]&#125;,&#123;<span class="hljs-number">2</span>&#123;<span class="hljs-number">1&#x27;b0</span>&#125;&#125;&#125;+PC+<span class="hljs-number">4</span>: <span class="hljs-comment">//beq</span><br>		   (NPCOp==<span class="hljs-number">2&#x27;b10</span>)?&#123;&#123;PC[<span class="hljs-number">31</span>:<span class="hljs-number">28</span>]&#125;,&#123;Imm26&#125;,&#123;<span class="hljs-number">2</span>&#123;<span class="hljs-number">1&#x27;b0</span>&#125;&#125;&#125;: <span class="hljs-comment">//jal</span><br>		   (NPCOp==<span class="hljs-number">2&#x27;b11</span>)?RA: <span class="hljs-comment">//jr</span><br>		   <span class="hljs-number">32&#x27;h00003000</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="IM-v"><a href="#IM-v" class="headerlink" title="IM.v"></a>IM.v</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PC[31:0]</td>
+<td>I</td>
+<td>输入当前指令的地址</td>
+</tr>
+<tr>
+<td>Instr[31:0]</td>
+<td>O</td>
+<td>输出当前指令内容</td>
+</tr>
+</tbody></table>
+<p>和P3一样，将指令地址输入IM，IM将输出当前指令机器码Instr。这里要使用$readmemh指令读取code.txt中的机器码到设定的寄存器阵列，模拟rom的功能。<br>由于本题IM要求的容量是4096*32bit，则取地址应该取PC的12位（4096&#x3D;2^12），则取[13：2]位。（和P3一致，PC地址偏移4位相当于这里取寄存器阵列的下一个寄存器，因此相当于要除2）<br>还有要注意，code的位置是从0x00003000开始的！所以有两个选择，可以在readmemh中设定导入数据就从0x00003000处开始，但是这样比较浪费空间，所以我选择将PC-0x00003000作为真正的地址寻找机器码。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%203.png" srcset="/img/loading.gif" lazyload></p>
+<p>代码：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] ROM[<span class="hljs-number">0</span>:<span class="hljs-number">4095</span>];<br><span class="hljs-keyword">wire</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] address;<br><span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span><br>    <span class="hljs-built_in">$readmemh</span>(<span class="hljs-string">&quot;code.txt&quot;</span>,ROM);<br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">assign</span> address=PC-<span class="hljs-number">32&#x27;h00003000</span>;<br><span class="hljs-keyword">assign</span> Instr=ROM[address[<span class="hljs-number">13</span>:<span class="hljs-number">2</span>]];<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%204.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="GRF-v"><a href="#GRF-v" class="headerlink" title="GRF.v"></a>GRF.v</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>处理时钟</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>复位信号（同步复位）</td>
+</tr>
+<tr>
+<td>A1[4:0]</td>
+<td>I</td>
+<td>读取的第一个寄存器编号</td>
+</tr>
+<tr>
+<td>A2[4:0]</td>
+<td>I</td>
+<td>读取的第二个寄存器编号</td>
+</tr>
+<tr>
+<td>A3[4:0]</td>
+<td>I</td>
+<td>写入的寄存器编号</td>
+</tr>
+<tr>
+<td>WD[31:0]</td>
+<td>I</td>
+<td>写入值</td>
+</tr>
+<tr>
+<td>PC[31:0]</td>
+<td>I</td>
+<td>当前执行指令的地址</td>
+</tr>
+<tr>
+<td>Wr</td>
+<td>I</td>
+<td>写使能，判断是否能够写入</td>
+</tr>
+<tr>
+<td>RD1[31:0]</td>
+<td>O</td>
+<td>读取的第一个寄存器值</td>
+</tr>
+<tr>
+<td>RD2[31:0]</td>
+<td>O</td>
+<td>读取的第二个寄存器值</td>
+</tr>
+</tbody></table>
+<p>还是要注意0号寄存器不能被写入。此处依然利用reg阵列模拟寄存器。以及P4中要求Reset信号要实现的是同步复位。<br>同时要注意本题有特殊要求：在 GRF 模块中，每个时钟上升沿到来时若要写入数据（即写使能信号为 1 且非 reset 时）则输出写入的位置及写入的值，格式（请注意空格）为：<br><code>$display(&quot;@%h: $%d &lt;= %h&quot;, WPC, Waddr, WData);</code><br>其中 WPC 表示相应指令的储存地址，从 0x00003000 开始；Waddr 表示输入的 5 位写寄存器的地址；WData 表示输入的 32 位写入寄存器的值。<br>因此为了输出WPC，我们还需要把当前执行指令地址PC输入才能输出。<br>此处为了初始化和清空存储指令空间，我定义了一个i，并用它循环来清空所有寄存器。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%205.png" srcset="/img/loading.gif" lazyload></p>
+<p>代码：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] Register[<span class="hljs-number">31</span>:<span class="hljs-number">0</span>]; <span class="hljs-comment">//32 regs</span><br><span class="hljs-keyword">integer</span> i;<br><span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">32</span>;i=i+<span class="hljs-number">1</span>) <br>	     Register[i]=<span class="hljs-number">32&#x27;h0</span>;<br><span class="hljs-keyword">end</span> <br><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> CLK) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">if</span>(Reset==<span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>	     <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">32</span>;i=i+<span class="hljs-number">1</span>)<br>		      Register[i]&lt;=<span class="hljs-number">32&#x27;h0</span>;<br>    <span class="hljs-keyword">end</span><br>	 <span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>	     <span class="hljs-keyword">if</span>(Wr==<span class="hljs-number">1</span>&amp;&amp;A3!=<span class="hljs-number">5&#x27;b0</span>) <span class="hljs-keyword">begin</span><br>            Register[A3]&lt;=WD;<br>				<span class="hljs-built_in">$display</span>(<span class="hljs-string">&quot;@%h: $%d &lt;= %h&quot;</span>,PC,A3,WD);<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">assign</span> RD1=Register[A1];<br><span class="hljs-keyword">assign</span> RD2=Register[A2];<br></code></pre></td></tr></table></figure>
+
+<h4 id="ALU-v"><a href="#ALU-v" class="headerlink" title="ALU.v"></a>ALU.v</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A[31:0]</td>
+<td>I</td>
+<td>第一个读入数RS</td>
+</tr>
+<tr>
+<td>B[31:0]</td>
+<td>I</td>
+<td>第二个读入数RT或立即数</td>
+</tr>
+<tr>
+<td>MSel[1:0]</td>
+<td>I</td>
+<td>判断要进行什么运算（控制信号）</td>
+</tr>
+<tr>
+<td>C[31:0]</td>
+<td>O</td>
+<td>ALU运算结果输出</td>
+</tr>
+<tr>
+<td>Zero</td>
+<td>O</td>
+<td>相等判断结果（&#x3D;&#x3D;）</td>
+</tr>
+</tbody></table>
+<p>和P3一样，还是要在四种情况中进行选择，分别是加法，减法，与运算和直接输出B，所以需要一个select bits为2的多路选择器进行选择，因此控制信号MSel需要设定为两位。<br>此处MSel设定还是00为加，01为减，10为or，11为输出B。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029125647529.png" srcset="/img/loading.gif" lazyload></p>
+<p>代码：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> C=(MSel==<span class="hljs-number">2&#x27;b00</span>)?A+B:<br>         (MSel==<span class="hljs-number">2&#x27;b01</span>)?A-B:<br>			(MSel==<span class="hljs-number">2&#x27;b10</span>)?A|B:<br>			(MSel==<span class="hljs-number">2&#x27;b11</span>)?B:<br>			<span class="hljs-number">0</span>;<br><span class="hljs-keyword">assign</span> Zero=(A-B==<span class="hljs-number">0</span>)?<span class="hljs-number">1</span>:<span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="DM-v"><a href="#DM-v" class="headerlink" title="DM.v"></a>DM.v</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>处理时钟</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>复位信号（同步复位）</td>
+</tr>
+<tr>
+<td>A[31:0]</td>
+<td>I</td>
+<td>地址输入</td>
+</tr>
+<tr>
+<td>WD[31:0]</td>
+<td>I</td>
+<td>需要被写入地址A的数据</td>
+</tr>
+<tr>
+<td>PC[31:0]</td>
+<td>I</td>
+<td>本步骤对应指令的地址</td>
+</tr>
+<tr>
+<td>Wr</td>
+<td>I</td>
+<td>控制是读功能还是写功能的控制信号，0读1写</td>
+</tr>
+<tr>
+<td>RD[31:0]</td>
+<td>O</td>
+<td>将A地址中的数据从RD读出</td>
+</tr>
+</tbody></table>
+<p>本题的RAM同样需要自己构造，其大小为3072*32bit，此处和IM一致，由于3072&gt;2^11，则需要12位地址进行存入&#x2F;取出数据地址计算。所以存取地址都要截取A的[13:2]位。<br>P4对DM也有额外的显示要求：在 DM 模块中，每个时钟上升沿到来时若要写入数据（即写使能信号为 1 且非 reset 时）则输出写入的位置及写入的值，格式（请注意空格）为：<br><code>$display(&quot;@%h: *%h &lt;= %h&quot;, pc, addr, din);</code><br>其中 pc 是该操作对应的指令的地址，和 GRF 模块要求一致，addr 表示将要存入数据的 32 位地址，din 表示输入的 32 位写入 DM 的值。<br>所以也和GRF同理，我们需要额外在模块中输入PC用来显示。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029130005232.png" srcset="/img/loading.gif" lazyload></p>
+<p>代码：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">reg</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] RAM[<span class="hljs-number">0</span>:<span class="hljs-number">3071</span>];<br><span class="hljs-keyword">integer</span> i;<br><span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">3072</span>;i=i+<span class="hljs-number">1</span>)<br>	     RAM[i]&lt;=<span class="hljs-number">32&#x27;b0</span>;<br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> CLK) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">if</span>(Reset==<span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>	     <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">3072</span>;i=i+<span class="hljs-number">1</span>)<br>		      RAM[i]&lt;=<span class="hljs-number">32&#x27;b0</span>;<br>    <span class="hljs-keyword">end</span><br>	 <span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>	     <span class="hljs-keyword">if</span>(Wr==<span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>		      RAM[A[<span class="hljs-number">13</span>:<span class="hljs-number">2</span>]]&lt;=WD;<br>				<span class="hljs-built_in">$display</span>(<span class="hljs-string">&quot;@%h: *%h &lt;= %h&quot;</span>,PC,A,WD);<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><span class="hljs-keyword">assign</span> RD=RAM[A[<span class="hljs-number">13</span>:<span class="hljs-number">2</span>]];<br></code></pre></td></tr></table></figure>
+
+<h4 id="EXT-v"><a href="#EXT-v" class="headerlink" title="EXT.v"></a>EXT.v</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Input[15:0]</td>
+<td>I</td>
+<td>需要被扩展的16位输入</td>
+</tr>
+<tr>
+<td>EXTOp[1:0]</td>
+<td>I</td>
+<td>扩展单元控制信号</td>
+</tr>
+<tr>
+<td>EXT[31:0]</td>
+<td>O</td>
+<td>输出32位的扩展结果</td>
+</tr>
+</tbody></table>
+<p>本题和P3一样，同样有三种扩展方式，即符号扩展，0扩展和lui扩展（高16位加载扩展），所以需要用两位的控制信号EXTOp进行，设定0为0扩展，1为符号扩展，2为lui扩展。在Verilog中直接进行拼接就可以完成扩展操作。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029130411128.png" srcset="/img/loading.gif" lazyload></p>
+<p>代码：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> EXT=(EXTOp==<span class="hljs-number">2&#x27;b00</span>)?&#123;&#123;<span class="hljs-number">16</span>&#123;<span class="hljs-number">1&#x27;b0</span>&#125;&#125;,&#123;Input&#125;&#125;:<br>           (EXTOp==<span class="hljs-number">2&#x27;b01</span>)?&#123;&#123;<span class="hljs-number">16</span>&#123;Input[<span class="hljs-number">15</span>]&#125;&#125;,&#123;Input&#125;&#125;:<br>		   (EXTOp==<span class="hljs-number">2&#x27;b10</span>)?&#123;&#123;Input&#125;,&#123;<span class="hljs-number">16</span>&#123;<span class="hljs-number">1&#x27;b0</span>&#125;&#125;&#125;:<br>		   <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="Control-v"><a href="#Control-v" class="headerlink" title="Control.v"></a>Control.v</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>opcode[5:0]</td>
+<td>I</td>
+<td>机器码中六位opcode输入</td>
+</tr>
+<tr>
+<td>funct[5:0]</td>
+<td>I</td>
+<td>机器码中六位funct输入</td>
+</tr>
+<tr>
+<td>NPCOp[1:0]</td>
+<td>O</td>
+<td>NPC:0 → +4; 1 → branch; 2 → jal; 3 → jr</td>
+</tr>
+<tr>
+<td>WRSel[1:0]</td>
+<td>O</td>
+<td>A3:0 → “rt”; 1 → “rd”; 2 → reg31</td>
+</tr>
+<tr>
+<td>WDSel[1:0]</td>
+<td>O</td>
+<td>RF-WD:0 → ALU; 1 → Mem; 2 → NPC</td>
+</tr>
+<tr>
+<td>RFWr</td>
+<td>O</td>
+<td>RF:1 → write register</td>
+</tr>
+<tr>
+<td>EXTOp[1:0]</td>
+<td>O</td>
+<td>见ext</td>
+</tr>
+<tr>
+<td>BSel</td>
+<td>O</td>
+<td>ALU-B:0 → RF-RD2; 1 → imm16</td>
+</tr>
+<tr>
+<td>MSel[1:0]</td>
+<td>O</td>
+<td>见alu</td>
+</tr>
+<tr>
+<td>DMWr</td>
+<td>O</td>
+<td>DM-Wr: 1 → write memory</td>
+</tr>
+</tbody></table>
+<p>P4中由于是在Verilog中实现，因此不需要像P3中分为and和or两个模块（我认为P3我分开的一个很大的原因就是可以通过连线的亮暗判断正在进行什么指令），但是思路还是一样的：通过opcode和funct输入分成不同的指令，然后再针对不同的指令判断对应控制信号的取值。<br>同时注意本题由于需要实现jal和jr，所以NPCOp,WRSel（NPC需要把pc+4写入31号寄存器），WDSel（NPC指令需要PC+4的值）需要有两位，然后EXTOp和MSel本来也需要有两位。<br>此处我把不同指令的funct和opcode的值列举于下：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>机器码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add</td>
+<td>opcode:000000,funct:100000</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>opcode:000000,funct:100010</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>opcode:001101</td>
+</tr>
+<tr>
+<td>lw</td>
+<td>opcode:100011</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>opcode:101011</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>opcode:001111</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>opcode:000100</td>
+</tr>
+<tr>
+<td>jal</td>
+<td>opcode:000011</td>
+</tr>
+<tr>
+<td>jr</td>
+<td>opcode:000000,funct:001000</td>
+</tr>
+<tr>
+<td>nop</td>
+<td>opcode:000000,funct:000000</td>
+</tr>
+</tbody></table>
+<p>以及不同指令针对不同控制信号的取值：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>NPCOp</th>
+<th>WRSel</th>
+<th>WDSel</th>
+<th>RFWr</th>
+<th>EXTOp</th>
+<th>BSel</th>
+<th>MSel</th>
+<th>DMWr</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nop</td>
+<td>00</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>add</td>
+<td>00</td>
+<td>01</td>
+<td>00</td>
+<td>1</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>00</td>
+<td>01</td>
+<td>00</td>
+<td>1</td>
+<td>00</td>
+<td>0</td>
+<td>01</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>00</td>
+<td>00</td>
+<td>00</td>
+<td>1</td>
+<td>00</td>
+<td>1</td>
+<td>10</td>
+<td>0</td>
+</tr>
+<tr>
+<td>lw</td>
+<td>00</td>
+<td>00</td>
+<td>01</td>
+<td>1</td>
+<td>01</td>
+<td>1</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>00</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>01</td>
+<td>1</td>
+<td>00</td>
+<td>1</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>00</td>
+<td>00</td>
+<td>00</td>
+<td>1</td>
+<td>10</td>
+<td>1</td>
+<td>11</td>
+<td>0</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>01</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>jal</td>
+<td>10</td>
+<td>10</td>
+<td>10</td>
+<td>1</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>jr</td>
+<td>11</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>至于真正的代码就是对每一个控制信号进行三目运算符判断即可，比较简单机械，这里不赘述。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029130458749.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029131122445.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="main-v"><a href="#main-v" class="headerlink" title="main.v"></a>main.v</h4><p>需要使用这些模块并进行接线，我们可以先参考P3的接线将没有jal&#x2F;jr的接线情况完成。图如下（注意P3中我们先将pc,npc及im合成了ifu，这里需要分别接线）：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029131649793.png" srcset="/img/loading.gif" lazyload></p>
+<p>在Verilog中，接线的东西特别混乱，我想到了几个稍微清洁一点的方法：</p>
+<ol>
+<li>对每根线的命名方式都是模块_出口名__模块_入口名，这样可以比较直观看出这根线是干嘛的。</li>
+<li>对于同一个出口要接到不同入口的情况我宁可多定义一根线，这样看上去比较清晰，而且可以遵守我上面的命名方法。</li>
+<li>将模块的使用放在一起，模块之间的连线情况放在一起，看上去比较清楚。</li>
+</ol>
+<p>按照这些写出来大概是这样（好像还是有点乱）：<br>首先是模块的使用：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs verilog">PC uut1(<span class="hljs-variable">.CLK</span>(clk),<span class="hljs-variable">.Reset</span>(reset),<span class="hljs-variable">.DI</span>(NPC_NPC__PC_DI),<span class="hljs-variable">.DO</span>(PC_DO__NPC_PC));<br>NPC uut2(<span class="hljs-variable">.PC</span>(PC_DO__NPC_PC),<span class="hljs-variable">.NPCOp</span>(Control_NPCOp__NPC_NPCOp),<span class="hljs-variable">.Zero</span>(ALU_Zero__NPC_Zero),<span class="hljs-variable">.Imm26</span>(Instr_Imm26__NPC_Imm26),<span class="hljs-variable">.RA</span>(GRF_RD1__NPC_RA),<span class="hljs-variable">.NPC</span>(NPC_NPC__PC_DI),<span class="hljs-variable">.PC4</span>(NPC_PC4__MUX_wdsel));<br>IM uut3(<span class="hljs-variable">.PC</span>(PC_DO__IM_PC),<span class="hljs-variable">.Instr</span>(IM_Instr));<br>Control uut4(<span class="hljs-variable">.opcode</span>(Instr_opcode__Control_opcode),<span class="hljs-variable">.funct</span>(Instr_funct__Control_funct),<span class="hljs-variable">.NPCOp</span>(Control_NPCOp__NPC_NPCOp),<span class="hljs-variable">.WRSel</span>(Control_WRSel__MUX_wrsel),<span class="hljs-variable">.WDSel</span>(Control_WDSel__MUX_wdsel),<span class="hljs-variable">.RFWr</span>(Control_RFWr__GRF_Wr),<span class="hljs-variable">.EXTOp</span>(Control_EXTOp__EXT_EXTOp),<span class="hljs-variable">.BSel</span>(Control_BSel__MUX_bsel),<span class="hljs-variable">.MSel</span>(Control_MSel__ALU_MSel),<span class="hljs-variable">.DMWr</span>(Control_DMWr__DM_Wr));<br>GRF uut5(<span class="hljs-variable">.CLK</span>(clk),<span class="hljs-variable">.Reset</span>(reset),<span class="hljs-variable">.A1</span>(Instr_rs__GRF_A1),<span class="hljs-variable">.A2</span>(Instr_rt__GRF_A2),<span class="hljs-variable">.A3</span>(MUX_wrsel__GRF_A3),<span class="hljs-variable">.WD</span>(MUX_wdsel__GRF_WD),<span class="hljs-variable">.PC</span>(PC_DO__GRF_PC),<span class="hljs-variable">.Wr</span>(Control_RFWr__GRF_Wr),<span class="hljs-variable">.RD1</span>(GRF_RD1__ALU_A),<span class="hljs-variable">.RD2</span>(GRF_RD2__MUX_bsel));<br>EXT uut6(<span class="hljs-variable">.Input</span>(Instr_Imm16__EXT_Input),<span class="hljs-variable">.EXTOp</span>(Control_EXTOp__EXT_EXTOp),<span class="hljs-variable">.EXT</span>(EXT_EXT__MUX_bsel));<br>ALU uut7(<span class="hljs-variable">.A</span>(GRF_RD1__ALU_A),<span class="hljs-variable">.B</span>(MUX_bsel__ALU_B),<span class="hljs-variable">.MSel</span>(Control_MSel__ALU_MSel),<span class="hljs-variable">.C</span>(ALU_C__DM_A),<span class="hljs-variable">.Zero</span>(ALU_Zero__NPC_Zero));<br>DM uut8(<span class="hljs-variable">.CLK</span>(clk),<span class="hljs-variable">.Reset</span>(reset),<span class="hljs-variable">.A</span>(ALU_C__DM_A),<span class="hljs-variable">.WD</span>(GRF_RD2__DM_WD),<span class="hljs-variable">.PC</span>(PC_DO__DM_PC),<span class="hljs-variable">.Wr</span>(Control_DMWr__DM_Wr),<span class="hljs-variable">.RD</span>(DM_RD__MUX_wdsel));<br></code></pre></td></tr></table></figure>
+
+<p>然后是连线情况：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> PC_DO__IM_PC=PC_DO__NPC_PC;<br><span class="hljs-keyword">assign</span> Instr_Imm26__NPC_Imm26=IM_Instr[<span class="hljs-number">25</span>:<span class="hljs-number">0</span>];<br><span class="hljs-keyword">assign</span> Instr_opcode__Control_opcode=IM_Instr[<span class="hljs-number">31</span>:<span class="hljs-number">26</span>];<br><span class="hljs-keyword">assign</span> Instr_funct__Control_funct=IM_Instr[<span class="hljs-number">5</span>:<span class="hljs-number">0</span>];<br><span class="hljs-keyword">assign</span> Instr_rs__GRF_A1=IM_Instr[<span class="hljs-number">25</span>:<span class="hljs-number">21</span>];<br><span class="hljs-keyword">assign</span> Instr_rt__GRF_A2=IM_Instr[<span class="hljs-number">20</span>:<span class="hljs-number">16</span>];<br><span class="hljs-keyword">assign</span> Instr_rt__MUX_wrsel=IM_Instr[<span class="hljs-number">20</span>:<span class="hljs-number">16</span>];<br><span class="hljs-keyword">assign</span> Instr_rd__MUX_wrsel=IM_Instr[<span class="hljs-number">15</span>:<span class="hljs-number">11</span>];<br><span class="hljs-keyword">assign</span> MUX_wrsel__GRF_A3=(Control_WRSel__MUX_wrsel==<span class="hljs-number">2&#x27;b00</span>)?Instr_rt__MUX_wrsel:<br>                         (Control_WRSel__MUX_wrsel==<span class="hljs-number">2&#x27;b01</span>)?Instr_rd__MUX_wrsel:<br>						 (Control_WRSel__MUX_wrsel==<span class="hljs-number">2&#x27;b10</span>)?<span class="hljs-number">5&#x27;b11111</span>:<br>						 <span class="hljs-number">0</span>;<br><span class="hljs-keyword">assign</span> PC_DO__GRF_PC=PC_DO__NPC_PC;<br><span class="hljs-keyword">assign</span> Instr_Imm16__EXT_Input=IM_Instr[<span class="hljs-number">15</span>:<span class="hljs-number">0</span>];<br><span class="hljs-keyword">assign</span> GRF_RD1__NPC_RA=GRF_RD1__ALU_A;<br><span class="hljs-keyword">assign</span> GRF_RD2__DM_WD=GRF_RD2__MUX_bsel;<br><span class="hljs-keyword">assign</span> MUX_bsel__ALU_B=(Control_BSel__MUX_bsel==<span class="hljs-number">1&#x27;b0</span>)?GRF_RD2__MUX_bsel:<br>                       (Control_BSel__MUX_bsel==<span class="hljs-number">1&#x27;b1</span>)?EXT_EXT__MUX_bsel:<br>					   <span class="hljs-number">0</span>;<br><span class="hljs-keyword">assign</span> ALU_C__MUX_wdsel=ALU_C__DM_A;<br><span class="hljs-keyword">assign</span> PC_DO__DM_PC=PC_DO__NPC_PC;<br><span class="hljs-keyword">assign</span> MUX_wdsel__GRF_WD=(Control_WDSel__MUX_wdsel==<span class="hljs-number">2&#x27;b00</span>)?ALU_C__MUX_wdsel:<br>                         (Control_WDSel__MUX_wdsel==<span class="hljs-number">2&#x27;b01</span>)?DM_RD__MUX_wdsel:<br>						 (Control_WDSel__MUX_wdsel==<span class="hljs-number">2&#x27;b10</span>)?NPC_PC4__MUX_wdsel:<br>						 <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h4><ol>
+<li><p>DM的addr由ALU计算所得，取[11:2]的原因是：因为我们定义DM中的寄存器阵列时方法是[31:0]RAM[0:3071]，则我们要选择寄存器的地址就应该以四个字节，即一个寄存器为一位。但是ALU给出的地址是以一个字节为一位，因此为了对齐，就需要给ALU给出的地址除二，从第三位开始取。</p>
+</li>
+<li><p>指令对应的控制信号如何取值：</p>
+</li>
+</ol>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ceylon"><span class="hljs-keyword">assign</span> control<span class="hljs-number">1</span> = (op==xxx)? <span class="hljs-number">1</span>:<span class="hljs-number">0</span>;<br><span class="hljs-keyword">assign</span> control<span class="hljs-number">2</span> = (op==xxx)? <span class="hljs-number">1</span>:<span class="hljs-number">0</span>;<br><span class="hljs-comment">//……</span><br></code></pre></td></tr></table></figure>
+
+<p>控制信号每种取值所对应的指令:</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">assign control1 = (<span class="hljs-attribute">op</span>==xxx1||op==xxx2||……)?0:<br>                  (<span class="hljs-attribute">op</span>==xxx3||……)?1:……<br></code></pre></td></tr></table></figure>
+
+<p>我觉得第一种比较直观，但是写起来也比较繁复，因为每一条指令都需要对其进行赋值，第二条比较简洁，但是不太容易加入新指令，因为看起来比较不直观。</p>
+<ol start="3">
+<li><p>异步复位的reset信号优先级是最高的，而同步复位clk信号优先级最高。</p>
+</li>
+<li><p>比较addi和addiu：<br>addi的描述：<br>temp ← (GPR[rs]31||GPR[rs]) + sign_extend(immediate)<br>if temp32 ≠ temp31 then<br>SignalException(IntegerOverflow)<br>else<br>GPR[rt] ← temp31..0<br>endif<br>addiu的描述：<br>GPR[rt] ←  GPR[rs] + sign_extend(immediate)<br>可以发现在不考虑溢出时temp32&#x3D;&#x3D;temp31，且temp&#x3D;gpr[rs]+sign_extend(immediate)，此时将GPR[rt] ← temp31..0，和addiu的描述完全等价。add和addu同理。</p>
+</li>
+</ol>
+<p>以上是P4的内容，我感觉还是比较有趣，希望上机能通过。但是P5看了两眼，确实离谱ORZ</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">#计算机组成原理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/23/%E8%AE%A1%E7%BB%84P5%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P5课下作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计组P5课下作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P3%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P3课下作业总结">
+                        <span class="hidden-mobile">计组P3课下作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

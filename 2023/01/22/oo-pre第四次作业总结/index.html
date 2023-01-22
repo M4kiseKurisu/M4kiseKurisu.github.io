@@ -1,0 +1,656 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对oopre课第四次作业本人代码的一些思路总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oo-pre第四次作业总结">
+<meta property="og:url" content="http://example.com/2023/01/22/oo-pre%E7%AC%AC%E5%9B%9B%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对oopre课第四次作业本人代码的一些思路总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/misaka1.jpg">
+<meta property="article:published_time" content="2023-01-22T14:24:27.000Z">
+<meta property="article:modified_time" content="2023-01-22T14:34:02.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/misaka1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>oo-pre第四次作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="oo-pre第四次作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 22:24" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          51 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">oo-pre第四次作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>小明发现在此聊天软件的群聊功能中，如果不是发给某个特定的人的消息，群聊消息中不会注明消息的接收者。<br>因为很多用户希望在群聊中让某位用户特别注意到某消息，所以他们喜欢在群聊中发送@某人的信息，这些信息会被系统识别为群聊中发送给相应用户的消息，会提醒被所@的人注意到。<br>形式化来说，消息可能被表现成以下三种模式：</p>
+<ul>
+<li><p>1.给个人的消息<br>形式：yyyy&#x2F;MM&#x2F;dd-{sender}@{receiver }:”{message_content}”;<br>例子：2021&#x2F;07&#x2F;12-student@teacher :”can i pass the exam?”; （指定了接收者teacher）</p>
+</li>
+<li><p>2.群聊中的消息且指定接收者<br>形式：yyyy&#x2F;MM&#x2F;dd-{sender}:”{message_content}”;（message_content内包含@{receiver }）<br>例子：2021&#x2F;07&#x2F;12-student:”can i pass the exam?@teacher “;</p>
+</li>
+<li><p>3.群聊中的信息且未指定接收者<br>形式：yyyy&#x2F;MM&#x2F;dd-{sender}:”{message_content}”;<br>例子：2021&#x2F;07&#x2F;12-student:”can i pass the exam?”;</p>
+</li>
+<li><p>输入格式：<br>前若干行为消息内容，以一行END_OF_MESSAGE结尾。其中一行内可能有多条消息，每条消息之间和每行末尾可能存在若干空白字符（空格和制表符\t）。<br>其后为多条询问，所有可能出现的询问格式如下：<br>qdate year&#x2F;month&#x2F;day : 查询某日期的消息<br>qsend “username” : 查询某用户名发送的消息<br>qrecv “username” : 查询某用户名接收的消息。<br>请注意，所有“群聊中@某用户的消息”均算作该用户接收的消息，即接受的消息包括：私聊该用户的消息和群聊中@某用户的消息。</p>
+</li>
+<li><p>输出格式：<br>对于每一条询问，输出指定消息（输入数据中可能存在多条消息符合条件，此时按照原顺序、原格式输出全部符合条件的消息）。<br>输出中每条消息均单独占据一行。</p>
+</li>
+<li><p>注意事项：</p>
+</li>
+</ul>
+<ol>
+<li>一行输入中可能包含多条消息，但一条消息只会完整地出现在一行内。</li>
+<li>每条消息之间和每行末尾可能存在若干空白字符作为分隔（空格和制表符\t），也可能不存在。</li>
+<li>保证所有的消息和指令符合格式。</li>
+<li>保证输入的日期、用户名、正文都非空。</li>
+<li>日期仅以 year&#x2F;month&#x2F;day 形式给出，year∈[0,9999],month∈[1,12],day∈[0,31]。日期中可能存在前导0，比如1月可以表示为01月，258年可以表示为0258年。且保证合法，以及包括前导0在内，年份的位数不超过4位，月、日的位数不超过两位。</li>
+<li>发送者和接收者的用户名仅由大小写英文字母、数字组成。</li>
+<li>正文内容仅由大小写英文字母、数字、空格、四种标点符号（? ! , .）构成。</li>
+<li>输入数据中所有内容均对大小写敏感。</li>
+<li>如果一条消息中存在@用户的情况（对应前两种消息模式），则保证该信息中@+用户名结构后面一定有一个空格，而且@用户最多只会在一个消息中出现一次。</li>
+<li>不超过300行。</li>
+<li>每行不超过10个消息。</li>
+<li>总询问数不超过100条。</li>
+</ol>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><p>本题主要是考察正则表达式的使用，因此主题思路就是根据这三种信息分别生成三个对应的正则表达式进行匹配，然后利用捕获组分别获取一个字符串中日期，发送者和接收者的信息，和这个字符串封装到一起，最后构建此类的容器进行查找输出即可。</p>
+<ul>
+<li><p>代码结构：<br>Main类中进行输入输出，构建Input类进行字符串操作，将每一条消息和其日期，发送者和接收者都封装入其中，最后再构建Memory类，其中创建一个Input容器来将所有消息储存。</p>
+</li>
+<li><p>正则表达式的构建：<br>针对三种信息分别创建了三条正则表达式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">packPattern1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\\s*(\\d+/\\d+/\\d+)-(\\w+)@(\\w+) :\&quot;(.*)\&quot;&quot;</span>;<br><span class="hljs-comment">//给个人的消息：yyyy/MM/dd-&#123;sender&#125;@&#123;receiver &#125;:&quot;&#123;message_content&#125;&quot;;</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">packPattern2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\\s*(\\d+/\\d+/\\d+)-(\\w+):\&quot;(.*(@(\\w+)\\s).*)\&quot;&quot;</span>;<br><span class="hljs-comment">//群聊中的消息，指定了接收者：yyyy/MM/dd-&#123;sender&#125;:&quot;&#123;message_content&#125;&quot;;，其中message_content内包含@&#123;receiver &#125;</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">packPattern3</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\\s*(\\d+/\\d+/\\d+)-(\\w+):\&quot;(.*)\&quot;&quot;</span>;<br><span class="hljs-comment">//群聊中的消息，未指定接收者：yyyy/MM/dd-&#123;sender&#125;:&quot;&#123;message_content&#125;&quot;;</span><br></code></pre></td></tr></table></figure>
+<p>其中有几个需要注意的点：<br>首先，由于本题一行中可能拥有多条消息且每条消息前可能有空格，因此需要用<code>\\s*</code>来对前空格进行匹配。<br>其次，由于本题需要对一行读入多个消息的情况进行处理，使用的是java中的split方法，并且以分号“；”作为分割标志，依次方法分割则会让消息最后的分号消失，此时不能在正则表达式后添加分号，同时正则表达式后也可以保证无后空格。<br>然后，由于需要提取日期，发送者和接收者信息，因此需要利用括号将需提取子串进行标记，才能利用捕获组进行捕获。<br>最后，”.”匹配的是单个字符而非字符串，因此本题中想要匹配发送消息中的字符需要使用<code>.*</code>来进行匹配。<br>（本题其实不需要捕捉双引号内的发送信息内容，所以不需要利用括号括起，我纯纯读题读错了）</p>
+</li>
+<li><p>输入字符串的处理和匹配：<br>处理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addString</span><span class="hljs-params">(String input)</span> &#123; <span class="hljs-comment">//整体处理一行字符串</span><br>        String[] records = input.split(<span class="hljs-string">&quot;;&quot;</span>); <span class="hljs-comment">//将字符串以分号分割</span><br>        <span class="hljs-keyword">for</span> (String record : records) &#123;<br>            <span class="hljs-keyword">if</span> (record.trim().length() != <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-type">Input</span> <span class="hljs-variable">newString</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Input</span>(record);<br>                newString.match(); <span class="hljs-comment">//对字符串进行匹配</span><br>                <span class="hljs-built_in">this</span>.strings.add(newString);<br>            &#125;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>此处的含义是，首先对每一行的字符串利用split在分号处断开，然后构建一个字符串数组将断开的段分别放入records数组中方便一个一个处理。由于害怕可能出现全是空格的空串干扰，所以利用了trim函数消除字符串的前后空格，若还有内容则放入一个新建的input类进行处理匹配封装即可，最后再放入为这些已经处理好的消息准备的存储容器strings中</p>
+</li>
+</ul>
+<p>匹配：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">match</span><span class="hljs-params">()</span> &#123; <span class="hljs-comment">//进行判断</span><br>    <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher1</span> <span class="hljs-operator">=</span> pattern1.matcher(<span class="hljs-built_in">this</span>.usedString);<span class="hljs-comment">//检测本身的字符串</span><br>    <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher2</span> <span class="hljs-operator">=</span> pattern2.matcher(<span class="hljs-built_in">this</span>.usedString);<span class="hljs-comment">//检测本身的字符串</span><br>    <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher3</span> <span class="hljs-operator">=</span> pattern3.matcher(<span class="hljs-built_in">this</span>.usedString);<span class="hljs-comment">//检测本身的字符串</span><br><br>    <span class="hljs-keyword">if</span> (matcher1.find()) &#123; <span class="hljs-comment">//分组匹配输入</span><br>        <span class="hljs-built_in">this</span>.setTime(matcher1.group(<span class="hljs-number">1</span>));<br>        <span class="hljs-built_in">this</span>.setSenderName(matcher1.group(<span class="hljs-number">2</span>));<br>        <span class="hljs-built_in">this</span>.setReceiverName(matcher1.group(<span class="hljs-number">3</span>));<br>        <span class="hljs-built_in">this</span>.setContent(matcher1.group(<span class="hljs-number">4</span>));<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (matcher2.find()) &#123;<br>        <span class="hljs-built_in">this</span>.setTime(matcher2.group(<span class="hljs-number">1</span>));<br>        <span class="hljs-built_in">this</span>.setSenderName(matcher2.group(<span class="hljs-number">2</span>));<br>        <span class="hljs-built_in">this</span>.setReceiverName(matcher2.group(<span class="hljs-number">5</span>));<br>        <span class="hljs-built_in">this</span>.setContent(matcher2.group(<span class="hljs-number">3</span>));<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (matcher3.find()) &#123;<br>        <span class="hljs-built_in">this</span>.setTime(matcher3.group(<span class="hljs-number">1</span>));<br>        <span class="hljs-built_in">this</span>.setSenderName(matcher3.group(<span class="hljs-number">2</span>));<br>        <span class="hljs-built_in">this</span>.setReceiverName(<span class="hljs-string">&quot;NULL&quot;</span>); <span class="hljs-comment">//群发没有单独接收者</span><br>        <span class="hljs-built_in">this</span>.setContent(matcher3.group(<span class="hljs-number">3</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>分别创建三个matcher类用来匹配，然后利用find函数，如果函数返回值为真，证明消息和正则表达式匹配成功，此时再利用捕获组group函数对信息进行分别提取（group后的数字代表着要捕获正则表达式第几个左括号后匹配的信息，如果group（0）就是整个字符串），注意，只有先试用了find函数进行判断才能使用group函数进行捕获。</p>
+<ul>
+<li><p>对询问格式的确定和读入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span> (scanner.hasNext()) &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">inputQuest</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>    <span class="hljs-keyword">if</span> (inputQuest.substring(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>).equals(<span class="hljs-string">&quot;qdate&quot;</span>)) &#123; <span class="hljs-comment">//查询输入相同日期</span><br>        memory.printDate(inputQuest.substring(<span class="hljs-number">6</span>));<br>    &#125;<br>    <span class="hljs-keyword">if</span> (inputQuest.substring(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>).equals(<span class="hljs-string">&quot;qsend&quot;</span>)) &#123; <span class="hljs-comment">//查询输入相同发送者</span><br>        memory.printSender(inputQuest.substring(<span class="hljs-number">6</span>));<br>    &#125;<br>    <span class="hljs-keyword">if</span> (inputQuest.substring(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>).equals(<span class="hljs-string">&quot;qrecv&quot;</span>)) &#123; <span class="hljs-comment">//查询输入相同接收者</span><br>        memory.printReceiver(inputQuest.substring(<span class="hljs-number">6</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意两点：<br>第一，由于本体的询问次数没有要求，因此如果不对输入进行判断就无法停止，这是需要用到scanner类中的hasNext函数，有点类似C中的！&#x3D;EOF，用来判断输入是否结束，如果没有结束就继续操作。<br>第二，由于三个询问格式都很固定，前五个字母分辨了不同的操作，因此可以提取前面五个字母用来分辨，后面的字符串用来判断输出什么消息（例如某一天的消息）。想要提取子串利用substring函数并指定开始和结束范围就可以。</p>
+</li>
+<li><p>输出某日期消息：<br>这是比较特殊的一个输出，因为按照题意，有可能存在消息中的时间是123&#x2F;10&#x2F;16而询问中的时间是0123&#x2F;10&#x2F;16。而此时也需要匹配，同时我们不能改变消息本身，因为之后还要原样输出，因此可以将年月日分割后分别化成int型进行比较即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">printDate</span><span class="hljs-params">(String inputDate)</span> &#123;<br>    String[] inputTimes = inputDate.split(<span class="hljs-string">&quot;/&quot;</span>);<br>    <span class="hljs-type">int</span> <span class="hljs-variable">inputYear</span> <span class="hljs-operator">=</span> Integer.parseInt(inputTimes[<span class="hljs-number">0</span>]);<br>    <span class="hljs-type">int</span> <span class="hljs-variable">inputMonth</span> <span class="hljs-operator">=</span> Integer.parseInt(inputTimes[<span class="hljs-number">1</span>]);<br>    <span class="hljs-type">int</span> <span class="hljs-variable">inputDay</span> <span class="hljs-operator">=</span> Integer.parseInt(inputTimes[<span class="hljs-number">2</span>]);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; index &lt; strings.size(); index++) &#123;<br>        String[] times = strings.get(index).getTime().split(<span class="hljs-string">&quot;/&quot;</span>);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">year</span> <span class="hljs-operator">=</span> Integer.parseInt(times[<span class="hljs-number">0</span>]);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">month</span> <span class="hljs-operator">=</span> Integer.parseInt(times[<span class="hljs-number">1</span>]);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">day</span> <span class="hljs-operator">=</span> Integer.parseInt(times[<span class="hljs-number">2</span>]);<br>        <span class="hljs-keyword">if</span> ((inputYear == year) &amp;&amp; (inputMonth == month) &amp;&amp; (inputDay == day)) &#123;<br>            System.out.print(strings.get(index).getUsedString().trim());<br>                System.out.println(<span class="hljs-string">&quot;;&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125; <span class="hljs-comment">//打印日期</span><br></code></pre></td></tr></table></figure>
+<p>思路就是利用split对消息和询问中的时间分割成年月日，然后再用Integer类中的parseInt类型，将字符串转化为整形进行比较即可。<br>最后输出的时候，由于分割消息时会让分号消失，需要将分号补充。</p>
+</li>
+<li><p>输出发送者，接收者：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">printSender</span><span class="hljs-params">(String inputSender)</span> &#123;<br>    String[] name = inputSender.split(<span class="hljs-string">&quot;\&quot;&quot;</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; index &lt; strings.size(); index++) &#123;<br>        <span class="hljs-keyword">if</span> (name[<span class="hljs-number">1</span>].equals(strings.get(index).getSenderName())) &#123;<br>            System.out.print(strings.get(index).getUsedString().trim());<br>            System.out.println(<span class="hljs-string">&quot;;&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>（接收者的输出方式几乎完全相同）<br>唯一需要注意的就是字符串之间的比较不能用&#x3D;&#x3D;，而应该用equals函数。</p>
+</li>
+</ul>
+<p>这就是第四次作业啦，考完P0没过还是有点难受的，但是还是看开点，放平心态，自己努力复习就好，加油加油！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">#面向对象</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/22/oo-pre%E7%AC%AC%E4%BA%94%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="oo-pre第五次作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">oo-pre第五次作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/oo-pre%E5%89%8D%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="oo pre前三次作业总结">
+                        <span class="hidden-mobile">oo pre前三次作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

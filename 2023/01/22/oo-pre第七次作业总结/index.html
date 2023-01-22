@@ -1,0 +1,844 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对oopre课第七次作业本人代码的一些思路总结（采用了比较机械而不巧妙的做法，还有一些错漏，仅供参考）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oo-pre第七次作业总结">
+<meta property="og:url" content="http://example.com/2023/01/22/oo-pre%E7%AC%AC%E4%B8%83%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对oopre课第七次作业本人代码的一些思路总结（采用了比较机械而不巧妙的做法，还有一些错漏，仅供参考）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/rebecca1.jpg">
+<meta property="article:published_time" content="2023-01-22T14:52:21.000Z">
+<meta property="article:modified_time" content="2023-01-22T14:56:48.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/rebecca1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>oo-pre第七次作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="oo-pre第七次作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 22:52" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          17k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          144 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">oo-pre第七次作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><h4 id="json简介"><a href="#json简介" class="headerlink" title="json简介"></a>json简介</h4><p>首先我们先简单了解一下json，以便更好的理解这次作业。Json是基于 JavaScript的一个子集，是一种开放的、轻量级的数据交换格式，采用独立于编程语言的文本格式来存储和表示数据，易于程序员阅读与编写，同时也易于计算机解析和生成，通常用于在 Web 客户端（浏览器）与 Web 服务器端之间传递数据。</p>
+<p>下面给出了一个json格式的数据例子。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;object_type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;TweetRaw&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;download_datetime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022-07-06T17:04:48.030971+08:00&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;raw_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;created_at&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Sat Dec 04 17:16:55 +0000 2021&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1467181131464609792</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;id_str&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1467181131464609792&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;full_text&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;there are some contents&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;display_text_range&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>            <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-number">183</span><br>        <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;entities&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;urls&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>                <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://t.co/AQNqsGsPsx&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;expanded_url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://rpc.flashbots.net&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;display_url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;rpc.flashbots.net&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;indices&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>                        <span class="hljs-number">106</span><span class="hljs-punctuation">,</span><br>                        <span class="hljs-number">129</span><br>                    <span class="hljs-punctuation">]</span><br>                <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>                <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://t.co/uY0UwIC7lp&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;expanded_url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://docs.flashbots.net/flashbots-protect/rpc/quick-start#how-to-use-flashbots-protect-rpc-in-metamask&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;display_url&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;docs.flashbots.net/flashbots-prot…&quot;</span><span class="hljs-punctuation">,</span><br>                    <span class="hljs-attr">&quot;indices&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>                        <span class="hljs-number">160</span><span class="hljs-punctuation">,</span><br>                        <span class="hljs-number">183</span><br>                    <span class="hljs-punctuation">]</span><br>                <span class="hljs-punctuation">&#125;</span><br>            <span class="hljs-punctuation">]</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;user_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1406813839627153408</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;user_id_str&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1406813839627153408&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;retweet_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;favorite_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;reply_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;quote_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;favorited&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;possibly_sensitive_editable&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;lang&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;zh&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;supplemental_language&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;self_thread&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1467180910961643520</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;id_str&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1467180910961643520&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>通过上面这个例子，我们可以更好的理解Json的数据格式，Json的格式约定比较简单，易于理解，包括以下几点。</p>
+<p>对象：Json中用大括号 { } 保存对象，对象可以包含多个 key&#x2F;value（键&#x2F;值）对。<br>在上面的例子中，整个json用一对大括号 { }包裹，所以整个json其实是一个json对象。同时”raw_value”、 “entities”、”self_thread”这些键对应的值也都是对象。</p>
+<p>对象包含的数据存储在键：值对中</p>
+<p>值（value）可以是双引号括起来的字符串（string）、数值(number)、true、false、 null、对象（object）或者数组（array）。<br>键：一个字符串。<br>值和名称间用冒号:分割</p>
+<p>Json采用名称:值，这种键值对的形式来存储数据，冒号右侧的值可以是多种数据类型，就比如上面给出的例子中的”object_type”、”id”、”favorited”、”supplemental_language”、”raw_value”、 “display_text_range”这些属性，他们所对应的值分别是字符串、数值、boolean(true、false)、 null、对象和数组（array）。</p>
+<p>数据由逗号,分隔<br>Json中数据用逗号,分割，从上面的例子可以看出，对象中的键值对用逗号分隔，但对象中的最后一个键值对后面没有逗号。同时数组中的数据也用逗号分隔，这一点与我们学习的其他语言相同。</p>
+<p>数组：中括号 [ ] 保存数组，数组可以包含多个对象,当然也可以包含我们常见的字符串、数值等数据类型。<br>JSON 中数组值必须是合法的 JSON 数据类型（字符串, 数字, 对象, 数组, 布尔值或 null）。比如在上面的例子中，”display_text_range”属性对应的值存储了数字，”urls”属性对应的值存储了2个对象。</p>
+<p>了解了Json数据结构后，Jsonline格式的数据顾名思义，就是把Json数据放在一行，作为一行字符串，便于进行数据交换。</p>
+<h4 id="本题格式"><a href="#本题格式" class="headerlink" title="本题格式"></a>本题格式</h4><p>本题中爬取到的Jsonline数据有固定的格式和固定的键值对,在这里将jsonline转换为json格式，向同学们介绍。一个爬取到的数据例子如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;object_type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;TweetRaw&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;download_datetime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022-07-06 08:00&quot;</span><span class="hljs-punctuation">,</span> <br>    <span class="hljs-attr">&quot;raw_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;created_at&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Sat Dec 04 17:16:55 2021&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1467181131464609792</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;full_text&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;this is a retweet_count content&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;user_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1406813839627153408</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;retweet_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;favorite_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;reply_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;possibly_sensitive_editable&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;lang&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;zh&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;emojis&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><br>                        <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Grinning Face&quot;</span><span class="hljs-punctuation">,</span><br>                  <span class="hljs-attr">&quot;emoji_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">12</span><span class="hljs-punctuation">,</span><br>                  <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">2</span><br>            <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>              <span class="hljs-punctuation">&#123;</span><br>                    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Face With Tears of Joy&quot;</span><span class="hljs-punctuation">,</span><br>                  <span class="hljs-attr">&quot;emoji_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">22</span><span class="hljs-punctuation">,</span><br>                  <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><br>            <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="属性介绍"><a href="#属性介绍" class="headerlink" title="属性介绍"></a>属性介绍</h5><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>object_type</td>
+<td>字符串，整个json的对象类型，该值固定为”TweetRaw”</td>
+</tr>
+<tr>
+<td>download_datetime</td>
+<td>字符串，爬取这条json数据的时间，时间格式固定“年-月-日 时:分”，年为4位，月、日、时、分补足2位，例如 2022-08-13 08:00</td>
+</tr>
+<tr>
+<td>raw_value</td>
+<td>对象，包含这条推特的所有信息</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>字符串，该条推特发布时间，时间格式固定星期 月份 日期 时:分:秒 年，月份格式约定为{12: “Dec”, 11: “Nov”, 10: “Oct”,9: “Sep”, 8: “Aug”, 7: “Jul”,6: “Jun”, 5: “May”, 4: “Apr”,3: “Mar”, 2: “Feb”, 1: “Jan”}；星期英文简写为{1: “Mon”, 2: “Tue”, 3: “Wed”, 4: “Thu”, 5: “Fri”, 6: “Sat”, 7: “Sun”}</td>
+</tr>
+<tr>
+<td>id</td>
+<td>数值，推特id，该id唯一不重复</td>
+</tr>
+<tr>
+<td>full_text</td>
+<td>字符串，推特内容，如果不包含任何内容为null(即 “full_text”:null)</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>数值，发表用户的id，该id唯一不重复</td>
+</tr>
+<tr>
+<td>retweet_count</td>
+<td>数值，转发数</td>
+</tr>
+<tr>
+<td>favorite_count</td>
+<td>数值，点赞数</td>
+</tr>
+<tr>
+<td>reply_count</td>
+<td>数值，评论数</td>
+</tr>
+<tr>
+<td>possibly_sensitive_editable</td>
+<td>布尔值，表示是否为敏感信息，true为敏感信息，false则非敏感信息</td>
+</tr>
+<tr>
+<td>lang</td>
+<td>字符串，语言</td>
+</tr>
+<tr>
+<td>emojis</td>
+<td>数组，存储这条推特所包含的所有表情包，如果不包含任何表情包为空列表</td>
+</tr>
+<tr>
+<td>name</td>
+<td>字符串，表情包名字</td>
+</tr>
+<tr>
+<td>emoji_id</td>
+<td>数值，表情包id</td>
+</tr>
+<tr>
+<td>count</td>
+<td>数值，该条推特里使用了多少个该表情</td>
+</tr>
+</tbody></table>
+<h5 id="查询指令介绍"><a href="#查询指令介绍" class="headerlink" title="查询指令介绍"></a>查询指令介绍</h5><table>
+<thead>
+<tr>
+<th>指令序号</th>
+<th>输入指令格式</th>
+<th>输出格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Qdate user_id start_date~end_date</td>
+<td>N N1 N2 N3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Qemoji id</td>
+<td>name1 name2 …</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Qcount start_date~end_date</td>
+<td>N</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Qtext id</td>
+<td>full_text</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Qsensitive user_id</td>
+<td>N</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Qlang id</td>
+<td>Language</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>指令序号</th>
+<th>指令含义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>查询字段以空格隔开，查询id为user_id的用户在start_date~end_date时间段(包含开始和截止日期)内发布推特的条数N，总转发数N1，总点赞数N2，总评论数N3，以空格分隔。</td>
+<td>日期格式为year-month-day，年为4位，月、日的数字要以0补全为2位。如2022-08-08，2022-11-10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>查询字段以空格隔开，查询id的推特所包含的emoji名字，并以count数量降序排列，count数量相等则以name字典序升序排列，输出的name之间以空格分隔。</td>
+<td>若此id推特无任何表情包,为空列表，输出None</td>
+</tr>
+<tr>
+<td>3</td>
+<td>查询字段以空格隔开，查询一段时间内（包含开始和截止日期），json数据爬取的个数N。</td>
+<td>日期格式同指令1中格式</td>
+</tr>
+<tr>
+<td>4</td>
+<td>查询字段以空格隔开，查询某id推特的内容。</td>
+<td>输出原内容时两侧不需要加引号。若此id推特无内容，输出None。(无内容指的是”full_text”:null。对于”full_text”:””的情况，处理时把内容看作空串，不输出字符)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>查询字段以空格隔开，查询某user_id用户发布的敏感内容条数N。</td>
+<td>无</td>
+</tr>
+<tr>
+<td>6</td>
+<td>查询字段以空格隔开，查询某id推特语言属性。</td>
+<td>输出原内容时两侧不需要加引号</td>
+</tr>
+</tbody></table>
+<p>请编写程序读入多行jsonline数据，并根据输入的查询指令给出对应输出，输出需进行换行。</p>
+<h5 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h5><p>输入格式<br>首先输入多若干行Jsonline数据，每一条Jsonline为一条推特的信息。最后以一行END_OF_MESSAGE结尾。<br>其后为多条查询语句，每行一条。<br>具体的指令请参见上文的查询指令介绍。</p>
+<p>输出格式<br>输出格式详见上文的查询指令介绍。</p>
+<h5 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h5><p>输入：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;object_type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;TweetRaw&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;download_datetime&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;2022-07-06 08:00&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;raw_value&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;created_at&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Sat Dec 04 17:16:55 2021&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1467181131464609792</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;full_text&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;content1&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;user_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1406813839627153408</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;retweet_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;favorite_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;reply_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;possibly_sensitive_editable&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;lang&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;zh&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;emojis&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Grinning Face&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;emoji_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">12</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">2</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Face With Tears of Joy&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;emoji_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">22</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;object_type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;TweetRaw&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;download_datetime&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;2022-07-10 08:00&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;raw_value&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;created_at&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Sat Dec 09 17:16:55 2021&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1467181131464609793</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;full_text&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;content2&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;user_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1406813839627153408</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;retweet_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;favorite_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;reply_count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;possibly_sensitive_editable&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;lang&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;zh&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;emojis&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br>END_OF_MESSAGE<br>Qdate <span class="hljs-number">1406813839627153408</span> <span class="hljs-number">2021</span><span class="hljs-number">-12</span><span class="hljs-number">-04</span>~<span class="hljs-number">2021</span><span class="hljs-number">-12</span><span class="hljs-number">-05</span><br>Qemoji <span class="hljs-number">1467181131464609792</span><br>Qcount <span class="hljs-number">2022</span><span class="hljs-number">-07</span><span class="hljs-number">-04</span>~<span class="hljs-number">2022</span><span class="hljs-number">-07</span><span class="hljs-number">-06</span><br>Qtext <span class="hljs-number">1467181131464609793</span><br>Qsensitive <span class="hljs-number">1406813839627153408</span><br>Qlang <span class="hljs-number">1467181131464609792</span><br></code></pre></td></tr></table></figure>
+
+<p>Jsonline转化成的对应Json的结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-comment">// 第一条Jsonline输入</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;object_type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;TweetRaw&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;download_datetime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022-07-06 08:00&quot;</span><span class="hljs-punctuation">,</span> <br>    <span class="hljs-attr">&quot;raw_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;created_at&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Sat Dec 04 17:16:55 2021&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1467181131464609792</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;full_text&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;content1&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;user_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1406813839627153408</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;retweet_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;favorite_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;reply_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;possibly_sensitive_editable&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;lang&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;zh&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;emojis&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><br>            <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Grinning Face&quot;</span><span class="hljs-punctuation">,</span><br>                  <span class="hljs-attr">&quot;emoji_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">12</span><span class="hljs-punctuation">,</span><br>                  <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">2</span><br>            <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>              <span class="hljs-punctuation">&#123;</span><br>                <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Face With Tears of Joy&quot;</span><span class="hljs-punctuation">,</span><br>                  <span class="hljs-attr">&quot;emoji_id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">22</span><span class="hljs-punctuation">,</span><br>                  <span class="hljs-attr">&quot;count&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><br>            <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br><span class="hljs-comment">// 第二条Jsonline输入</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;object_type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;TweetRaw&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;download_datetime&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2022-07-10 08:00&quot;</span><span class="hljs-punctuation">,</span> <br>    <span class="hljs-attr">&quot;raw_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;created_at&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Sat Dec 09 17:16:55 2021&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1467181131464609793</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;full_text&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;content2&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;user_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1406813839627153408</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;retweet_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;favorite_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;reply_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;possibly_sensitive_editable&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;lang&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;zh&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;emojis&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span> <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span><br><span class="hljs-attribute">Grinning</span> Face Face With Tears of Joy<br><span class="hljs-attribute">1</span><br><span class="hljs-attribute">content2</span><br><span class="hljs-attribute">1</span><br><span class="hljs-attribute">zh</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h5><p>Qdate 1406813839627153408 2021-12-04~2021-12-05：<br>用户对应日期时间段内只发布了一条tweet，即第一条tweet，对应输出1 1 2 1。</p>
+<p>Qemoji 1467181131464609792：<br>查询了第一条tweet内部的表情，按照上文的排序规则排序后，输出Grinning Face Face With Tears of Joy。</p>
+<p>Qcount 2022-07-04~2022-07-06：<br>查询对应时间段内爬取的数据条数，该时间段爬取了第一个tweet，输出1。</p>
+<p>Qtext 1467181131464609793：<br>查询了第2个tweet的full_text内容，输出content2。</p>
+<p>Qsensitive 1406813839627153408：<br>查询了该用户发布的敏感内容条数，2个tweet都为该用户发布，只有第1个为敏感内容，输出1。</p>
+<p>Qlang 1467181131464609792：<br>查询第1个tweet的语言，输出zh。</p>
+<h5 id="数据限制"><a href="#数据限制" class="headerlink" title="数据限制"></a>数据限制</h5><ol>
+<li>在所有键值对中，只有”full_text“的值可能为null，其他的所有值约定不为null。此外，只有full_text的值可以为””,除了full_text其他字符串的值保证不为””(即双引号内保证存在至少一个字符)。</li>
+<li>指令及数据中的用户user_id，推特的id，emoji的id均存在，数据范围不作保证。emoji的名字唯一不重复。</li>
+<li>在字符串内部，规定不包含双引号。</li>
+<li>键值对冒号:两侧不包含空格，用于间隔数据的逗号,两侧均没有空格。一行jsonline数据中，只有字符串类型的值内部包含空格。</li>
+<li>有关数字的查询指令，保证输出的数值类结果的大小不超过int。</li>
+<li>id类的属性(id, user_id,emoji_id)的值，可以有前导零，但01和1是不同的id（即不通过数值相等判断id相同）。</li>
+</ol>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>本题其实需要训练的是递归下降算法，但是本人由于又懒又不想动脑子，就直接利用了本题给的jsonline全部都是固定格式这一点，直接使用正则表达式把每个对应数据都抠出来进行操作。</p>
+<p>我的数据结构大概是：首先利用Main函数对每一行字符串进行读取，然后送入一个叫做jsonline的类对这一行jsonline处理，抠出所有的数据，最后再建立一个memory类，创建一个jsonline容器，将所有处理好的Jsonline放入其中，使用的时候便可以在容器中查找（其实和四五六次作业的数据结构是非常类似的）</p>
+<p>首先就是在main函数中创建好jsonline和memory的类，并且读入endmessage前将字符串输入jsonline类处理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Scanner</span> <span class="hljs-variable">scanner</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br><span class="hljs-type">Memory</span> <span class="hljs-variable">memory</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Memory</span>();<br><span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">jsonline</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>    <span class="hljs-keyword">if</span> (jsonline.equals(<span class="hljs-string">&quot;END_OF_MESSAGE&quot;</span>)) &#123;<br>        <span class="hljs-keyword">break</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-type">Jsonline</span> <span class="hljs-variable">input</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Jsonline</span>(jsonline);<br>        input.matchJson();<br>        input.matchRaw();<br>        input.matchEmoji();<br>        memory.setJsonline(input);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>由于每一行就是一个新的jsonline，所以需要进入一行就创建一个jsonline类，同时我在jsonline类中创建了三个match函数用来正则匹配，这个之后再说，总之，在else中就是把字符串放入新建的Jsonline类进行处理，处理完成后就放入memory中的jsonline容器。</p>
+<p>然后让我们看看jsonline中的正则匹配处理。<br>如果观察我们的输入格式，我们可以发现它可以被很好的分成三段：<code>&#123;……raw value:&#123;……emojis:[……]&#125;&#125;</code>，所以针对这种格式我也对其分段处理，首先提出第一个大括号内的信息，然后分割出第二个大括号，再提取第二个大括号中的信息，分割出第三个中括号，最后提取第三个中括号中的信息。这也分别对应了上面的三个match。</p>
+<p>首先就是对第一个大括号的匹配：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">Jsonline</span><span class="hljs-params">(String string)</span> &#123;<br>    <span class="hljs-built_in">this</span>.string = string; <span class="hljs-comment">//用字符串输入</span><br>&#125;<br><span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">json</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\\&#123;\&quot;.*?\&quot;:\&quot;.*?\&quot;,\&quot;.*?\&quot;:\&quot;(.*?)\&quot;,\&quot;.*?\&quot;:\\&#123;(.*)&#125;&#125;&quot;</span>; <span class="hljs-comment">//贪婪匹配</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">Pattern</span> <span class="hljs-variable">pattern1</span> <span class="hljs-operator">=</span> Pattern.compile(json);<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">matchJson</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher1</span> <span class="hljs-operator">=</span> pattern1.matcher(string); <span class="hljs-comment">//匹配最大正则</span><br>    matcher1.find();<br>    <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(matcher1.group(<span class="hljs-number">1</span>), <span class="hljs-number">1</span>); <span class="hljs-comment">//获得下载时间</span><br>    date.changeForm();<br>    <span class="hljs-built_in">this</span>.downloadDate = date;<br>    <span class="hljs-built_in">this</span>.rawValue = matcher1.group(<span class="hljs-number">2</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们首先将新读入的字符串初始化放在jsonline.string中，然后利用pattern1对其进行匹配。<br>这个正则表达式中，第一个括号中的是该推特的下载时间，而第二个括号就是我们要进一步处理的raw value的全部信息。所以首先我们要对下载时间进行处理。我们可以发现首先下载时间处理其实还是比较繁复，而且我们能看到后面还需要对发送时间进行处理。所以我就专门新建了一个Date类，专门对时间进行处理，同时对其年月日信息进行保存。</p>
+<p>首先来看Date类的初始化函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> String input; <span class="hljs-comment">//输入字符串</span><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">Date</span><span class="hljs-params">(String input, <span class="hljs-type">int</span> flag)</span> &#123;<br>    <span class="hljs-built_in">this</span>.input = input;<br>    <span class="hljs-built_in">this</span>.flag = flag;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>由于我们想要把下载时间和发送时间都在这里进行处理，但是两个时间的处理方式不同，因此我新建了一个flag类用来存储该时间类型，1为下载时间，2为发送时间。以下是下载时间的处理方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">changeForm</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> (flag == <span class="hljs-number">1</span>) &#123; <span class="hljs-comment">//下载时间</span><br>        <span class="hljs-comment">// 时间格式固定“年-月-日 时:分”，年为4位，月、日、时、分补足2位，例如 2022-08-13 08:00</span><br>        String[] date = input.split(<span class="hljs-string">&quot; &quot;</span>); <span class="hljs-comment">//分离出年月日</span><br>        String[] accurateDate = date[<span class="hljs-number">0</span>].split(<span class="hljs-string">&quot;-&quot;</span>); <span class="hljs-comment">//分开年月日</span><br>        <span class="hljs-built_in">this</span>.year = Integer.parseInt(accurateDate[<span class="hljs-number">0</span>]); <span class="hljs-comment">//分别换成数字，方便比较</span><br>        <span class="hljs-built_in">this</span>.month = Integer.parseInt(accurateDate[<span class="hljs-number">1</span>]);<br>        <span class="hljs-built_in">this</span>.day = Integer.parseInt(accurateDate[<span class="hljs-number">2</span>]);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>利用空格可以分离出年月日的部分，同时利用“-”可以将年月日分离，然后分别存入year,month和day，便于后续提取本日期信息进行比较。</p>
+<p>我们可以再看看之后发送时间的处理方法（后续不再提及）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (flag == <span class="hljs-number">2</span>) &#123; <span class="hljs-comment">//发布时间</span><br>    <span class="hljs-comment">//字符串，该条推特发布时间，时间格式固定星期 月份 日期 时:分:秒 年</span><br>    String[] date = input.split(<span class="hljs-string">&quot; &quot;</span>);<br>    <span class="hljs-built_in">this</span>.year = Integer.parseInt(date[<span class="hljs-number">4</span>]);<br>    <span class="hljs-built_in">this</span>.month = selectMonth(date[<span class="hljs-number">1</span>]);<br>    <span class="hljs-built_in">this</span>.day = Integer.parseInt(date[<span class="hljs-number">2</span>]);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>同理，也是利用空格进行分割，分割后可以发现年份和日期可以直接字符串转化为数字得到，而月份给的是英文缩写，所以我又写了个selectMonth函数进行对应（这个函数原理很简单，就是如果检测到”Jan”就输出1，以此类推，不再赘述）</p>
+<p>之后就是对rawValue的处理，这些都封装在Jsonline类中的matchRaw()函数中。<br>首先我们需要写出匹配rawValue的正则表达式，字符串如下（为了防止字符串过长导致的代码风格差，将其分成了几个部分进行合成）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">raw1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\&quot;.*?\&quot;:\&quot;(.*?)\&quot;,\&quot;.*?\&quot;:(.*?),&quot;</span>;<br><span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">raw2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\&quot;.*?\&quot;:(.*?),\&quot;user_id\&quot;:(.*?),\&quot;.*?\&quot;:(.*?),&quot;</span>;<br><span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">raw3</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\&quot;.*?\&quot;:(.*?),\&quot;.*?\&quot;:(.*?),\&quot;.*?\&quot;:(.*?),&quot;</span>;<br><span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">raw4</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\&quot;.*?\&quot;:\&quot;(.*?)\&quot;,\&quot;.*?\&quot;:\\[(.*)]&quot;</span>;<br><span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">raw</span> <span class="hljs-operator">=</span> raw1 + raw2 + raw3 + raw4;<br><span class="hljs-keyword">private</span> <span class="hljs-type">Pattern</span> <span class="hljs-variable">pattern2</span> <span class="hljs-operator">=</span> Pattern.compile(raw);<br></code></pre></td></tr></table></figure>
+
+<p>之后在matchRaw函数中利用捕获组分别捕获括号中的不同类型信息进行处理，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">matchRaw</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher2</span> <span class="hljs-operator">=</span> pattern2.matcher(rawValue); <span class="hljs-comment">//匹配raw_value中特性</span><br>    matcher2.find();<br>    <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(matcher2.group(<span class="hljs-number">1</span>), <span class="hljs-number">2</span>); <span class="hljs-comment">//匹配发表日期</span><br>    date.changeForm();<br>    <span class="hljs-built_in">this</span>.createDate = date;<br>    <span class="hljs-built_in">this</span>.twitterId = matcher2.group(<span class="hljs-number">2</span>); <span class="hljs-comment">//匹配推特id</span><br>    <span class="hljs-keyword">if</span> (matcher2.group(<span class="hljs-number">3</span>).equals(<span class="hljs-string">&quot;null&quot;</span>)) &#123;<br>        <span class="hljs-built_in">this</span>.fullText = <span class="hljs-literal">null</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">fullText</span> <span class="hljs-operator">=</span> matcher2.group(<span class="hljs-number">3</span>).replace(<span class="hljs-string">&quot;\&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);<br>        <span class="hljs-built_in">this</span>.fullText = fullText; <span class="hljs-comment">//匹配完整推文</span><br>    &#125;<br>    <span class="hljs-built_in">this</span>.userId = matcher2.group(<span class="hljs-number">4</span>); <span class="hljs-comment">//匹配发布者id</span><br>    <span class="hljs-built_in">this</span>.retweetCount = Integer.parseInt(matcher2.group(<span class="hljs-number">5</span>)); <span class="hljs-comment">//匹配转发数</span><br>    <span class="hljs-built_in">this</span>.favouriteCount = Integer.parseInt(matcher2.group(<span class="hljs-number">6</span>)); <span class="hljs-comment">//匹配赞数</span><br>    <span class="hljs-built_in">this</span>.replyCount = Integer.parseInt(matcher2.group(<span class="hljs-number">7</span>)); <span class="hljs-comment">//匹配回复数</span><br>    <span class="hljs-keyword">if</span> (matcher2.group(<span class="hljs-number">8</span>).equals(<span class="hljs-string">&quot;true&quot;</span>)) &#123; <span class="hljs-comment">//匹配是否有敏感信息</span><br>        <span class="hljs-built_in">this</span>.possiblySensitive = <span class="hljs-literal">true</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (matcher2.group(<span class="hljs-number">8</span>).equals(<span class="hljs-string">&quot;false&quot;</span>)) &#123;<br>        <span class="hljs-built_in">this</span>.possiblySensitive = <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-built_in">this</span>.usedLanguage = matcher2.group(<span class="hljs-number">9</span>); <span class="hljs-comment">//匹配使用语言</span><br>    <span class="hljs-built_in">this</span>.emoji = matcher2.group(<span class="hljs-number">10</span>); <span class="hljs-comment">//匹配之后的颜文字</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这里我对每个捕获组捕获的内容都做了注释，但是对照捕获内容我们需要注意之前正则表达式中的几点：</p>
+<ol>
+<li>最基本的就是对所有内容的捕获都需要用非贪婪捕获(.*?)，防止出现匹配混乱（因为很多命名都可能扰乱捕获）</li>
+<li>就是捕获fullText的部分不能使用<code>\&quot;(.*?)\&quot;</code>而应该使用单纯的<code>(.*?)</code>，这是因为可能为空，这样会让两侧括号无法匹配。但是这时由于推特内容中可能含有逗号让非贪婪捕获提前结束导致错误，所以后面的正则要写上<code>\&quot;user_id\&quot;:</code>，这样保证了提取的逗号一定是后续立即接上”user_id”子串的逗号，就不会出现问题。</li>
+<li>就是最后一个捕获组的颜文字提取不能用非贪婪捕获，而应该按照现在的写法<code>\\[(.*)]&quot;;</code>，因为无法保证颜文字字符串中没有右中括号]，所以要贪婪匹配，由于其在字符串结尾，所以没有问题。</li>
+</ol>
+<p>接下来就是对颜文字的提取，我们首先也是先写好正则表达式的字符串：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">emojis</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;(\\&#123;(.*)&#125;,)*?(\\&#123;(.*)&#125;)*&quot;</span>;<br><span class="hljs-keyword">private</span> <span class="hljs-type">Pattern</span> <span class="hljs-variable">pattern3</span> <span class="hljs-operator">=</span> Pattern.compile(emojis);<br></code></pre></td></tr></table></figure>
+
+<p>这就是以一个大括号（即一个颜文字）为单位构成的正则表达式，要注意如果要分组的话，前面的颜文字大括号后会跟一个逗号，而最后一个不会，所以要专门把最后一个大括号分出，并且都是用星号*，也就是匹配零个或多个。</p>
+<p>然后就是对不同颜文字的分割和储存，我把储存功能交给一个容器emojiMemory，而分割功能我将其封装在matchEmoji()函数中，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> ArrayList&lt;Emoji&gt; emojiMemory = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">matchEmoji</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> (!emoji.equals(<span class="hljs-string">&quot;&quot;</span>)) &#123;<br>        String[] everyEmoji = emoji.split(<span class="hljs-string">&quot;&#125;,\\&#123;&quot;</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; everyEmoji.length; i++) &#123;<br>            <span class="hljs-keyword">if</span> (!(everyEmoji[i].startsWith(<span class="hljs-string">&quot;&#123;\&quot;name&quot;</span>) || everyEmoji[i].startsWith(<span class="hljs-string">&quot;\&quot;name&quot;</span>))) &#123;<br>                everyEmoji[i - <span class="hljs-number">1</span>] = everyEmoji[i - <span class="hljs-number">1</span>].concat(<span class="hljs-string">&quot;&#125;,&#123;&quot;</span> + everyEmoji[i]);<br>                everyEmoji[i] = <span class="hljs-string">&quot;notvalid&quot;</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; everyEmoji.length; i++) &#123;<br>            <span class="hljs-keyword">if</span> (!everyEmoji[i].equals(<span class="hljs-string">&quot;notvalid&quot;</span>)) &#123;<br>                <span class="hljs-keyword">if</span> (!everyEmoji[i].startsWith(<span class="hljs-string">&quot;&#123;&quot;</span>)) &#123;<br>                    everyEmoji[i] = <span class="hljs-string">&quot;&#123;&quot;</span>.concat(everyEmoji[i]);<br>                &#125;<br>                <span class="hljs-keyword">if</span> (!everyEmoji[i].endsWith(<span class="hljs-string">&quot;&#125;&quot;</span>)) &#123;<br>                    everyEmoji[i] = everyEmoji[i].concat(<span class="hljs-string">&quot;&#125;&quot;</span>);<br>                &#125;<br>                <span class="hljs-type">Emoji</span> <span class="hljs-variable">newEmoji</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Emoji</span>(everyEmoji[i]);<br>                newEmoji.emojiOperation();<br>                emojiMemory.add(newEmoji);<br>            &#125;<br>        &#125;<br>        Collections.sort(emojiMemory);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>其实这里很多代码都是我对于某些特殊情况的补救。我的原始思路是利用“}，{”进行分割，这样就可以分出只缺少大括号的颜文字单元。但是遇到了两个问题：</p>
+<ol>
+<li>首先是小问题，就是分割后缺少大括号，同时由于不知道位置我们不知道到底缺少了左大括号（最后一个颜文字）还是右大括号（第一个颜文字）还是都缺少（其他），因此我的补救方法就是对头尾进行判断，如果没出现大括号就补上一个。</li>
+<li>然后是测试的时候发现的问题：居然有表情包的名字中带有“}，{”子串，这样就会导致一个子串被切开，后续无法匹配。我给出的解决办法是，在分割完成之后直接先检测一遍，由于如果正确切割，那子串就应该以{“name”或”name”开头，所以只要开头没有检测到证明这个字串应该是连在上一个字串后而被错误切割了，我就将这一子串再连回上个子串后，再在这一错误子串位置留一个“notvalid”标记，后续处理时跳过即可。</li>
+</ol>
+<p>（我感觉这些问题都是前期正则表达式设计的问题，其实应该改变正则表达式）</p>
+<p>然后就是对分割出来的颜文字进行处理，此时我就新建了一个Emoji类进行处理，这里也是先正则表达式匹配然后对捕获组数据进行记录即可。代码如下，不再赘述：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> String input;<br><span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">emojiForm</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\\&#123;\&quot;.*\&quot;:\&quot;(.*)\&quot;,\&quot;.*\&quot;:(.*),\&quot;.*\&quot;:(.*)&#125;&quot;</span>;<br><span class="hljs-keyword">private</span> <span class="hljs-type">Pattern</span> <span class="hljs-variable">emojiPattern</span> <span class="hljs-operator">=</span> Pattern.compile(emojiForm);<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">emojiOperation</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">Matcher</span> <span class="hljs-variable">emojiMatcher</span> <span class="hljs-operator">=</span> emojiPattern.matcher(input);<br>    emojiMatcher.find();<br>    <span class="hljs-built_in">this</span>.emojiName = emojiMatcher.group(<span class="hljs-number">1</span>);<br>    <span class="hljs-built_in">this</span>.emojiId = emojiMatcher.group(<span class="hljs-number">2</span>);<br>    <span class="hljs-built_in">this</span>.emojiCount = Integer.parseInt(emojiMatcher.group(<span class="hljs-number">3</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后就是由于输出时要求对颜文字进行排序，要求是以count数量降序排列，count数量相等则以name字典序升序排列。则需要在Emoji类中写一个compareTo函数并且接上Comparable&lt;Emoji&gt;接口。compareTo函数写法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(Emoji other)</span> &#123; <span class="hljs-comment">//给表情包排序函数，先按次数降序，再按名称字典序升序</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.emojiCount &lt; other.emojiCount) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.emojiCount &gt; other.emojiCount) &#123;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.emojiName.compareTo(other.emojiName) &lt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.emojiName.compareTo(other.emojiName) &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样只需要在前文处理字符串的最后加上一个sort函数即可。</p>
+<p>接下来就是考虑对不同输入指令的输出，由于2，4，5，6指令都是简单的遍历推特并寻找符合条件推特提取特定信息，和之前作业较为相似，不再赘述。<br>主要是注意1，3指令的操作，我以第一个指令为例。<br>第一个指令要求是输出某一用户某一时间段内发布推特的数量，点赞量等等信息，其关键在于判断某一条推特的发布时间是否在这一规定时间段内。其他的操作都很简单，不再赘述。<br>我开始的思路是对年月日分别比较，只要分别在范围内即可。但是后来发现这种方法是有明显的Bug的，例如无法判断2021-12-31在2021-1-1和2022-1-1内，因为月份并不在范围内。<br>所以需要有优先级的比较，即年份相等再比月份，月份相等再比日期。第三个指令与其操作相同。具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">boolean</span> <span class="hljs-variable">flag</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br><span class="hljs-type">boolean</span> <span class="hljs-variable">flag1</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br><span class="hljs-type">boolean</span> <span class="hljs-variable">flag2</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br><span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getYear() &lt; firstYear) &#123;<br>    flag1 = <span class="hljs-literal">false</span>;<br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getYear() == firstYear) &#123;<br>    <span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getMonth() &lt; firstMonth) &#123;<br>        flag1 = <span class="hljs-literal">false</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getMonth() == firstMonth) &#123;<br>        <span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getDay() &lt; firstDay) &#123;<br>            flag1 = <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getYear() &gt; lastYear) &#123;<br>    flag2 = <span class="hljs-literal">false</span>;<br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getYear() == lastYear) &#123;<br>    <span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getMonth() &gt; lastMonth) &#123;<br>        flag2 = <span class="hljs-literal">false</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getMonth() == lastMonth) &#123;<br>        <span class="hljs-keyword">if</span> (memory.get(i).getCreateDate().getDay() &gt; lastDay) &#123;<br>            flag2 = <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br>&#125;<br>flag = flag1 &amp; flag2;<br></code></pre></td></tr></table></figure>
+
+<p>以上就是最后一次作业啦！oopre虽然时间不长，但还是蛮有收获，希望下学期正式的oo能撑得住，听说很恐怖QAQ</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">#面向对象</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P0%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P0课下作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计组P0课下作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/oo-pre%E7%AC%AC%E5%85%AD%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="oo-pre第六次作业总结">
+                        <span class="hidden-mobile">oo-pre第六次作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

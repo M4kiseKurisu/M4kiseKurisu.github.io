@@ -1,0 +1,1251 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对计组P3(Logisim构建单周期CPU)实验课下作业写法的总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组P3课下作业总结">
+<meta property="og:url" content="http://example.com/2023/01/22/%E8%AE%A1%E7%BB%84P3%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对计组P3(Logisim构建单周期CPU)实验课下作业写法的总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/rock1.jpg">
+<meta property="article:published_time" content="2023-01-22T15:41:20.000Z">
+<meta property="article:modified_time" content="2023-01-22T15:51:50.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/rock1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>计组P3课下作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计组P3课下作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 23:41" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计组P3课下作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="数据通路基础部件建模"><a href="#数据通路基础部件建模" class="headerlink" title="数据通路基础部件建模"></a>数据通路基础部件建模</h3><h4 id="PC（程序计数器）"><a href="#PC（程序计数器）" class="headerlink" title="PC（程序计数器）"></a>PC（程序计数器）</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>处理时钟</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>复位信号（异步复位）</td>
+</tr>
+<tr>
+<td>DI[31:0]</td>
+<td>I</td>
+<td>32位输入下一条指令地址</td>
+</tr>
+<tr>
+<td>DO[31:0]</td>
+<td>O</td>
+<td>32位输出本条指令地址</td>
+</tr>
+</tbody></table>
+<p>注意，本题规定起始指令的地址为0x00000000，即开始时32位寄存器初值为0。<br>实际上就是一个普普通通的32位寄存器的输入输出。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%201.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="NPC（指令计算器）"><a href="#NPC（指令计算器）" class="headerlink" title="NPC（指令计算器）"></a>NPC（指令计算器）</h4><p>（由于本题没有要求jal和jr，因此接口有所减少）<br>分为顺序执行指令：add&#x2F;sub&#x2F;ori&#x2F;lw&#x2F;sw&#x2F;lui&#x2F;nop，和可能跳转的指令beq，接口如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PC[31:0]</td>
+<td>I</td>
+<td>输入当前指令的地址</td>
+</tr>
+<tr>
+<td>NPCOp</td>
+<td>I</td>
+<td>NPC计算方法控制（+4或跳转）</td>
+</tr>
+<tr>
+<td>Zero</td>
+<td>I</td>
+<td>判断beq指令中rs和rt是否相等的比较结果</td>
+</tr>
+<tr>
+<td>Imm16[15:0]</td>
+<td>I</td>
+<td>16位立即数（beq跳转指令地址）</td>
+</tr>
+<tr>
+<td>NPC[31:0]</td>
+<td>O</td>
+<td>32位输出（下一条指令的地址）</td>
+</tr>
+</tbody></table>
+<p>首先需要对跳转的位置作出处理，MIPS中的beq规定为：<br>if (GPR[rs] &#x3D;&#x3D; GPR[rt])    PC &lt;- PC + 4 + sign_extend(offset||0^2)<br>所以处理方法是先给imm16用分线器低位补两个0，然后符号扩展至32位和PC+4再做加法。<br>通过NPCOp和Zero两个输入共同确定是否是跳转指令，要跳转到Imm16中的地址处理后的位置。同时利用多路选择器选择NPC&#x3D;PC+4还是Imm16处理后位置。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%202.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="IM（指令存储器）"><a href="#IM（指令存储器）" class="headerlink" title="IM（指令存储器）"></a>IM（指令存储器）</h4><p>本题的指令存储利用Rom实现,输入当前指令的地址就输出当前指令内容。接口如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PC[31:0]</td>
+<td>I</td>
+<td>输入当前指令的地址</td>
+</tr>
+<tr>
+<td>Instr[31:0]</td>
+<td>O</td>
+<td>输出当前指令内容</td>
+</tr>
+</tbody></table>
+<p>要注意，本题指令存储器容量为32bits * 32字，则Rom的实际地址只有5位，当Rom的地址增加一位时，相当于读取下一条指令，即PC+4（指令地址加32bit），所以要取指令地址的[6:2]位作为Rom的地址。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%203.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="IFU（取指令单元）"><a href="#IFU（取指令单元）" class="headerlink" title="IFU（取指令单元）"></a>IFU（取指令单元）</h4><p>取指令单元就是程序计数器，指令计算器和指令存储器的合成，从程序计数器中读出当前指令地址，输入指令存储器获取当前指令，同时输入指令计算器计算下一个指令的地址，并把下个指令地址输出，在下个上升沿存入程序计数器。<br>其接口就是前面三个接口的整合：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>处理时钟</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>复位信号（异步复位）</td>
+</tr>
+<tr>
+<td>Imm16[15:0]</td>
+<td>I</td>
+<td>16位立即数（beq跳转指令地址）</td>
+</tr>
+<tr>
+<td>NPCOp</td>
+<td>I</td>
+<td>NPC计算方法控制（+4或跳转）</td>
+</tr>
+<tr>
+<td>Zero</td>
+<td>I</td>
+<td>判断beq指令中rs和rt是否相等的比较结果</td>
+</tr>
+</tbody></table>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%204.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="GRF（通用寄存器组）"><a href="#GRF（通用寄存器组）" class="headerlink" title="GRF（通用寄存器组）"></a>GRF（通用寄存器组）</h4><p>32个32位寄存器组成，并且0号寄存器不能被写入（接地）接口如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>处理时钟</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>复位信号（异步复位）</td>
+</tr>
+<tr>
+<td>A1[4:0]</td>
+<td>I</td>
+<td>读取的第一个寄存器编号</td>
+</tr>
+<tr>
+<td>A2[4:0]</td>
+<td>I</td>
+<td>读取的第二个寄存器编号</td>
+</tr>
+<tr>
+<td>A3[4:0]</td>
+<td>I</td>
+<td>写入的寄存器编号</td>
+</tr>
+<tr>
+<td>WD[31:0]</td>
+<td>I</td>
+<td>写入值</td>
+</tr>
+<tr>
+<td>Wr</td>
+<td>I</td>
+<td>写使能，判断是否能够写入</td>
+</tr>
+<tr>
+<td>RD1[31:0]</td>
+<td>O</td>
+<td>读取的第一个寄存器值</td>
+</tr>
+<tr>
+<td>RD2[31:0]</td>
+<td>O</td>
+<td>读取的第二个寄存器值</td>
+</tr>
+</tbody></table>
+<p>（对之前的布线做了一些美化）</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P3%205.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="ALU（算术逻辑单元）"><a href="#ALU（算术逻辑单元）" class="headerlink" title="ALU（算术逻辑单元）"></a>ALU（算术逻辑单元）</h4><p>需要满足所有指令的运算功能，包括add&#x2F;sub&#x2F;ori&#x2F;lw&#x2F;sw&#x2F;lui&#x2F;nop&#x2F;beq。具体运算如下：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>addu</td>
+<td>R[rd]&lt;-R[rs]+R[rt]; PC&lt;-PC+4</td>
+</tr>
+<tr>
+<td>subu</td>
+<td>R[rd]&lt;-R[rs]–R[rt]; PC&lt;-PC+4</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>R[rt]&lt;-R[rs]|zero_ext(imm16); PC&lt;-PC+4</td>
+</tr>
+<tr>
+<td>lw</td>
+<td>R[rt]&lt;-MEM[R[rs]+sign_ext(imm16)]; PC&lt;-PC+4</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>MEM[R[rs]+sign_ext(imm16)]&lt;-R[rt]; PC&lt;-PC+4</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>GPR[rt]&lt;-immediate||0^16</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>if ( R[rs] &#x3D;&#x3D; R[rt] ) then PC&lt;-PC+4 + (sign_ext(imm16) || 00) else PC&lt;-PC+4</td>
+</tr>
+</tbody></table>
+<p>因此我们需要靠ALU完成的运算包括：+，-，|，&#x3D;&#x3D;。而且对于lui指令，由于其已经在ext中完成了运算，这里希望能够直接输出B中的数据。接口如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A[31:0]</td>
+<td>I</td>
+<td>第一个读入数RS</td>
+</tr>
+<tr>
+<td>B[31:0]</td>
+<td>I</td>
+<td>第二个读入数RT或立即数</td>
+</tr>
+<tr>
+<td>M1Sel</td>
+<td>I</td>
+<td>判断需要进行加法还是减法运算（控制信号）</td>
+</tr>
+<tr>
+<td>M2Sel</td>
+<td>I</td>
+<td>判断需要进行加减法运算还是与运算（控制信号）</td>
+</tr>
+<tr>
+<td>C[31:0]</td>
+<td>O</td>
+<td>ALU运算结果输出</td>
+</tr>
+<tr>
+<td>Zero</td>
+<td>O</td>
+<td>相等判断结果（&#x3D;&#x3D;）</td>
+</tr>
+</tbody></table>
+<p>加减法不需要只使用加法器完成，因为要考虑补码比较麻烦，直接分别使用加减法计算器然后进行多路选择选择结果即可。<br>我们的控制信号设定为：m1sel低位，m2sel高位，00为加，01为减，10为or，11为输出B。<br>相等判断直接判断减法器输出的结果是否为0即可。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029125647529.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="DM（数据存储器）"><a href="#DM（数据存储器）" class="headerlink" title="DM（数据存储器）"></a>DM（数据存储器）</h4><p>相当于mips开头.data中分配的数据空间，利用Ram完成，接口如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>处理时钟</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>复位信号（异步复位）</td>
+</tr>
+<tr>
+<td>A[31:0]</td>
+<td>I</td>
+<td>地址输入</td>
+</tr>
+<tr>
+<td>WD[31:0]</td>
+<td>I</td>
+<td>需要被写入地址A的数据</td>
+</tr>
+<tr>
+<td>Wr</td>
+<td>I</td>
+<td>控制是读功能还是写功能的控制信号，0读1写</td>
+</tr>
+<tr>
+<td>RD[31:0]</td>
+<td>O</td>
+<td>将A地址中的数据从RD读出</td>
+</tr>
+</tbody></table>
+<p>同时有两个功能：读功能是组合逻辑，只要控制信号Wr为0则将A单元数据输出至RD。写功能是时序逻辑，在时钟上升沿时如果控制信号Wr为1，则将WD的内容写入DM（注意wr的接口是str）。<br>和指令存储器一样，同样取输入数据A的[6:2]位作为输入ram的真正地址。<br>（后面添加了一个memaddr接口用来输出真正的地址，用来展示）</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029130005232.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="EXT（扩展单元）"><a href="#EXT（扩展单元）" class="headerlink" title="EXT（扩展单元）"></a>EXT（扩展单元）</h4><p>由于不同的指令可能用到不同的扩展方式，因此扩展单元也需要进行控制，尤其是针对lui指令，我们希望在ext中就直接让它载入高16位，就不用在ALU中进行运算了，所以需要两个控制信号，接口如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Input[15:0]</td>
+<td>I</td>
+<td>需要被扩展的16位输入</td>
+</tr>
+<tr>
+<td>EXTOp1</td>
+<td>I</td>
+<td>扩展单元控制信号</td>
+</tr>
+<tr>
+<td>EXTOp2</td>
+<td>I</td>
+<td>扩展单元控制信号</td>
+</tr>
+<tr>
+<td>Ext[31:0]</td>
+<td>O</td>
+<td>输出32位的扩展结果</td>
+</tr>
+</tbody></table>
+<p>控制信号的判定是，以extop1为低位，extop2为高位，00为0扩展，01为符号扩展，10为Lui操作（加载到高16位）</p>
+<p>在logisim中利用bit extender的两种不同模式并进行选择即可。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029130411128.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="控制信号建模"><a href="#控制信号建模" class="headerlink" title="控制信号建模"></a>控制信号建模</h3><h4 id="控制器“和”逻辑单元"><a href="#控制器“和”逻辑单元" class="headerlink" title="控制器“和”逻辑单元"></a>控制器“和”逻辑单元</h4><p>此单元是用来将代码的opcode和funct部分拆分读入，然后将其翻译成对应的指令。因此其对应的接口如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>opcode[5:0]</td>
+<td>I</td>
+<td>机器码中六位opcode输入</td>
+</tr>
+<tr>
+<td>funct[5:0]</td>
+<td>I</td>
+<td>机器码中六位funct输入</td>
+</tr>
+<tr>
+<td>add</td>
+<td>O</td>
+<td>代表指令为add(opcode:000000,funct:100000)</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>O</td>
+<td>代表指令为sub(opcode:000000,funct:100010)</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>O</td>
+<td>代表指令为ori(opcode:001101)</td>
+</tr>
+<tr>
+<td>lw</td>
+<td>O</td>
+<td>代表指令为lw(opcode:100011)</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>O</td>
+<td>代表指令为sw(opcode:101011)</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>O</td>
+<td>代表指令为lui(opcode:001111)</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>O</td>
+<td>代表指令为beq(opcode:000100)</td>
+</tr>
+<tr>
+<td>nop</td>
+<td>O</td>
+<td>代表指令为nop(opcode:000000,funct:000000)</td>
+</tr>
+</tbody></table>
+<p>查看Mips对应指令机器码对其进行判断并输出即可，简单的每一位见0取反然后用与门联合输出。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029130458749.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="控制器“或”逻辑单元"><a href="#控制器“或”逻辑单元" class="headerlink" title="控制器“或”逻辑单元"></a>控制器“或”逻辑单元</h4><p>此单元是针对已经被翻译出的指令判断某个控制信号是否应该打开。对应的接口如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add</td>
+<td>I</td>
+<td>代表指令为add</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>I</td>
+<td>代表指令为sub</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>I</td>
+<td>代表指令为ori</td>
+</tr>
+<tr>
+<td>lw</td>
+<td>I</td>
+<td>代表指令为lw</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>I</td>
+<td>代表指令为sw</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>I</td>
+<td>代表指令为lui</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>I</td>
+<td>代表指令为beq</td>
+</tr>
+<tr>
+<td>nop</td>
+<td>I</td>
+<td>代表指令为nop</td>
+</tr>
+<tr>
+<td>Br</td>
+<td>O</td>
+<td>NPC:0 → +4; 1 → branch</td>
+</tr>
+<tr>
+<td>WRSel</td>
+<td>O</td>
+<td>A3:0 → “rt”; 1 → “rd”</td>
+</tr>
+<tr>
+<td>WDSel</td>
+<td>O</td>
+<td>RF-WD:0 → ALU; 1 → Mem</td>
+</tr>
+<tr>
+<td>RFWr</td>
+<td>O</td>
+<td>RF:1 → write register</td>
+</tr>
+<tr>
+<td>EXTOp1</td>
+<td>O</td>
+<td>见ext</td>
+</tr>
+<tr>
+<td>EXTOp2</td>
+<td>O</td>
+<td>见ext</td>
+</tr>
+<tr>
+<td>BSel</td>
+<td>O</td>
+<td>ALU-B:0 → RF-RD2; 1 → imm16</td>
+</tr>
+<tr>
+<td>M1Sel</td>
+<td>O</td>
+<td>见alu</td>
+</tr>
+<tr>
+<td>M2Sel</td>
+<td>O</td>
+<td>见alu</td>
+</tr>
+<tr>
+<td>DMWr</td>
+<td>O</td>
+<td>DM-Wr: 1 → write memory</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>NPCOp</th>
+<th>WRSel</th>
+<th>WDSel</th>
+<th>RFWr</th>
+<th>EXTOp</th>
+<th>BSel</th>
+<th>MSel</th>
+<th>DMWr</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nop</td>
+<td>00</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>add</td>
+<td>00</td>
+<td>01</td>
+<td>00</td>
+<td>1</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>00</td>
+<td>01</td>
+<td>00</td>
+<td>1</td>
+<td>00</td>
+<td>0</td>
+<td>01</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>00</td>
+<td>00</td>
+<td>00</td>
+<td>1</td>
+<td>00</td>
+<td>1</td>
+<td>10</td>
+<td>0</td>
+</tr>
+<tr>
+<td>lw</td>
+<td>00</td>
+<td>00</td>
+<td>01</td>
+<td>1</td>
+<td>01</td>
+<td>1</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>00</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>01</td>
+<td>1</td>
+<td>00</td>
+<td>1</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>00</td>
+<td>00</td>
+<td>00</td>
+<td>1</td>
+<td>10</td>
+<td>1</td>
+<td>11</td>
+<td>0</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>01</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>jal</td>
+<td>10</td>
+<td>10</td>
+<td>10</td>
+<td>1</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>jr</td>
+<td>11</td>
+<td>00</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+<td>00</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>同样的，对于每一个指令针对需要完成的任务判断对应的控制信号是否需要为1即可。此时需要用或门进行联合输出。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029131122445.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="总体数据通路连接"><a href="#总体数据通路连接" class="headerlink" title="总体数据通路连接"></a>总体数据通路连接</h3><p>注意要多使用tunnel，让电路更加美观。上面的控制信号控制的位置都通过tunnel展现，右侧的输出为题目要求。</p>
+<p>注意看一下左侧从inf中输出的机器码的分割方式，不但要按opcode\rs\rt\rd\shamt\funct进行分割，还要把rd\shamt\funct合并成立即数imm送入ext单元。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221029131649793.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="测试数据翻译"><a href="#测试数据翻译" class="headerlink" title="测试数据翻译"></a>测试数据翻译</h3><p>直接利用的给出的testcode进行测试，不过要先翻译成mips语言再进行观察。翻译结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221027120034234.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><ol>
+<li>上面我们介绍了通过 FSM 理解单周期 CPU 的基本方法。请大家指出单周期 CPU 所用到的模块中，哪些发挥状态存储功能，哪些发挥状态转移功能。</li>
+</ol>
+<p>IM,GRF,DM发挥状态存储功能，NPC,ALU,EXT发挥状态转移功能。</p>
+<ol start="2">
+<li>现在我们的模块中 IM 使用 ROM， DM 使用 RAM， GRF 使用 Register，这种做法合理吗？ 请给出分析，若有改进意见也请一并给出。</li>
+</ol>
+<p>我认为比较合理，在本题的框架下，指令的机器码已经提前全部给出，不需要改变，因此直接利用ROM进行读取即可（而且ROM也方便导入），而DM数据存储可能读取也可能存入，因此利用读写分离的RAM正好，而GRF就是寄存器，直接利用register就可以满足寄存器的功能。</p>
+<ol start="3">
+<li>在上述提示的模块之外，你是否在实际实现时设计了其他的模块？如果是的话，请给出介绍和设计的思路。</li>
+</ol>
+<p>暂时还没有，不过可以根据MIPS指令的描述进行构建。</p>
+<ol start="4">
+<li>事实上，实现 nop 空指令，我们并不需要将它加入控制信号真值表，为什么？</li>
+</ol>
+<p>因为它不需要控制任何写入和读取，也不需要控制机器码如何分段，只需要让它跑完全程即可。</p>
+<ol start="5">
+<li>上文提到，MARS 不能导出 PC 与 DM 起始地址均为 0 的机器码。实际上，可以避免手工修改的麻烦。请查阅相关资料进行了解，并阐释为了解决这个问题，你最终采用的方法。</li>
+</ol>
+<p>虽然我没有试过，不过也许改变mars的存储方式即可，例如在写的时候不让data在0地址，导出时再将其设定在0地址。</p>
+<ol start="6">
+<li>阅读 Pre 的 “MIPS 指令集及汇编语言” 一节中给出的测试样例，评价其强度（可从各个指令的覆盖情况，单一指令各种行为的覆盖情况等方面分析），并指出具体的不足之处。</li>
+</ol>
+<p>强度不是很高，例如sw，lw指令的测试只使用了连续的偏移量，没有尝试操作一个很大的偏移量的读取情况。还有Ori都设定的和0进行或操作，强度也可能不够。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">#计算机组成原理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P4%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P4课下作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计组P4课下作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P2%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P2课下作业总结">
+                        <span class="hidden-mobile">计组P2课下作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

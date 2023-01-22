@@ -1,0 +1,915 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对oopre课前三次作业本人代码的一些思路总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oo pre前三次作业总结">
+<meta property="og:url" content="http://example.com/2023/01/22/oo-pre%E5%89%8D%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对oopre课前三次作业本人代码的一些思路总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/ryo1.jpg">
+<meta property="article:published_time" content="2023-01-22T14:13:51.000Z">
+<meta property="article:modified_time" content="2023-01-22T14:23:44.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/ryo1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>oo pre前三次作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="oo pre前三次作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 22:13" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          120 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">oo pre前三次作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>1.基本要求</p>
+<ul>
+<li>本次作业是本单元最后一次作业，仍需在上一次作业的基础上进行增量开发。</li>
+<li>在本任务中，我们允许冒险者雇佣并使用另一个冒险者，且赋予冒险者价值的概念，把装备和冒险者都看作是价值体 commodity。同时，我们还要对冒险者游戏增加版本管理功能，与 git 版本管理工具进行类比，可将冒险者游戏的状态视为需要管理的数据，每执行一条指令视为进行一次 commit，并实现简单的新建分支、检出分支功能。</li>
+</ul>
+<p>2.题目描述</p>
+<ul>
+<li>增加 Commodity 接口，并使冒险者 Adventurer 类和装备 Equipment 类实现 Commodity 接口。接口中应定义冒险者和装备的共有方法，包括 usedBy 方法等。</li>
+<li>将原先的冒险者持有的 装备 的容器，更改为 价值体 的容器（即该容器可以容纳所有实现了 Commodity 接口的类）。</li>
+<li>定义冒险者的价值为其拥有的所有价值体的价值之和，即冒险者的价值是其装备的价值及其雇佣的冒险者的价值的和。</li>
+<li>增加冒险者之间的雇佣关系：冒险者 A 雇佣冒险者 B，可以认为是把冒险者 B 看成一种价值体。此时冒险者 A 拥有价值体冒险者 B，之后冒险者 A 便可以像使用其他装备一样使用冒险者 B。</li>
+<li>定义冒险者 A 使用冒险者 B，其效果为冒险者 A 按照价值从大到小、价值相同则按价值体 id 从大到小的顺序 依次使用冒险者 B 的价值体，价值体的价值指的是所有价值体在本次使用前的价值。我们规定：如果当前使用到了冒险者 B 雇佣的冒险者 C，则冒险者 C 要按照如上顺序使用其拥有的价值体，这些价值体将作用于最开始使用的冒险者，在此处即为冒险者 A。</li>
+<li>新增版本管理功能：我们仿照 git 中的分支机制进行版本管理。将每一条执行的指令视为一次 commit，初始状态下默认分支名称为1，需要支持“创建分支并检出该分支”功能，以及“检出”功能。与 git 相同，每次 commit 都将移动当前 HEAD 指针所指向的分支指针，也就是说，假设当前处于 br 分支，执行了若干条指令（相当于在 br 分支上进行了若干条 commit）后，br 分支也会发生更改。</li>
+</ul>
+<p>3.输入、输出格式</p>
+<ul>
+<li><p>第一行一个整数 m，表示操作的个数。</p>
+</li>
+<li><p>接下来的 m行，每行一个形如 {type} {attribute} 的操作，{type} 和 {attribute} 间、若干个 {attribute} 间使用若干个空格分割，操作输入形式及其含义如下：</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>attribute</th>
+<th>指令含义</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>{adv_id} {name}</td>
+<td>加入一个 ID 为 {adv_id}、名字为 {name} 的冒险者，且未持有任何装备</td>
+<td>无</td>
+</tr>
+<tr>
+<td>2</td>
+<td>{adv_id} {equipment_type} {vars}（equipment_type和vars的含义见下表）</td>
+<td>给予某个人某件装备，装备类型由 {equipment_type} 定义，属性由 {vars} 定义，所有的瓶子初始默认装满</td>
+<td>无</td>
+</tr>
+<tr>
+<td>3</td>
+<td>{adv_id} {id}</td>
+<td>删除 ID 为 {adv_id} 的冒险者的 ID 为 {id} 的价值体，如果被删除的价值体是冒险者，则解除雇佣关系，后续无法使用该被被解除了雇佣关系的冒险者，如果删除的价值体是装备，则丢弃该装备，后续该冒险者无法使用该装备</td>
+<td>无</td>
+</tr>
+<tr>
+<td>4</td>
+<td>{adv_id}</td>
+<td>查询 ID 为 {adv_id} 的冒险者所持有价值体的价格之和，如果价值体是装备，则价值就是 price，如果价值体是冒险者，则其价值计算按照本 Task 最开始定义的规则</td>
+<td>一个整数，表示某人所有价值体的价值总和</td>
+</tr>
+<tr>
+<td>5</td>
+<td>{adv_id}</td>
+<td>查询 ID 为 {adv_id} 的冒险者所持有价值体价格的最大值，如果价值体是装备，则价值就是 price，如果价值体是冒险者，则其价值计算按照本 Task 最开始定义的规则</td>
+<td>一个整数，表示该冒险者所有价值体价格的最大值</td>
+</tr>
+<tr>
+<td>6</td>
+<td>{adv_id}</td>
+<td>查询 ID 为 {adv_id} 的冒险者所持有的价值体总数，如果价值体是装备，则对总数的贡献是 1，如果价值体是冒险者，则只要考虑被雇佣冒险者本身这一个价值体即可，不需要考虑被雇佣冒险者所拥有的其他价值体，即对总数的贡献也是 1</td>
+<td>一个整数，表示某人所有价值体的数量之和</td>
+</tr>
+<tr>
+<td>7</td>
+<td>{adv_id} {commodity_id}</td>
+<td>打印 ID 为 {commodity_id} 的价值体的全部属性</td>
+<td>该价值体的全部属性，格式见下文“属性打印方式”</td>
+</tr>
+<tr>
+<td>8</td>
+<td>{adv_id}</td>
+<td>ID 为 adv_id 的冒险者按照价值由大到小的顺序使用其全部价值体，若价值相同则按照价值体的 id 由大到小的顺序使用。（价值体价值为所有价值体本次使用前的价值）若当前使用的是价值体是装备，这次使用的效果同Task2中的规定，若当前使用的价值体是冒险者，这次使用的效果已在第四部分中规定。</td>
+<td>每个价值体在使用时就会产生输出，除此之外无额外输出</td>
+</tr>
+<tr>
+<td>9</td>
+<td>{adv_id}</td>
+<td>打印 ID 为 {adv_id} 的冒险者的当前状态。</td>
+<td>一个字符串表示冒险者的状态：The adventurer’s id is {adv_id}, name is {name}, health is {health}, exp is {exp}, money is {money}.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>{adv_id1} {adv_id2}</td>
+<td>ID 为adv_id1的冒险者雇佣 ID 为adv_id2的冒险者</td>
+<td>无</td>
+</tr>
+<tr>
+<td>11</td>
+<td>{branch_name}</td>
+<td>在当前状态新建分支，分支名称为 branch_name。与 git 类比，相当于在当前状态创建一个名为 branch_name 的分支，并检出该分支：git branch ${branch_name} &amp;&amp; git checkout ${branch_name} 或 git checkout -b ${branch_name}</td>
+<td>无</td>
+</tr>
+<tr>
+<td>12</td>
+<td>{branch_name}</td>
+<td>切换到版本名称为 branch_name 的分支，之后的更改也将应用于该分支，详见“题目描述”部分。与 git 类比，相当于检出名为 branch_name 的分支：git checkout ${branch_name}</td>
+<td>无</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>vars 和 equipment_type 如下：</p>
+<table>
+<thead>
+<tr>
+<th>装备类型</th>
+<th>equipment_type</th>
+<th>vars</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bottle</td>
+<td>1</td>
+<td>id name price capacity</td>
+</tr>
+<tr>
+<td>HealingPotion</td>
+<td>2</td>
+<td>id name price capacity efficiency</td>
+</tr>
+<tr>
+<td>ExpBottle</td>
+<td>3</td>
+<td>id name price capacity expRatio</td>
+</tr>
+<tr>
+<td>Sword</td>
+<td>4</td>
+<td>id name price sharpness</td>
+</tr>
+<tr>
+<td>RareSword</td>
+<td>5</td>
+<td>id name price sharpness extraExpBonus</td>
+</tr>
+<tr>
+<td>EpicSword</td>
+<td>6</td>
+<td>id name price sharpness evolveRatio</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>属性打印方式表格：</p>
+<table>
+<thead>
+<tr>
+<th>价值体类型</th>
+<th>属性打印方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bottle</td>
+<td>The bottle’s id is {id}, name is {name}, capacity is {capacity}, filled is {filled}.</td>
+</tr>
+<tr>
+<td>HealingPotion</td>
+<td>The healingPotion’s id is {id}, name is {name}, capacity is {capacity}, filled is {filled}, efficiency is {efficiency}.</td>
+</tr>
+<tr>
+<td>ExpBottle</td>
+<td>The expBottle’s id is {id}, name is {name}, capacity is {capacity}, filled is {filled}, expRatio is {expRatio}.</td>
+</tr>
+<tr>
+<td>Sword</td>
+<td>The sword’s id is {id}, name is {name}, sharpness is {sharpness}。</td>
+</tr>
+<tr>
+<td>RareSword</td>
+<td>The rareSword’s id is {id}, name is {name}, sharpness is {sharpness}, extraExpBonus is {extraExpBonus}.</td>
+</tr>
+<tr>
+<td>EpicSword</td>
+<td>The epicSword’s id is {id}, name is {name}, sharpness is {sharpness}, evolveRatio is {evolveRatio}.</td>
+</tr>
+<tr>
+<td>Adventurer（新增）</td>
+<td>The adventurer’s id is {id}, name is {name}, health is {health}, exp is {exp}, money is {money}.</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>4.数据范围和操作限制</p>
+<ul>
+<li><p>变量约束：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id, adv_id, adv_id1, adv_id2, commodity_id</td>
+<td>整数</td>
+<td>取值范围：0 - 2147483647</td>
+</tr>
+<tr>
+<td>name</td>
+<td>字符串</td>
+<td>保证不会出现空白字符</td>
+</tr>
+<tr>
+<td>装备的 price</td>
+<td>长整数</td>
+<td>在 long 精度范围内，且保证不小于0</td>
+</tr>
+<tr>
+<td>capacity, efficiency, expRatio, sharpness, extraExpBonus, evolveRatio, health, exp, money</td>
+<td>浮点数</td>
+<td>在 double 精度范围内</td>
+</tr>
+<tr>
+<td>branch_name</td>
+<td>字符串</td>
+<td>只包含数字和字母</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>操作约束：</p>
+</li>
+</ul>
+<p>   操作数满足 1≤m≤2000。<br>   保证所有价值体的 ID 两两不同。<br>   操作2-9：冒险者 ID 一定存在。<br>   操作 3,7：冒险者一定持有该 ID 的价值体。<br>   操作 4,6：冒险者不持有任何价值体，则输出 0。<br>   操作 5：冒险者一定持有至少一个价值体。<br>   操作 10：雇佣和被雇佣的冒险者均已存在，且不是同一个冒险者。<br>   指令 11：新建的 branch_name 不与已有的 branch_name 重名。<br>   指令 12：检出的 branch_name 之前一定被新建过。<br>   冒险者的雇佣关系不会存在循环雇佣的情况，每个冒险者最多仅能被一个其他冒险者雇佣一次。<br>   初始状态下位于 branch_name 为 1 的分支。</p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>由于是增量开发，和前两次作业类似的位置即略写</p>
+<ul>
+<li>1.类（接口）创建和初始化：<br> 类的创建和继承关系如下图：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/fe5c817d4ec1073d36d50df7e7a23c8.jpg" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>先考虑价值体相关类的创建：首先是Adventurer类和Equipment类，这两类都属于价值体Commodity，因此都需要接入价值体接口。Equipment可以细分为六种，通过继承也可以显现其从属关系，即HealingPotion和ExpBottle属于Bottle，而RareSword和EpicSword属于Sword（即”is a”），同时在真实情况中每一个冒险者都拥有自己的一堆价值体，所以需要在adventurer类中创建一个价值体容器来收纳属于该冒险者的价值体</li>
+<li>后考虑分支相关：team类体现的是当前的状态，每一个状态其实取决于所有冒险者的状态，因此team类中拥有一个adventurers容器，收纳所有的冒险者，组成了当前的状态。branch是管理所有分支的类，其中拥有teams的容器，相当于收纳了所有的状态，想要切换状态只需要让main函数中的状态变量指向容器中合适的team即可。</li>
+</ul>
+<p>Adventurer初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Adventurer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Commodity</span> &#123;<br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> id;<span class="hljs-comment">//冒险者ID</span><br><span class="hljs-keyword">private</span> String name;<span class="hljs-comment">//冒险者名字</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">double</span> health;<span class="hljs-comment">//冒险者生命值</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">double</span> exp;<span class="hljs-comment">//冒险者经验值</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">double</span> money;<span class="hljs-comment">//冒险者金钱</span><br><span class="hljs-keyword">private</span> ArrayList&lt;Commodity&gt; commodities = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<span class="hljs-comment">//冒险者持有价值物之容器</span><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">Adventurer</span><span class="hljs-params">(<span class="hljs-type">int</span> id, String name)</span> &#123;<br>    <span class="hljs-built_in">this</span>.id = id;<br>    <span class="hljs-built_in">this</span>.name = name;<br>    <span class="hljs-built_in">this</span>.health = <span class="hljs-number">100.0</span>;<br>    <span class="hljs-built_in">this</span>.exp = <span class="hljs-number">0.0</span>;<br>    <span class="hljs-built_in">this</span>.money = <span class="hljs-number">0.0</span>;<br>&#125; <span class="hljs-comment">//构造函数</span><br></code></pre></td></tr></table></figure>
+
+<p>Equipment初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Equipment</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Commodity</span> &#123;<br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> id;<span class="hljs-comment">//装备ID</span><br><span class="hljs-keyword">private</span> String name;<span class="hljs-comment">//装备名</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">long</span> price;<span class="hljs-comment">//装备价格</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">Equipment</span><span class="hljs-params">(<span class="hljs-type">int</span> id, String name, <span class="hljs-type">long</span> price)</span> &#123;<br>    <span class="hljs-built_in">this</span>.id = id;<br>    <span class="hljs-built_in">this</span>.name = name;<br>    <span class="hljs-built_in">this</span>.price = price;<br>&#125; <span class="hljs-comment">//构造函数</span><br></code></pre></td></tr></table></figure>
+
+<p>Bottle初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Bottle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Equipment</span> &#123;<br><span class="hljs-keyword">private</span> <span class="hljs-type">double</span> capacity;<span class="hljs-comment">//瓶子容量</span><br><span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> filled;<span class="hljs-comment">//瓶子状态是否为满</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">Bottle</span><span class="hljs-params">(<span class="hljs-type">int</span> id, String name, <span class="hljs-type">long</span> price, <span class="hljs-type">double</span> capacity)</span> &#123;<br>    <span class="hljs-built_in">super</span>(id, name, price);<span class="hljs-comment">//继承Equipment类中的构造函数</span><br>    <span class="hljs-built_in">this</span>.capacity = capacity;<br>    <span class="hljs-built_in">this</span>.filled = <span class="hljs-literal">true</span>;<br>&#125; <span class="hljs-comment">//构造函数</span><br></code></pre></td></tr></table></figure>
+
+<p>此处注意super的使用，由于Bottle继承Equipment，则同时也可以继承equipment类中的构造函数，此处的super(id,name,price)就相当于equipment的构造函数，较为方便并能体现继承性，其他装备类的初始化同理。</p>
+<p>Team和Branch类的初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Team</span> &#123;<br><span class="hljs-keyword">private</span> ArrayList&lt;Adventurer&gt; adventurers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<span class="hljs-comment">//统计冒险者的容器</span><br><span class="hljs-keyword">private</span> String branchName;<span class="hljs-comment">//此状态分支名</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Branch</span> &#123;<br><span class="hljs-keyword">private</span> ArrayList&lt;Team&gt; branches = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(); <span class="hljs-comment">//创建一个新容器来储存分支</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>2.操作1，2，3<br>操作1就是将数据读取后利用构造函数创建新adventurer并放入team中的adventurer容器：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">function1</span><span class="hljs-params">(<span class="hljs-type">int</span> advId, String name)</span> &#123;<br>    <span class="hljs-type">Adventurer</span> <span class="hljs-variable">adventurer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Adventurer</span>(advId, name);<br>    adventurers.add(adventurer);<span class="hljs-comment">//将冒险者放入冒险者容器</span><br>&#125; <span class="hljs-comment">//创建一个冒险者</span><br></code></pre></td></tr></table></figure>
+
+<p>操作2就是把数据读取后利用构造函数创建新equipment并放入对应冒险者的价值体容器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">function2</span><span class="hljs-params">(<span class="hljs-type">int</span> advId, <span class="hljs-type">int</span> etype, <span class="hljs-type">int</span> v1, String v2, <span class="hljs-type">long</span> v3, <span class="hljs-type">double</span> v4, <span class="hljs-type">double</span> v5)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; index &lt; adventurers.size(); index++) &#123; <span class="hljs-comment">//遍历容器</span><br>        <span class="hljs-keyword">if</span> (adventurers.get(index).getId() == advId) &#123;<br>            <span class="hljs-keyword">switch</span> (etype) &#123; <span class="hljs-comment">//判断不同装备类型并初始化</span><br>                <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: &#123;<br>                    <span class="hljs-type">Equipment</span> <span class="hljs-variable">equipment1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Bottle</span>(v1, v2, v3, v4);<br>                    adventurers.get(index).setEquipment(equipment1); <span class="hljs-comment">//将新瓶子装备放入</span><br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: &#123;<br>                    <span class="hljs-type">Equipment</span> <span class="hljs-variable">equipment2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HealingPotion</span>(v1, v2, v3, v4, v5);<br>                    adventurers.get(index).setEquipment(equipment2); <span class="hljs-comment">//将新治疗瓶装备放入</span><br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: &#123;<br>                    <span class="hljs-type">Equipment</span> <span class="hljs-variable">equipment3</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpBottle</span>(v1, v2, v3, v4, v5);<br>                    adventurers.get(index).setEquipment(equipment3); <span class="hljs-comment">//将新经验瓶装备放入</span><br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: &#123;<br>                    <span class="hljs-type">Equipment</span> <span class="hljs-variable">equipment4</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Sword</span>(v1, v2, v3, v4);<br>                    adventurers.get(index).setEquipment(equipment4); <span class="hljs-comment">//将新武器装备放入</span><br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>: &#123;<br>                    <span class="hljs-type">Equipment</span> <span class="hljs-variable">equipment5</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RareSword</span>(v1, v2, v3, v4, v5);<br>                    adventurers.get(index).setEquipment(equipment5); <span class="hljs-comment">//将新稀有武器装备放入</span><br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                <span class="hljs-keyword">default</span>: &#123;<br>                    <span class="hljs-type">Equipment</span> <span class="hljs-variable">equipment6</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EpicSword</span>(v1, v2, v3, v4, v5);<br>                    adventurers.get(index).setEquipment(equipment6); <span class="hljs-comment">//将新大型武器装备放入</span><br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>（此处是利用输入的装备类型数用switch case体系进行判断类型并针对类型选择构造函数）</p>
+<p>操作3就是删除某冒险者价值体中对应id的价值体，如果是人的话即使删除也会依然保存在Team中的adventurers容器中（从操作10可知此处就是从team中浅拷贝来的），而如果是装备则直接删除就好，所以无论如何都可以直接使用容器的remove。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteCommodity</span><span class="hljs-params">(<span class="hljs-type">int</span> commodityId)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; index &lt; commodities.size(); index++) &#123;<br>        <span class="hljs-keyword">if</span> (commodities.get(index).getId() == commodityId) &#123; <span class="hljs-comment">//找到该ID对应的价值体</span><br>            commodities.remove(index); <span class="hljs-comment">//删除该位置价值体</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意：由于此处对不同价值体都要使用相同的<code>getId()</code>函数，所以需要在commodity接口中先定义此函数，然后在adventurer和equipment中分别复写即可（记得写<code>@override</code>）</p>
+<ul>
+<li>3.操作4，5，6</li>
+</ul>
+<p>操作4是查询某一冒险者的价值之和，则只需要使用一个获取价格的函数即可，但是获取价格是针对所有价值体都有效的，所以应该把这个函数写在commodity接口中，然后再在冒险者和装备中复写，而装备也应该在继续细分后在子类中复写。而针对冒险者，则需要再向下递归，获取这个被雇佣的冒险者的价格之和。（此处展示冒险者价值获取）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">getPrice</span><span class="hljs-params">()</span> &#123; <span class="hljs-comment">//获取冒险者价格</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.priceSum(); <span class="hljs-comment">//嵌套冒险者价值和</span><br>&#125;<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">priceSum</span><span class="hljs-params">()</span> &#123; <span class="hljs-comment">//输出价格之和</span><br>    <span class="hljs-type">BigInteger</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> BigInteger.valueOf(<span class="hljs-number">0</span>);<br>    <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (; index &lt; commodities.size(); index++) &#123; <span class="hljs-comment">//每次加上一个价值体的价格</span><br>        sum = sum.add(commodities.get(index).getPrice());<br>    &#125;<br>    <span class="hljs-keyword">return</span> sum;<span class="hljs-comment">//输出总价</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意：由于本题的价格之和有可能超过Long的限制，所以需要用java自带的Biginteger类来保证数据不会超出范围。</p>
+<p>操作5和操作4比较类似，本质还是对选定的冒险者的价值体进行获取价值，然后选取最大价值的价值体输出即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">findHighestPrice</span><span class="hljs-params">()</span> &#123; <span class="hljs-comment">//输出最高价</span><br>    <span class="hljs-type">BigInteger</span> <span class="hljs-variable">highestPrice</span> <span class="hljs-operator">=</span> commodities.get(<span class="hljs-number">0</span>).getPrice();<br>    <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (; index &lt; commodities.size(); index++) &#123; <span class="hljs-comment">//一个一个比对</span><br>        <span class="hljs-keyword">if</span> (commodities.get(index).getPrice().compareTo(highestPrice) &gt; <span class="hljs-number">0</span>) &#123;<br>            highestPrice = commodities.get(index).getPrice();<span class="hljs-comment">//找到大的就更新最大值</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> highestPrice;<span class="hljs-comment">//返回最大值</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>为了方便之后的排序使用功能，可以编写compareTo函数和Comparable接口来进行比较排序。为了对整个价值体容器进行排序，需要在价值提接口<code>extends Comparable&lt;Commodity&gt;</code>，然后在adventurer和equipment类中分别复写compareTo函数（我感觉类似于C语言中qsort后面写的排序方法）本题要求高价优先，同价高id优先，则compareTo函数写法如下（两个子类写法相同），上面的操作5其实是借用了这个函数进行比较。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(Commodity other)</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.getPrice().compareTo(other.getPrice()) == -<span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.getPrice().compareTo(other.getPrice()) == <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.getId() &lt; other.getId()) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.getId() &gt; other.getId()) &#123;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>操作6就是获取价值体数量，直接getsize即可，略过。</p>
+<ul>
+<li>4.操作7，9（打印相关）<br>操作9是打印一个冒险者的状态，则直接将冒险者的状态get出来然后进行打印即可。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">printSituation</span><span class="hljs-params">()</span> &#123; <span class="hljs-comment">//打印某个冒险者状态</span><br>    System.out.print(<span class="hljs-string">&quot;The adventurer&#x27;s id is &quot;</span> + <span class="hljs-built_in">this</span>.getId());<br>    System.out.print(<span class="hljs-string">&quot;, name is &quot;</span> + <span class="hljs-built_in">this</span>.getName());<br>    System.out.print(<span class="hljs-string">&quot;, health is &quot;</span> + <span class="hljs-built_in">this</span>.getHealth());<br>    System.out.print(<span class="hljs-string">&quot;, exp is &quot;</span> + <span class="hljs-built_in">this</span>.getExp());<br>    System.out.print(<span class="hljs-string">&quot;, money is &quot;</span> + <span class="hljs-built_in">this</span>.getMoney());<br>    System.out.println(<span class="hljs-string">&quot;.&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>操作7就是打印某一个人的某一个价值体，因此只需要把printSituation函数写在commodity中即可（因为意识到操作7，9对于冒险者的打印方式相同），然后在两个子类中分别复写，对于装备类在对更多的子类继续复写即可，略过。（由于Sword和Bottle的打印方式完全不同，所以装备类中的打印状态函数其实就是一个空函数）</p>
+<ul>
+<li>5.操作8<br>操作8涉及到两个问题：排序以及使用。</li>
+<li>首先考虑排序问题，由于之前已经进行了Comparable接口的继承和compareTo函数的写入，因此只需要使用Comparable接口的sort函数进行排序即可。</li>
+<li>对于使用问题，需要注意到我们需要对使用者做出更改和相关打印，因此所有使用函数都需要传入使用者（一个adventurer类），同时使用也可以使用人或物，所以这个使用函数应该先在价值体接口中写再分别复写。</li>
+<li>因此总体流程就是在使用函数中传入一个使用者，利用排序函数将使用者的价值体排序，再分别使用。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">usedBy</span><span class="hljs-params">(Adventurer adventurer)</span> &#123;<br>    Collections.sort(commodities); <span class="hljs-comment">//排序</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; index &lt; commodities.size(); index++) &#123;<br>        <span class="hljs-built_in">this</span>.commodities.get(index).usedBy(adventurer);<br>    &#125; <span class="hljs-comment">//使用雇佣的人</span><br>    <span class="hljs-comment">//使用该用的道具</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>（冒险者类中的使用函数）<br>同理，由于bottle和sword的差别，在装备类中的使用函数就是空壳，也需要分别复写（下面是bottle类中的使用函数，还需要在expbottle和healingpotion类中分别复写）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">usedBy</span><span class="hljs-params">(Adventurer adventurer)</span> &#123;<br>    <span class="hljs-keyword">if</span> (!isFilled()) &#123; <span class="hljs-comment">//空瓶情况</span><br>        System.out.print(<span class="hljs-string">&quot;Failed to use &quot;</span> + <span class="hljs-built_in">this</span>.getName());<br>        System.out.println(<span class="hljs-string">&quot; because it is empty.&quot;</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">//满瓶，生命值增加</span><br>        <span class="hljs-keyword">final</span> <span class="hljs-type">double</span> <span class="hljs-variable">originalHealth</span> <span class="hljs-operator">=</span> adventurer.getHealth();<br>        adventurer.setHealth(adventurer.getHealth() + <span class="hljs-number">0.1</span> * <span class="hljs-built_in">this</span>.getCapacity());<br>        <span class="hljs-built_in">this</span>.setFilled(<span class="hljs-literal">false</span>); <span class="hljs-comment">//变成空瓶</span><br>        <span class="hljs-built_in">this</span>.setPrice(<span class="hljs-built_in">this</span>.getPrice().longValue() / <span class="hljs-number">10</span>); <span class="hljs-comment">//价格变成十分之一</span><br>        System.out.print(adventurer.getName() + <span class="hljs-string">&quot; drank &quot;</span>);<br>        System.out.print(<span class="hljs-built_in">this</span>.getName() + <span class="hljs-string">&quot; and recovered &quot;</span>);<br>        System.out.println((adventurer.getHealth() - originalHealth) + <span class="hljs-string">&quot;.&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>6.操作10<br>操作10就是让一个冒险者雇佣另一个冒险者，即找到另一个冒险者的id然后将其加入雇佣者的价值体中即可，但是要注意此处加入价值体容器需要是浅拷贝，这样雇佣者价值体容器中的被雇佣者和team中的冒险者容器中的被雇佣者用同一片内存，可以一起进行状态改变。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">hire</span><span class="hljs-params">(Adventurer hired)</span> &#123; <span class="hljs-comment">//把被雇佣者信息复制到雇佣者价值体中</span><br>    <span class="hljs-type">Commodity</span> <span class="hljs-variable">hiredAdventurer</span> <span class="hljs-operator">=</span> hired;<br>    commodities.add(hiredAdventurer); <span class="hljs-comment">//浅拷贝加入，使用可以同步</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>7.操作11，12（分支相关）<br>这两个操作（尤其是操作11）才是本次作业的精髓！（这些操作都在Branch中完成）<br>分支11就是状态的拷贝和跳转：</li>
+<li>在一开始的时候就需要new一个team表示初始的状态，并且默认其名字为“1”：&#96;    public Team() {this.branchName &#x3D; “1”;} &#x2F;&#x2F;默认命名</li>
+<li>然后对于不同状态，就需要对team容器中所有的冒险者进行拷贝，只要两个team容器中的状态（除了名字）完全一致，此时主程序的team又被新的team赋值，此时就完成了分支的创建和跳转。</li>
+<li>对于深拷贝，由于无论是冒险者还是物品都需要拷贝，因此也是在价值体接口中先写一个函数在分别复写。对于一个冒险者，深拷贝就是先new一个新冒险者，把所有冒险者本身的属性提取出来再赋给新冒险者（get-set），最后再进行价值体的拷贝，价值体中的物品就按照物品方式拷贝，人就继续使用这个拷贝函数。<br>（冒险者类中的拷贝函数）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> Adventurer <span class="hljs-title function_">deepCopy</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">copyId</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getId();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">copyName</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getName();<br>    <span class="hljs-type">double</span> <span class="hljs-variable">copyHealth</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getHealth();<br>    <span class="hljs-type">double</span> <span class="hljs-variable">copyExp</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getExp();<br>    <span class="hljs-type">double</span> <span class="hljs-variable">copyMoney</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getMoney();<br>    <span class="hljs-type">Adventurer</span> <span class="hljs-variable">newAdventurer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Adventurer</span>(copyId, copyName);<br>    newAdventurer.setHealth(copyHealth);<br>    newAdventurer.setExp(copyExp);<br>    newAdventurer.setMoney(copyMoney);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; index &lt; <span class="hljs-built_in">this</span>.commodities.size(); index++) &#123; <span class="hljs-comment">//所有价值体都要拷贝</span><br>        newAdventurer.commodities.add(<span class="hljs-built_in">this</span>.commodities.get(index).deepCopy());<br>    &#125;<br>    <span class="hljs-keyword">return</span> newAdventurer;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>对于物品的深拷贝方式，就是创建新物品，然后先get再set，最后输出新物品即可，但是本次作业我没有分别在子类中继续复写深拷贝函数而是利用了向下转型，先判断该物品是什么类型(instanceof)再进行拷贝，这种方式比较笨重，故省略。（但是注意要先判断小类别，例如经验瓶和治疗瓶，而后判断大类别，例如瓶子，否则经验瓶等会被优先当作瓶子处理）</p>
+</li>
+<li><p>但是要注意，所有东西都深拷贝后放入新team并不代表状态完全还原！因为没有完全还原雇佣关系，举例说原来A雇佣了B，但是在深拷贝后，由于是分别对A，B进行拷贝，因此A的价值体中的B和Team中自带的冒险者容器中的B并没有指向同一个位置！这也就代表新状态中这两个B没有联系。因此我们需要为这两个B建立一个浅拷贝关系来让他们共用同一个内存空间。</p>
+</li>
+<li><p>所以本题我的思路就是在拷贝完成之后进行一个检查，一旦出现这种状况就进行处理。但是这里出现了一个我找了很久都没有找出来的bug！！！！！！<br>我的原代码如下：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">check</span><span class="hljs-params">(Adventurer adventurer, Team checkTeam)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">in1</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; in1 &lt; adventurer.getComoditySize(); in1++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">index2</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; index2 &lt; checkTeam.getSize(); index2++) &#123;<br>            <span class="hljs-keyword">if</span> (checkTeam.getFromList(index2).getId() == adventurer.getComodity(in1).getId()) &#123;<br>                check((Adventurer) adventurer.getComodity(in1), checkTeam);<br>                adventurer.removeCommodity(in1);<br>                <span class="hljs-type">Commodity</span> <span class="hljs-variable">addIn</span> <span class="hljs-operator">=</span> checkTeam.getFromList(index2);<br>                adventurer.addCommodity(addIn);<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我的思路就是利用递归，对冒险者容器中的每一个冒险者的价值体检索，如果和这个冒险者容器中的其他冒险者id相同，证明这个冒险者的价值体中有另一个冒险者，此时就对这个被雇佣的冒险者也做这样的检查，直到这个冒险者的所有价值体都不和team中的冒险者容器中的id重复，证明所有价值体都是装备，此时就把这个冒险者删除，并且把team中的这个冒险者拷贝到此处。以此类推。</p>
+<p>但是后来在和qsh的讨论中发现，这个递归好像没有必要！只需要检测到第一层即可（就是直接把check函数那一行注释掉）因为team中的冒险者容器中的冒险者含有所有的雇佣关系，所以直接对第一层的冒险者进行删除和浅拷贝就可以，反而如果递归到底，例如第三层雇佣关系的人先被处理，但在第二层雇佣关系的人被处理时，之前第三层关系的处理会被删除，因此递归毫无意义！</p>
+<p>但是的但是，其实是否递归应该并不影响结果（但是比对了结果其实影响了……这到现在都是一个未解之谜），那么Bug出现在哪里呢？经过我俩的思考和讨论，最后被我给发现了。以下是修改之后的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">check</span><span class="hljs-params">(Adventurer adventurer, Team checkTeam)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">gg</span> <span class="hljs-operator">=</span> adventurer.getComoditySize();<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">in1</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; in1 &lt; gg; in1++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">index2</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; index2 &lt; checkTeam.getSize(); index2++) &#123;<br>            <span class="hljs-keyword">if</span> (checkTeam.getFromList(index2).getId() == adventurer.getComodity(in1).getId()) &#123;<br>                <span class="hljs-comment">//check((Adventurer) adventurer.getComodity(in1), checkTeam);</span><br>                adventurer.removeCommodity(in1);<br>                in1--;<br>                gg--;<br>                <span class="hljs-type">Commodity</span> <span class="hljs-variable">addIn</span> <span class="hljs-operator">=</span> checkTeam.getFromList(index2);<br>                adventurer.addCommodity(addIn);<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>其实问题就出在删除和浅拷贝上了……假设一个冒险者的价值体容器中连续两个元素都是冒险者，那么我首先检测到第一个冒险者应该处理，这时我利用了removeCommodity函数，但是其实这个函数就是在adventurer类中对价值体容器的in1个元素的普通remove（arraylist内置方法），此时后面的那个冒险者就会往前进一位（remove就是这样，被删除元素后面的元素集体前进一位来避免空白），而循环的in1变量又加一了，导致后面那个冒险者没有被处理。</p>
+<p>解决方法就是每次检测到需要处理了，就把in1也减1，这样可以保证下一个元素也被检测，同时加入的时候add也是放在价值体容器最后，因此可以不用再次检测，就把检测范围减一（此处用gg变量表示检测范围），这样就对啦！</p>
+<p>操作12就是在Branch类的team容器中找符合分支名的分支并跳转，较为简单，略过。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>至此第三次作业的总结也就完成啦！写完还是非常有成就感，尤其是把自己debug的思路完整的写出来真的很开心。同时这也是我第一次使用markdown写这种类似博客的总结，就更有成就感啦！希望自己也能继续加油！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">#面向对象</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/22/oo-pre%E7%AC%AC%E5%9B%9B%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="oo-pre第四次作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">oo-pre第四次作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/Verilog%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Verilog预习笔记">
+                        <span class="hidden-mobile">Verilog预习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1150 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对计组P6(Verilog构建流水线CPU并增加暂停与中断)实验课下作业写法的总结（本实验本人过的较为狼狈，下面的个人总结也有非常多恶性Bug，请谨慎参考）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组P7课下作业总结">
+<meta property="og:url" content="http://example.com/2023/01/23/%E8%AE%A1%E7%BB%84P7%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对计组P6(Verilog构建流水线CPU并增加暂停与中断)实验课下作业写法的总结（本实验本人过的较为狼狈，下面的个人总结也有非常多恶性Bug，请谨慎参考）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/akashi1.jpg">
+<meta property="article:published_time" content="2023-01-22T16:21:26.000Z">
+<meta property="article:modified_time" content="2023-01-22T16:34:54.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/akashi1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>计组P7课下作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计组P7课下作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-23 00:21" pubdate>
+          2023年1月23日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          116 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计组P7课下作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="P7设计文档"><a href="#P7设计文档" class="headerlink" title="P7设计文档"></a>P7设计文档</h3><h4 id="CP0"><a href="#CP0" class="headerlink" title="CP0"></a>CP0</h4><p>我们首先需要厘清协处理器CP0的功能是什么：处理中断。<br>在遇到某一个CPU运行错误的时候，CPU要向CP0进行反馈，此时CP0会将CPU引导跳转到特定的程序(Exception handler)处理错误，处理完再跳转回到原来的CPU执行位置。<br>注意：CP0的工作只有记录错误情况和跳转，并不需要考虑如何解决CPU的运行错误，所以我们只需要输入错误情况以及跳转位置就可以。<br>根据教程，我们需要设计四个寄存器：SR,Cause,EPC,PRId，他们的功能分别是：</p>
+<ol>
+<li>SR：状态寄存器，用来记录系统的状态以对系统进行控制，由一些控制信号组成。</li>
+<li>Cause：记录传入的是什么异常。包括中断源和造成中断的原因编码等等。</li>
+<li>EPC：用来记录异常&#x2F;中断时发生的PC（位置），这样处理完之后才能返回错误位置继续执行CPU中的后续指令。</li>
+<li>PRID：代表处理器ID，主要用来实现一些比较个性化的编码。</li>
+</ol>
+<p>在本题中由于我们要实现的目标较为简易，所以对于SR和Cause寄存器，我们也只需要它们中间的有效位数，大概如下：</p>
+<ol>
+<li>SR的整体表达为{16’b0,im,8’b0,exl,ie}，其中：im(SR[15:10])表示允许发生的中断，exl(SR[1])表示是否处于中断异常中，ie(SR[0])表示是否允许中断。</li>
+<li>Cause[31]用来标记延迟槽，Cause[15:10]表示发生了哪个中断，Cause[6:2]表示发生异常的原因。</li>
+</ol>
+<p>我把教程中的功能表格附加如下：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/P7%201.png" srcset="/img/loading.gif" lazyload></p>
+<p>现在，我们要针对CP0的功能构建组合、时序逻辑：<br>首先，它需要能够感应到受害指令的存在，并且根据受害PC和宏观PC将受害PC存入EPC。所以我们要分别判断是否存在中断、异常。<br>所以判断方法大概如下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> IntReq=(|(HWInt&amp;IM))&amp;&amp;IE&amp;&amp;(!EXL);<br><span class="hljs-keyword">assign</span> ExcReq=(|Exc)&amp;&amp;(!EXL);<br><span class="hljs-keyword">assign</span> Req=IntReq||ExcReq; <span class="hljs-comment">//异常和中断的条件</span><br></code></pre></td></tr></table></figure>
+
+<p>对于中断(IntReq)，需要允许发生的中断发生，所以需要把HWInt和IM按位与，只要有一种终端发生就可以，所以就把结果再每一位之间或以下。同时需要允许发生中断并且不处于中断异常中。<br>对于其他的内部异常，我们只要判断Exc按位与（存在发生异常的原因）和！EXL再与即可（因为IE只负责中断的使能）。</p>
+<p>然后我们再考虑：如果出现了异常，那么我们应该对什么进行修改？应该就是对四个寄存器进行值的修改。如下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> epc=(BD==<span class="hljs-number">1&#x27;b1</span>)?PC-<span class="hljs-number">4</span>:PC; <span class="hljs-comment">//epc[31:0]</span><br><span class="hljs-comment">//...</span><br><span class="hljs-keyword">if</span>(Req==<span class="hljs-number">1&#x27;b1</span>) <span class="hljs-keyword">begin</span><br>	SR[<span class="hljs-number">1</span>]&lt;=<span class="hljs-number">1</span>; <span class="hljs-comment">//EXL</span><br>	Cause[<span class="hljs-number">31</span>]&lt;=BD; <span class="hljs-comment">//延迟槽标记</span><br>	Cause[<span class="hljs-number">6</span>:<span class="hljs-number">2</span>]&lt;=IntReq?<span class="hljs-number">5&#x27;b00000</span>:Exc; <span class="hljs-comment">//异常原因</span><br>	EPC&lt;=epc; <span class="hljs-comment">//EPC</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<p>注意：跳转到不对齐的地址时，受害指令是 PC 值不正确的指令（即需要向 EPC 写入不对齐的地址）。（教程内容）</p>
+<p>还要考虑存取指令的实现，其实这里和grf的原理基本相同，但是要注意SR,Cause,EPC,PRID的编号是12~15号，要根据编号判断CP0A3。实现如下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">if</span>(CP0Wr==<span class="hljs-number">1&#x27;b1</span>) <span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">if</span>(CP0A3==<span class="hljs-number">12</span>)<br>        SR&lt;=CP0WD;	<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(CP0A3==<span class="hljs-number">13</span>)	<br>        Cause&lt;=CP0WD;		<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(CP0A3==<span class="hljs-number">14</span>)	<br>        EPC&lt;=CP0WD;	<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(CP0A3==<span class="hljs-number">15</span>)	<br>        PRID&lt;=CP0WD;	<br><span class="hljs-keyword">end</span>	<br><span class="hljs-keyword">assign</span> CP0Out=(CP0A3==<span class="hljs-number">12</span>)?SR:<br>              (CP0A3==<span class="hljs-number">13</span>)?Cause:<br>			  (CP0A3==<span class="hljs-number">14</span>)?EPC:<br>			  (CP0A3==<span class="hljs-number">15</span>)?PRID:<br>			  <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+
+<p>最后就是如果Req&#x3D;&#x3D;0，也就是已经在异常中或者还没有发生异常的状况：<br>首先就是如果在异常中并且检测到eret指令，则需要结束异常程序：只需要让EXL为0即可。<br>其次就是在每一个时钟周期，我们都需要实时更新中断的情况，也就是HWInt。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(ERET==<span class="hljs-number">1&#x27;b1</span>)<br>	SR[<span class="hljs-number">1</span>]&lt;=<span class="hljs-number">0</span>;<br>Cause[<span class="hljs-number">15</span>:<span class="hljs-number">10</span>]&lt;=HWInt;<br></code></pre></td></tr></table></figure>
+
+<p>最后给出设定端口：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>时钟信号输入</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>同步复位信号输入</td>
+</tr>
+<tr>
+<td>CP0Wr</td>
+<td>I</td>
+<td>CP0写使能信号</td>
+</tr>
+<tr>
+<td>CP0A3[4:0]</td>
+<td>I</td>
+<td>CP0写入寄存器地址</td>
+</tr>
+<tr>
+<td>CP0WD[31:0]</td>
+<td>I</td>
+<td>需要向CP0写入的数据</td>
+</tr>
+<tr>
+<td>PC[31:0]</td>
+<td>I</td>
+<td>受害指令的地址，写入EPC</td>
+</tr>
+<tr>
+<td>BD</td>
+<td>I</td>
+<td>延迟槽标记，标记受害指令是不是延迟槽指令</td>
+</tr>
+<tr>
+<td>HWInt[15:10]</td>
+<td>I</td>
+<td>标记发生了哪个中断</td>
+</tr>
+<tr>
+<td>Exc[6:2]</td>
+<td>I</td>
+<td>表示发生异常的原因</td>
+</tr>
+<tr>
+<td>ERET</td>
+<td>I</td>
+<td>eret指令的控制信号，如果输入eret要将EXL置位0</td>
+</tr>
+<tr>
+<td>CP0Out[31:0]</td>
+<td>O</td>
+<td>从CP0寄存器中读出的数据</td>
+</tr>
+<tr>
+<td>EPCOut[31:0]</td>
+<td>O</td>
+<td>异常结束时输出保存的EPC数据</td>
+</tr>
+<tr>
+<td>ReqOut</td>
+<td>O</td>
+<td>输出当前是否正在异常状态</td>
+</tr>
+</tbody></table>
+<h4 id="中断异常流水"><a href="#中断异常流水" class="headerlink" title="中断异常流水"></a>中断异常流水</h4><p>我们要完成的事情有以下几个：判断某种异常是否发生、对异常进行选择和流水、对出现异常时的操作进行实现。</p>
+<h5 id="发生异常"><a href="#发生异常" class="headerlink" title="发生异常"></a>发生异常</h5><p>首先，我们需要判断异常是否发生。因此我们需要先对需要判断什么异常进行了解。</p>
+<table>
+<thead>
+<tr>
+<th>异常与中断码</th>
+<th>助记符与名称</th>
+<th>指令与指令类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>Int（外部中断）</td>
+<td>所有指令</td>
+<td>中断请求，来源于计时器与外部中断。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AdEL（取指异常）</td>
+<td>所有指令</td>
+<td>PC 地址未字对齐。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AdEL（取指异常）</td>
+<td>所有指令</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>AdEL（取指异常）</td>
+<td>lw</td>
+<td>取数地址未与 4 字节对齐。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AdEL（取指异常）</td>
+<td>lh</td>
+<td>取数地址未与 2 字节对齐。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AdEL（取指异常）</td>
+<td>lh,lb</td>
+<td>取 Timer 寄存器的值。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AdEL（取指异常）</td>
+<td>load型指令</td>
+<td>计算地址时加法溢出。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AdEL（取指异常）</td>
+<td>load型指令</td>
+<td>取数地址超出 DM、Timer0、Timer1、中断发生器的范围。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AdES（存数异常）</td>
+<td>sw</td>
+<td>存数地址未 4 字节对齐。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AdES（存数异常）</td>
+<td>sh</td>
+<td>存数地址未 2 字节对齐。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AdES（存数异常）</td>
+<td>sh,sb</td>
+<td>存 Timer 寄存器的值。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AdES（存数异常）</td>
+<td>store 型指令</td>
+<td>计算地址加法溢出。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AdES（存数异常）</td>
+<td>store 型指令</td>
+<td>向计时器的 Count 寄存器存值。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AdES（存数异常）</td>
+<td>store 型指令</td>
+<td>存数地址超出 DM、Timer0、Timer1、中断发生器的范围。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Syscall（系统调用）</td>
+<td>syscall</td>
+<td>系统调用。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>RI（未知指令）</td>
+<td>-</td>
+<td>未知的指令码。</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Ov（溢出异常）</td>
+<td>add, addi, sub</td>
+<td>算术溢出。</td>
+</tr>
+</tbody></table>
+<p>紧接着，我们需要判断这些异常都发生在流水线的哪一级（用来判断优先级），同时要对受害指令做出一定调整，这样才能保证它到达M级之前不会因为错误已经导致CPU出现无法进行的错误情况。为了让内部异常能够在M级被识别，我们需要让ExcCode也进入流水。所以我们分类讨论：</p>
+<h5 id="对异常的选择和流水"><a href="#对异常的选择和流水" class="headerlink" title="对异常的选择和流水"></a>对异常的选择和流水</h5><h6 id="F级错误"><a href="#F级错误" class="headerlink" title="F级错误"></a>F级错误</h6><p>AdEL（取指异常）：对于PC地址的异常，包括PC没有字对齐和PC地址超出了0x3000~0x6ffc的范围两种情况。针对这种情况：我们需要将ExcCode置为00100，并且对这条指令作出处理：将instr修改为nop。<br>我的代码为：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> F_AdEL_ExcCode=((|PC_DO__IM_PC[<span class="hljs-number">1</span>:<span class="hljs-number">0</span>])||(PC_DO__IM_PC&lt;<span class="hljs-number">32&#x27;h00003000</span>)||(PC_DO__IM_PC&gt;<span class="hljs-number">32&#x27;h00006ffc</span>))?<span class="hljs-number">5&#x27;b00100</span>:<span class="hljs-number">5&#x27;b00000</span>;<br><span class="hljs-keyword">assign</span> F_Instr=(F_AdEL_ExcCode!=<span class="hljs-number">0</span>)?<span class="hljs-number">0</span>:i_inst_rdata;<br></code></pre></td></tr></table></figure>
+
+<h6 id="D级错误"><a href="#D级错误" class="headerlink" title="D级错误"></a>D级错误</h6><p>RI（未知指令）：只需要在CU中判断这条指令的opcode和funct是否在指令集之内即可。如果不满足也是将instr改为nop。同时将ExcCode置为01010。</p>
+<p>Syscall（系统调用）：在CU中判断出当前指令是一条系统调用指令，则也将instr改为nop。同时将ExcCode置为01000。</p>
+<p>所以针对这两条指令，我在CU中进行检测，如果该指令是一条未知指令，我就让变量CU_RISyscall输出1，如果该指令是一条Syscall指令，那么我就让该变量输出2。然后我们同时在CU内和cpu内都将D级的机器码改成nop。在cpu中我的代码如下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> D_Instr=(CU_RISyscall!=<span class="hljs-number">0</span>)?<span class="hljs-number">0</span>:D_D_Instr__E_D_Instr;<br><span class="hljs-keyword">assign</span> D_RISyscall_ExcCode=(D_D_ExcCode!=<span class="hljs-number">0</span>)?D_D_ExcCode:<br>                           (CU_RISyscall==<span class="hljs-number">1</span>)?<span class="hljs-number">5&#x27;b01010</span>:<br>                           (CU_RISyscall==<span class="hljs-number">2</span>)?<span class="hljs-number">5&#x27;b01000</span>:<br>                           <span class="hljs-number">5&#x27;b00000</span>;<br></code></pre></td></tr></table></figure>
+
+<h6 id="E级错误"><a href="#E级错误" class="headerlink" title="E级错误"></a>E级错误</h6><p>Ov（计算类指令溢出）：这是针对add&#x2F;addi&#x2F;sub三条指令的错误，在ALU中计算溢出。此时我们需要清除grf的写使能，防止溢出的错误数据被写入。同时将ExcCode置为01100。</p>
+<p>AdEL（取数地址溢出）：和Ov在ALU中的溢出是相同的，差异在于本条指令是一条load指令，因此是不同的内部异常类型。同样我们需要清除grf的写使能，同时将ExcCode置为00100。</p>
+<p>AdES（存数地址溢出）：和前两种错误在ALU中的行为依然相同，但是本条指令是一条save指令，因此我们需要清除的是DM的写使能，让错误数据不存入内存，同时将ExcCode置为00101。</p>
+<p>因此我们不难发现，以上三种指令在ALU中的行为是一致的：溢出。所以我们只需要在ALU多一个溢出的判定输出就可以完成ALU内部的检测：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> extA=&#123;&#123;E_ALU_A[<span class="hljs-number">31</span>]&#125;,&#123;E_ALU_A&#125;&#125;;<br><span class="hljs-keyword">assign</span> extB=&#123;&#123;E_ALU_B[<span class="hljs-number">31</span>]&#125;,&#123;E_ALU_B&#125;&#125;;<br><span class="hljs-keyword">assign</span> ADDExt=extA+extB;<br><span class="hljs-keyword">assign</span> SUBExt=extA-extB;<br><span class="hljs-keyword">assign</span> AddOverflow=(ADDExt[<span class="hljs-number">32</span>]==ADDExt[<span class="hljs-number">31</span>])?<span class="hljs-number">0</span>:<span class="hljs-number">1</span>;<br><span class="hljs-keyword">assign</span> SubOverflow=(SUBExt[<span class="hljs-number">32</span>]==SUBExt[<span class="hljs-number">31</span>])?<span class="hljs-number">0</span>:<span class="hljs-number">1</span>;<br><span class="hljs-keyword">assign</span> Overflow=AddOverflow||SubOverflow;<br></code></pre></td></tr></table></figure>
+
+<p>然后我们同样需要在cpu中流水ExcCode并且将对应的写使能信号进行置零。以下是我在cpu中写的代码：（没有在cpu模块中用Parameter或者宏定义操作确实比较不便）</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> E_ALUOverflow_ExcCode=(E_E_ExcCode!=<span class="hljs-number">0</span>)?E_E_ExcCode:<br>                             ((ALUOverflow==<span class="hljs-number">1</span>)&amp;&amp;(E_E_op==<span class="hljs-number">1</span>||E_E_op==<span class="hljs-number">2</span>||E_E_op==<span class="hljs-number">14</span>))?<span class="hljs-number">5&#x27;b01100</span>:<span class="hljs-comment">//add sub addi</span><br>							 ((ALUOverflow==<span class="hljs-number">1</span>)&amp;&amp;(E_E_op==<span class="hljs-number">4</span>||E_E_op==<span class="hljs-number">19</span>||E_E_op==<span class="hljs-number">20</span>))?<span class="hljs-number">5&#x27;b00100</span>:<span class="hljs-comment">//lw lh lb</span><br>							 ((ALUOverflow==<span class="hljs-number">1</span>)&amp;&amp;(E_E_op==<span class="hljs-number">5</span>||E_E_op==<span class="hljs-number">17</span>||E_E_op==<span class="hljs-number">18</span>))?<span class="hljs-number">5&#x27;b00101</span>:<span class="hljs-comment">//sw sh sb</span><br>							 <span class="hljs-number">5&#x27;b00000</span>;<br><span class="hljs-keyword">assign</span> E_GRFWr=(ALUOverflow==<span class="hljs-number">1</span>&amp;&amp;(E_E_op==<span class="hljs-number">1</span>||E_E_op==<span class="hljs-number">2</span>||E_E_op==<span class="hljs-number">14</span>||E_E_op==<span class="hljs-number">4</span>||E_E_op==<span class="hljs-number">19</span>||E_E_op==<span class="hljs-number">20</span>))?<span class="hljs-number">0</span>:E_E_GRFWr__M_E_GRFWr;<br><span class="hljs-keyword">assign</span> E_DMWr=(ALUOverflow==<span class="hljs-number">1</span>&amp;&amp;(E_E_op==<span class="hljs-number">5</span>||E_E_op==<span class="hljs-number">17</span>||E_E_op==<span class="hljs-number">18</span>))?<span class="hljs-number">0</span>:E_E_DMWr__M_E_DMWr;<br></code></pre></td></tr></table></figure>
+
+<h6 id="M级错误"><a href="#M级错误" class="headerlink" title="M级错误"></a>M级错误</h6><p>AdEL（取数地址未对齐、非法取数）：非法取数即地址越界。对于这种异常我们需要清除grf的写使能，同时将ExcCode置为00100。</p>
+<p>AdES（存数地址未对齐、非法存数）：同理，非法存数也是地址越界。我们只需要清除DM写使能信号即可，同时将ExcCode置为00101。</p>
+<p>由于我们已经将DM模块虚拟化放到了testbench中，所以我们在cpu中对M级给出的地址进行检测操作即可。要注意本题中DM的允许操作的地址为：0x0000_0000∼0x0000_2FFF和0x0000_7F00∼0x0000_7F0B,0x0000_7F10∼0x0000_7F1B,0x0000_7F20∼0x0000_7F23。同时由于0x0000_7F00∼0x0000_7F0B,0x0000_7F10∼0x0000_7F1B域，只支持lw和sw的操作，因此对于半字和字节相关存取操作我们只允许第一个域和第四个域的操作。我的代码如下（全部在cpu模块中）：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> DM_Addr_Fault=(M_M_ALUAns__DM_Addr&lt;<span class="hljs-number">0</span>||(M_M_ALUAns__DM_Addr&gt;<span class="hljs-number">32&#x27;h0000_2fff</span>&amp;&amp;M_M_ALUAns__DM_Addr&lt;<span class="hljs-number">32&#x27;h0000_7f00</span>)||(M_M_ALUAns__DM_Addr&gt;<span class="hljs-number">32&#x27;h0000_7f0b</span>&amp;&amp;M_M_ALUAns__DM_Addr&lt;<span class="hljs-number">32&#x27;h0000_7f10</span>)||(M_M_ALUAns__DM_Addr&gt;<span class="hljs-number">32&#x27;h0000_7f1b</span>&amp;&amp;M_M_ALUAns__DM_Addr&lt;<span class="hljs-number">32&#x27;h0000_7f20</span>)||M_M_ALUAns__DM_Addr&gt;<span class="hljs-number">32&#x27;h0000_7f23</span>)?<span class="hljs-number">1</span>:<br>                     ((M_M_op==<span class="hljs-number">18</span>||M_M_op==<span class="hljs-number">20</span>)&amp;&amp;(M_M_ALUAns__DM_Addr[<span class="hljs-number">0</span>]==<span class="hljs-number">1&#x27;b1</span>||(M_M_ALUAns__DM_Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f00</span>&amp;&amp;M_M_ALUAns__DM_Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f1b</span>)))?<span class="hljs-number">1</span>:<br>					 ((M_M_op==<span class="hljs-number">17</span>||M_M_op==<span class="hljs-number">19</span>)&amp;&amp;(M_M_ALUAns__DM_Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f00</span>&amp;&amp;M_M_ALUAns__DM_Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f1b</span>))?<span class="hljs-number">1</span>:<br>					 ((M_M_op==<span class="hljs-number">4</span>||M_M_op==<span class="hljs-number">5</span>)&amp;&amp;((|M_M_ALUAns__DM_Addr[<span class="hljs-number">1</span>:<span class="hljs-number">0</span>])==<span class="hljs-number">1&#x27;b1</span>))?<span class="hljs-number">1</span>:<br>					 <span class="hljs-number">0</span>;<br><span class="hljs-keyword">assign</span> M_GRFWr=((DM_Addr_Fault==<span class="hljs-number">1&#x27;b1</span>)&amp;&amp;(E_E_op==<span class="hljs-number">4</span>||E_E_op==<span class="hljs-number">19</span>||E_E_op==<span class="hljs-number">20</span>))?<span class="hljs-number">0</span>:M_M_GRFWr__W_M_GRFWr;<br><span class="hljs-keyword">assign</span> M_DMWr=((DM_Addr_Fault==<span class="hljs-number">1&#x27;b1</span>)&amp;&amp;(E_E_op==<span class="hljs-number">5</span>||E_E_op==<span class="hljs-number">17</span>||E_E_op==<span class="hljs-number">18</span>))?<span class="hljs-number">0</span>:M_M_DMWr__DM_Wr;<br><span class="hljs-keyword">assign</span> ExcCode=(M_M_ExcCode!=<span class="hljs-number">0</span>)?M_M_ExcCode:<br>               ((DM_Addr_Fault==<span class="hljs-number">1&#x27;b1</span>)&amp;&amp;(E_E_op==<span class="hljs-number">4</span>||E_E_op==<span class="hljs-number">19</span>||E_E_op==<span class="hljs-number">20</span>))?<span class="hljs-number">5&#x27;b00100</span>:<br>			   ((DM_Addr_Fault==<span class="hljs-number">1&#x27;b1</span>)&amp;&amp;(E_E_op==<span class="hljs-number">5</span>||E_E_op==<span class="hljs-number">17</span>||E_E_op==<span class="hljs-number">18</span>))?<span class="hljs-number">5&#x27;b00101</span>:<br>			   <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+
+<p>则此时经过流水和优先级分析，这里的ExcCode就是这一条指令的最优先的指令。同时由于这条指令就是当前流水线里最优先的指令，因此它的异常一定是需要被最先响应的。所以我们可以确定此处的ExcCode就是我们需要输入CP0的内部异常数据。</p>
+<h6 id="BD流水"><a href="#BD流水" class="headerlink" title="BD流水"></a>BD流水</h6><p>由于在CP0中针对非延迟槽指令和延迟槽指令的EPC返回地址不同。证明我们需要将BD信号（本条受害信号是否是延迟槽指令）也放入CP0，所以我们对BD也需要流水。<br>我们只需要在D级进行判断即可：如果当前D级指令是一条跳转指令（beq,bne,jal,jr），我们就将一个BD&#x3D;1信号传输给D寄存器，这样下一条指令（即延迟槽指令）进入D级时BD也会跟随进入。<br>所以我们要做的操作就只有在D,E,M三级寄存器上都构建出数据通路，并且在D级（CU中）做好判断即可。</p>
+<p>在CU中的BD控制信号判断：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> CU_F_BD=(op==beq||op==bne||op==jal||op==jr)?<span class="hljs-number">1</span>:<br>               <span class="hljs-number">0</span>;					  <br></code></pre></td></tr></table></figure>
+
+<h5 id="出现异常时的操作"><a href="#出现异常时的操作" class="headerlink" title="出现异常时的操作"></a>出现异常时的操作</h5><h6 id="清空流水线"><a href="#清空流水线" class="headerlink" title="清空流水线"></a>清空流水线</h6><p>出现异常的操作，其实就是对M级及之前的流水线进行清空。对于一般的D,M寄存器，我们只需要在本来就有的Reset信号旁边并上一个Req信号即可。真正需要注意清空优先级的是PC和E级寄存器：</p>
+<p>对于PC寄存器，Reset，Req和Stall情况下的操作是不同的：对于Reset，我们需要将PC置成0x3000，对于Req，我们需要将PC置成0x4180，而对于Stall，我们就是正常的暂停PC的改变，让它还是上一条指令的PC。所以我们需要用if,else-if结构来划定其优先级（我对于暂停的做法是赋给它使能信号，使能信号为0时就是暂停）：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">if</span>(Reset==<span class="hljs-number">1&#x27;b1</span>)<br>	pc&lt;=<span class="hljs-number">32&#x27;h00003000</span>;<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(CP0_ReqOut==<span class="hljs-number">1&#x27;b1</span>)<br>	pc&lt;=<span class="hljs-number">32&#x27;h00004180</span>;<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(F_PC_EN==<span class="hljs-number">1&#x27;b1</span>)<br>	pc&lt;=F_PC_DI;<br></code></pre></td></tr></table></figure>
+
+<p>对于E级寄存器，重要的就是BD寄存器的情况。因为如果简单的将Reset信号和Req信号进行或操作，那么在暂停时也会导致BD被置为0，这样就错误了（引用教程中的话：因为在外部去看的话，会发现宏观 PC 是相同的，但是延迟槽标记是不同的，这显然是不正确的。如果在延迟槽指令被阻塞时产生中断，并且 nop 没有流水延迟槽标记，那么 EPC 就会被设置错误的值，无法通过评测），将BD在置零的时候进行判断即可：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">if</span>(Reset==<span class="hljs-number">1&#x27;b1</span>||CP0_ReqOut==<span class="hljs-number">1&#x27;b1</span>)<br>	BD&lt;=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(E_Clr==<span class="hljs-number">1&#x27;b1</span>)<br>	BD&lt;=E_D_BD;<br></code></pre></td></tr></table></figure>
+
+<p>还有就是E级时PC的情况。在暂停时E_PC也应该从D_PC中获取，这样如果这条插入的nop空泡进入M级时发生外部中断，存入EPC的时下一条被暂停指令的PC（因为被流水了）而不是空PC，否则eret后跳回位置就是0x0，就会出错。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">if</span>(Reset==<span class="hljs-number">1&#x27;b1</span>||CP0_ReqOut==<span class="hljs-number">1&#x27;b1</span>)<br>	PC&lt;=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(E_Clr==<span class="hljs-number">1&#x27;b1</span>)<br>	PC&lt;=E_D_PC;<br></code></pre></td></tr></table></figure>
+
+<h6 id="乘除槽"><a href="#乘除槽" class="headerlink" title="乘除槽"></a>乘除槽</h6><p>我们需要阅读教程中的这一段说明文字：</p>
+<p>在进入中断或异常状态时，如果受害指令及其后续指令已经改变了 MDU 的状态，则无需恢复。假设 CP0 在 M 级，MDU 在 E 级，考虑以下情况：<br>mult 在 E 级启动了乘法运算，流水到 M 级时产生了中断，此时无需停止乘法计算，其它乘除法指令同理。<br>mthi 在 E 级修改了 HI 寄存器，流水到 M 级时产生了中断，此时无需恢复 HI 寄存器的值，mtlo 同理。<br>mult 在 E 级，受害指令在 M 级，此时还未改变 MDU 状态，不应开始乘法计算，其它乘除法指令同理。<br>mthi 在 E 级，受害指令在 M 级，此时还未改变 MDU 状态，不应修改 HI 寄存器的值，mtlo 同理。</p>
+<p>也即，由于我们需要消除异常指令及其后的指令流水带来的写入内存影响，所以对于异常指令，我们需要保证其写入位置使能关闭，这也就是我们为什么之前需要关闭grfwr和dmwr的原因，而后续指令由于最多只能进行到E级，正常情况下是不会改变grf和dm中的存储就会被req信号清空，所以不必考虑。</p>
+<p>但是我们要注意到乘除模块是在E级的，而无论是mult,div这样会让模块开始运算的指令，抑或是mthi,mtlo这两个需要改变HI,LO寄存器值的运算，都是在M级发现错误时就已经开始运作的。所以我们需要保证如果是M出错而它们在E，就不让他们工作，而他们到M发生中断就不管了。也就是上面教程说的。我们增加一个判断信号即可：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(busy==<span class="hljs-number">0</span>&amp;&amp;CP0_ReqOut==<span class="hljs-number">0</span>) <span class="hljs-keyword">begin</span> <span class="hljs-comment">//add req=0,M not wrong</span><br>	<span class="hljs-keyword">if</span>(op==mult) <span class="hljs-keyword">begin</span><br>	    &#123;hi,lo&#125;&lt;=<span class="hljs-built_in">$signed</span>(E_MulDiv_RD1)*<span class="hljs-built_in">$signed</span>(E_MulDiv_RD2);<br>		busy&lt;=<span class="hljs-number">5</span>;<br>	<span class="hljs-keyword">end</span><br>	<span class="hljs-comment">//...multu,div,divu,mthi,mtlo</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="添加指令"><a href="#添加指令" class="headerlink" title="添加指令"></a>添加指令</h4><p>我们添加的指令包括mfc0,mtc0,eret。其中前两条指令就是和P6增加指令类似的操作（尤其类似mfhi,mflo,mthi,mtlo，都是对E级外置的一些寄存器的存储和读取过程）。</p>
+<h5 id="mfc0"><a href="#mfc0" class="headerlink" title="mfc0"></a>mfc0</h5><p>mfc0的指令相关信息如下：</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>31-26</th>
+<th>25-21</th>
+<th>20-16</th>
+<th>15-11</th>
+<th>10-0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编码</td>
+<td>COP0:010000</td>
+<td>mfc0:00000</td>
+<td>rt:5</td>
+<td>rd:5</td>
+<td>0:11</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>GPR[rt] &lt;- CP0[rd]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>可见本指令并没有用到rs和rt寄存器在grf中存的值，因此tuse全为0，而生成新数据（抓取的CP0[rd]的值）在M级，因此tnew和读取指令，如lw相同，为3。<br>本指令输入CP0的读取寄存器编号(CP0A3)为M_Instr[15:11]，也就是rd的位置。本条指令和之前的指令存在差别，靠后的rd指示的是读取寄存器位置而靠前的rt指示的是存入寄存器位置，我们需要注意（所以本条指令存入位置ATarget也为Instr[20:16]，相当于grfwr&#x3D;0）<br>还有一点，本指令可以类比mfhi,mflo，在M级同时有DM和CP0两个元件提供输出，因此我们需要对这两个输出进行选择。正如为了完成mfhi和mflo我们需要将一个ALUMHLOSel进行流水，这里我们也需要将DMCP0Sel进行流水，当其为0时输出DM的读取值，1时输出CP0的读取值。</p>
+<h5 id="mtc0"><a href="#mtc0" class="headerlink" title="mtc0"></a>mtc0</h5><p>mtc0的指令相关信息如下：</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>31-26</th>
+<th>25-21</th>
+<th>20-16</th>
+<th>15-11</th>
+<th>10-0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编码</td>
+<td>COP0:010000</td>
+<td>mtc0:00100</td>
+<td>rt:5</td>
+<td>rd:5</td>
+<td>0:11</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>CP0[rd] &lt;- GPR[rt]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>本指令完全可以类比mthi,mtlo，只是存入位置在M级，需要改变Tuse,Tnew即可。同时注意存入的要是M级经过转发后的M_MUX_RD2。</p>
+<h5 id="eret"><a href="#eret" class="headerlink" title="eret"></a>eret</h5><p>本条指令的功能其实就是在handler（异常处理程序）的最后将PC跳回原先的受害指令的PC，相当于退出函数的jr $ra的感觉。它的相关信息如下：</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>31-26</th>
+<th>25-6</th>
+<th>5-0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编码</td>
+<td>COP0:010000</td>
+<td>10000_00000_00000_00000:20</td>
+<td>eret:011000</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>PC &lt;- CP0[epc]</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这里我想将eret放在D级实现。因为很明显eret之后的指令（PC+4）没什么意义，我们需要的是epc后的指令。所以如果我们将eret放在M级CP0位置感应，我们就需要再次清空其后的流水线，所以我想在D级就判断eret。<br>但是很明显，D级判断eret无法阻止pc:eret+4这条指令在F级被读出。所以我们可以将PC进行选择，如果eret判断为1，我们就将读取epc中存储的指令地址指向的那条指令。代码如下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> D_op=CU_op__E_CU_op;<br><span class="hljs-keyword">assign</span> CP0_ERET=(D_op==<span class="hljs-number">31</span>)?<span class="hljs-number">1</span>:<span class="hljs-number">0</span>;<span class="hljs-comment">//eret</span><br><span class="hljs-keyword">assign</span> i_inst_addr=(CP0_ERET==<span class="hljs-number">1</span>)?CP0_EPCOut:PC_DO__IM_PC; <br></code></pre></td></tr></table></figure>
+
+<p>但是这里还会碰到一个问题，那就是一旦我们在D级就进行判断，就有可能出现数据冒险。如果有eret(D)-mtc0(E&#x2F;M)而且mtc0存入位置是EPC的情况，就有可能前面的存入指令还没有更改EPC，后面的eret已经读出了旧的EPC，就会出现问题。<br>我采用的方法是转发，我们只需要判断E,M两级指令是否为写入地址是14（EPC）的mtc0指令(op&#x3D;&#x3D;30)即可，而且E级更新，优先级更高，一旦出现这种情况，就直接将GPR[rt]（当然这里也是经过普通转发暂停处理完成后的）当作EPC进行输出。所以我们修改选择给im的pc即可，代码如下：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> i_inst_addr=(E_E_op__M_E_op==<span class="hljs-number">30</span>&amp;&amp;E_E_Instr__M_E_Instr[<span class="hljs-number">15</span>:<span class="hljs-number">11</span>]==<span class="hljs-number">14</span>)?E_MUX_RD2:<span class="hljs-comment">//E forward</span><br>                   (M_M_op==<span class="hljs-number">30</span>&amp;&amp;M_M_Instr__W_M_Instr[<span class="hljs-number">15</span>:<span class="hljs-number">11</span>]==<span class="hljs-number">14</span>)?M_MUX_RD2:<span class="hljs-comment">//M forward</span><br>                   (CP0_ERET==<span class="hljs-number">1</span>)?CP0_EPCOut:<span class="hljs-comment">//simple eret</span><br>                   PC_DO__IM_PC; <span class="hljs-comment">//simple instruction</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="CPU封装"><a href="#CPU封装" class="headerlink" title="CPU封装"></a>CPU封装</h4><p>根据题意，我们需要将原本的顶层模块mips和新写的cp0进行连接后作为一个新的模块CPU，而这个CPU模块需要和其他的模块，例如Bridge，Timer模块组成新的顶层模块mips，这就需要我们对原本的顶层端口进行增加（其实就是增加了两个端口，并且原先的一些DM相关端口的功能发生了一定改变）<br>我给出的新端口设计如下：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>clk</td>
+<td>I</td>
+<td>时钟信号输入</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>I</td>
+<td>同步复位信号输入</td>
+</tr>
+<tr>
+<td>i_inst_addr[31:0]</td>
+<td>O</td>
+<td>输出给testbench中的外置IM的机器码地址pc</td>
+</tr>
+<tr>
+<td>i_inst_rdata[31:0]</td>
+<td>I</td>
+<td>在testbench中的外置IM根据pc传回的当前指令机器码</td>
+</tr>
+<tr>
+<td>m_data_addr[31:0]</td>
+<td>O</td>
+<td>需要输出给BRIDGE的存入地址，需要通过BRIDGE进行选择</td>
+</tr>
+<tr>
+<td>m_data_wdata[31:0]</td>
+<td>O</td>
+<td>输出到BRIDGE中的存储值</td>
+</tr>
+<tr>
+<td>m_data_byteen[3:0]</td>
+<td>O</td>
+<td>字节使能信号（解释：这个必须从这里输出，因为桥产生不了位选信息，需要输入到BRIDGE里处理是否为0，但是其他的写使能信号，直接从BRIDGE中生成）</td>
+</tr>
+<tr>
+<td>m_data_rdata[31:0]</td>
+<td>I</td>
+<td>从BRIDGE输入的load指令的读取值</td>
+</tr>
+<tr>
+<td>m_inst_addr[31:0]</td>
+<td>O</td>
+<td>当前M级指令PC，输出给评测机，可用作宏观PC</td>
+</tr>
+<tr>
+<td>w_grf_we</td>
+<td>O</td>
+<td>grf写使能信号</td>
+</tr>
+<tr>
+<td>w_grf_addr[4:0]</td>
+<td>O</td>
+<td>grf写入寄存器序号</td>
+</tr>
+<tr>
+<td>w_grf_wdata[31:0]</td>
+<td>O</td>
+<td>grf待写入数据</td>
+</tr>
+<tr>
+<td>w_inst_addr[31:0]</td>
+<td>O</td>
+<td>当前W级指令PC</td>
+</tr>
+<tr>
+<td>HWInt[5:0]</td>
+<td>I</td>
+<td>当前外部中断信号，输出给CP0</td>
+</tr>
+<tr>
+<td>IntReq</td>
+<td>O</td>
+<td>CP0输出，表示目前的异常情况</td>
+</tr>
+</tbody></table>
+<h4 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h4><p>对于系统桥，我的理解其实就是一个组合逻辑的“提示器”，我们将DM,两个Timer和中断发生器当作四个不同地址的外设，此时我们需要确定M级相关的store,load指令应该存取到哪个地址，哪个外设。此时我们就需要用Bridge来进行内存操作和真正的外设之间的连接。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221211114551395.png" srcset="/img/loading.gif" lazyload></p>
+<p>参考博客给出的Bridge模块相关接口：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Addr[31:0]</td>
+<td>I</td>
+<td>ALU计算出的存取操作写入地址(base+offset)</td>
+</tr>
+<tr>
+<td>M_byteen[3:0]</td>
+<td>I</td>
+<td>从CPU发出的存入操作使能信号（不确定是用于DM还是中断发生器）</td>
+</tr>
+<tr>
+<td>DMOut[31:0]</td>
+<td>I</td>
+<td>从DM中读出的数据</td>
+</tr>
+<tr>
+<td>TC0Out[31:0]</td>
+<td>I</td>
+<td>从TC0中读出的数据</td>
+</tr>
+<tr>
+<td>TC1Out[31:0]</td>
+<td>I</td>
+<td>从TC1中读出的数据</td>
+</tr>
+<tr>
+<td>DMAddr[31:0]</td>
+<td>O</td>
+<td>要写入DM外设的地址，若不写则置0</td>
+</tr>
+<tr>
+<td>TC0Addr[31:0]</td>
+<td>O</td>
+<td>要写入TC0外设的地址，若不写则置0</td>
+</tr>
+<tr>
+<td>TC1Addr[31:0]</td>
+<td>O</td>
+<td>要写入TC1外设的地址，若不写则置0</td>
+</tr>
+<tr>
+<td>DM_byteen[3:0]</td>
+<td>O</td>
+<td>DM的存入操作使能信号（用来测评）</td>
+</tr>
+<tr>
+<td>TC0Wr</td>
+<td>O</td>
+<td>TC0的写使能信号（因为只能存入整字，所以一位即可）</td>
+</tr>
+<tr>
+<td>TC1Wr</td>
+<td>O</td>
+<td>TC1的写使能信号（因为只能存入整字，所以一位即可）</td>
+</tr>
+<tr>
+<td>CPUIn[31:0]</td>
+<td>O</td>
+<td>从这些外设的输出中选出真正CPU想要读取的数据，输出回CPU</td>
+</tr>
+<tr>
+<td>IGAddr[31:0]</td>
+<td>O</td>
+<td>要响应中断发生器的地址，要输出给Testbench</td>
+</tr>
+<tr>
+<td>IG_byteen[3:0]</td>
+<td>O</td>
+<td>要响应中断发生器地址，存入的操作使能信号，输出给Testbench</td>
+</tr>
+</tbody></table>
+<p>要注意，中断发生器这一外设是一个简化版的用于模拟的外设，如果存入这一位置，我们只要给出我们的存入地址和存入的使能信号（4位）即可，同时load这一位置直接赋0，不用在CPUIn处做过多判断（？）<br>写Bridge时我的思路就是：有什么东西需要output就assign什么东西，assign的方式是：CPU给出的Addr如果在外设范围内就是CPU给出的那个东西，否则就是0。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> DMAddr=(Addr&gt;=<span class="hljs-number">32&#x27;h0000_0000</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_2fff</span>)?Addr:<span class="hljs-number">0</span>; <span class="hljs-comment">// address to DM</span><br><span class="hljs-keyword">assign</span> TC0Out=(Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f00</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f0b</span>)?Addr:<span class="hljs-number">0</span>; <span class="hljs-comment">// address to TC0</span><br><span class="hljs-keyword">assign</span> TC1Out=(Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f10</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f1b</span>)?Addr:<span class="hljs-number">0</span>; <span class="hljs-comment">// address to TC1</span><br><br><span class="hljs-keyword">assign</span> DM_byteen=(Addr&gt;=<span class="hljs-number">32&#x27;h0000_0000</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_2fff</span>)?M_byteen:<span class="hljs-number">0</span>; <span class="hljs-comment">//byteen to DM</span><br><span class="hljs-keyword">assign</span> TC0Wr=(Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f00</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f0b</span>)?(|M_byteen):<span class="hljs-number">0</span>; <span class="hljs-comment">//wr to TC0</span><br><span class="hljs-keyword">assign</span> TC1Wr=(Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f10</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f1b</span>)?(|M_byteen):<span class="hljs-number">0</span>; <span class="hljs-comment">//wr to TC1</span><br><br><span class="hljs-keyword">assign</span> CPUIn=(Addr&gt;=<span class="hljs-number">32&#x27;h0000_0000</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_2fff</span>)?DMOut:<br>             (Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f00</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f0b</span>)?TC0Out:<br>			 (Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f10</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f1b</span>)?TC1Out:<br>			 <span class="hljs-number">0</span>; <span class="hljs-comment">//data back to CPU M</span><br><br><span class="hljs-keyword">assign</span> IGAddr=(Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f20</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f23</span>)?Addr:<span class="hljs-number">0</span>; <span class="hljs-comment">//address to IG</span><br><span class="hljs-keyword">assign</span> IG_byteen=(Addr&gt;=<span class="hljs-number">32&#x27;h0000_7f20</span>&amp;&amp;Addr&lt;=<span class="hljs-number">32&#x27;h0000_7f23</span>)?M_byteen:<span class="hljs-number">0</span>; <span class="hljs-comment">//byteen to IG</span><br></code></pre></td></tr></table></figure>
+
+<p>还有：CPU给出的存入数据是不需要通过桥的，因为看上面的图我们也能发现：其实蓝线只是穿过了Bridge而并没有什么改变，还是平等的赋给所有外设，是否真正写入是通过写使能信号的赋能。</p>
+<h4 id="计时器"><a href="#计时器" class="headerlink" title="计时器"></a>计时器</h4><p>计时器的代码在教程中有。我个人就把它当成一个地址不同的，有输入有输出的，只能整字存取的DM即可，不再赘述。</p>
+<h4 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h4><ol>
+<li><p>相当于本题的中断发生器，就是在外设上做操作的时候就把中断请求发给了CPU，然后CPU就响应不同的中断，并通过这种方式读取这些操作。</p>
+</li>
+<li><p>因为这样比较方便管理，一方面只要出现中断就可以在下一个上升沿直接跳转到指定地点而不需要进行任何读取，另一方面我们也能确定这些异常处理程序不会和其他程序有PC冲突。当然用户提供程序也可以，但是这样就让我们需要每次都重新确定这个程序的位置（不是固定值），就很麻烦。</p>
+</li>
+<li><p>因为外设不同，所占据的地址也不同，一旦有很多外设就要在CPU中装入非常多的多路选择器来确定要写入的位置，所以我们可以把选择传输过程抽象成Bridge和CPU分离，便于这个逻辑的管理。</p>
+</li>
+<li><p>模式0：载入计数器后开始计时，当计数器倒计时到0的时候就让控制寄存器使能信号变成0。只有当外界给使能信号重新赋值为1才会重新把要计的时间载入计数器。模式1：只要计时器倒计时变成0就自动重新载入，同时使能信号也是只持续一个周期。</p>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221212190719282.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="5">
+<li><p>宏观指令就会出现PC&#x3D;0，这显然和现实情况不符。所以需要在暂停时E保留的是PC和BD，这样是为了让这条Nop指令在外部看来和后续的被延迟的指令拥有同样的外部属性。</p>
+</li>
+<li><p>作为一条跳转指令，如果其延迟槽出错，那么要返回的EPC就是这条跳转指令，但是由于rd和rs完全相同，那么会导致第二次跳转到与第一次不同的位置导致错误（相当于如果rd和rs相等，那么这个操作就不可逆了）。</p>
+</li>
+</ol>
+<h4 id="教程内容"><a href="#教程内容" class="headerlink" title="教程内容"></a>教程内容</h4><p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213161505295.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213161537840.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213161848319.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213162005700.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213162058583.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213162122799.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213162217816.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213162519574.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213162659380.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213162801337.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213162839863.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213163007503.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213163125469.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213163155118.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213163238344.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213163304763.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213163334360.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213163407734.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213163434261.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221213163511752.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">#计算机组成原理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/23/%E8%AE%A1%E7%BB%84P6%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P6课下作业总结">
+                        <span class="hidden-mobile">计组P6课下作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

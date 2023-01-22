@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对计组P1(Verilog，状态机)实验课下作业写法的总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组P1课下作业总结">
+<meta property="og:url" content="http://example.com/2023/01/22/%E8%AE%A1%E7%BB%84P1%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对计组P1(Verilog，状态机)实验课下作业写法的总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/makise2.jpg">
+<meta property="article:published_time" content="2023-01-22T15:10:31.000Z">
+<meta property="article:modified_time" content="2023-01-22T15:23:46.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/makise2.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>计组P1课下作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计组P1课下作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 23:10" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计组P1课下作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="P1-Q1-Verilog实现splitter"><a href="#P1-Q1-Verilog实现splitter" class="headerlink" title="P1.Q1 Verilog实现splitter"></a>P1.Q1 Verilog实现splitter</h3><ul>
+<li>题面：<br>使用 Verilog 搭建一个32位 Splitter , 给定一个32位的二进制数作为输入，将其划分为四个8位的二进制数作为输出。</li>
+<li>端口定义：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/splitter1.png" srcset="/img/loading.gif" lazyload></li>
+<li>思路：<br>就是每次使输入A向右逻辑移位8位，然后再取移位完以后的低8位即为对应输出。<br>取低8位的方法我采用的是和8’b11111111进行按位与运算，输出的即为低8位。<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> O4 = A &amp; (<span class="hljs-number">8&#x27;b11111111</span>);<br><span class="hljs-keyword">assign</span> O3 = (A &gt;&gt; <span class="hljs-number">8</span>) &amp; (<span class="hljs-number">8&#x27;b11111111</span>);<br><span class="hljs-keyword">assign</span> O2 = (A &gt;&gt; <span class="hljs-number">16</span>) &amp; (<span class="hljs-number">8&#x27;b11111111</span>);<br><span class="hljs-keyword">assign</span> O1 = A &gt;&gt; <span class="hljs-number">24</span>;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="P1-Q2-Verilog实现ALU"><a href="#P1-Q2-Verilog实现ALU" class="headerlink" title="P1.Q2 Verilog实现ALU"></a>P1.Q2 Verilog实现ALU</h3><ul>
+<li>题面：<br>使用 Verilog 搭建一个 32 位六运算 ALU 并提交。</li>
+<li>端口定义：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006115700372.png" srcset="/img/loading.gif" lazyload></li>
+<li>模块功能定义：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006115747970.png" srcset="/img/loading.gif" lazyload></li>
+<li>思路：对ALUOp输入进行判断，然后进行相应的计算，最后输出即可。</li>
+<li>主要问题：<br>首先就是判断输出，由于本题是组合逻辑，所以如果不用reg和always的组合，就不能使用if,case,while等等（只能在顺序块中使用）而应该使用三目运算符。<br>其次就是进行算数位移，不能直接把 <code>$signed(A) &gt;&gt;&gt; B</code>写在三目运算中，因为此之前还会有没有被声明为有符号数的A，导致此声明无效，最终还是逻辑位移。所以需要先对其计算，然后输出时直接输出计算值。<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">wire</span> [<span class="hljs-number">31</span>:<span class="hljs-number">0</span>] shift;<br><span class="hljs-keyword">assign</span> shift = <span class="hljs-built_in">$signed</span>(A) &gt;&gt;&gt; B;<br><span class="hljs-keyword">assign</span> C = (ALUOp == add) ? A + B :<br>	            (ALUOp == sub) ? A - B :<br>				(ALUOp == and_gate) ? A &amp; B :<br>				(ALUOp == or_gate) ? A | B :<br>				(ALUOp == logic_right) ? A &gt;&gt; B :<br>				(ALUOp == signed_right) ? shift :<br>				<span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+最后就是在tb中进行测试时，如果要测试算数右移，记得一定要使用三十二位符号数带入，如果你输入的符号数小于三十二位，那么高位补0后相当于将其又强制转化为了正数，此时依然是逻辑右移效果。</li>
+</ul>
+<h3 id="P1-Q3-Verilog实现EXT"><a href="#P1-Q3-Verilog实现EXT" class="headerlink" title="P1.Q3 Verilog实现EXT"></a>P1.Q3 Verilog实现EXT</h3><ul>
+<li>题面：<br>EXT为扩展单元，其主要功能是完成将输入到其中的16位数据进行符号扩展、零扩展以及将输入的16位数加载到高位等操作。</li>
+<li>端口定义：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006164217661.png" srcset="/img/loading.gif" lazyload></li>
+<li>功能定义：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006164349734.png" srcset="/img/loading.gif" lazyload></li>
+<li>思路：<br>利用位拼接运算符{}即可，根据题意拼接0或者最高位即可。</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> ext = (EOp == signed_extend) ? &#123;&#123;<span class="hljs-number">16</span>&#123;imm[<span class="hljs-number">15</span>]&#125;&#125;,imm&#125; :<br>	             (EOp == logic_extend) ? &#123;&#123;<span class="hljs-number">16</span>&#123;<span class="hljs-number">1&#x27;b0</span>&#125;&#125;,imm&#125; :<br>				 (EOp == high_load) ? &#123;imm,&#123;<span class="hljs-number">16</span>&#123;<span class="hljs-number">1&#x27;b0</span>&#125;&#125;&#125; :<br>				 &#123;&#123;<span class="hljs-number">14</span>&#123;imm[<span class="hljs-number">15</span>]&#125;&#125;,imm,&#123;<span class="hljs-number">2</span>&#123;<span class="hljs-number">1&#x27;b0</span>&#125;&#125;&#125;;<br></code></pre></td></tr></table></figure>
+<p>需要注意的点：不能写16{0}这样的式子，因为在你不指定0的限制时，默认是16位10进制数，此时拼接时相当于拼接了256位，明显错误。而应该写16{1‘b0}表示一位二进制0。</p>
+<h3 id="P1-Q4-Verilog时序逻辑"><a href="#P1-Q4-Verilog时序逻辑" class="headerlink" title="P1.Q4 Verilog时序逻辑"></a>P1.Q4 Verilog时序逻辑</h3><ul>
+<li>题面：<br>利用Verilog进行格雷码计数器的组成。</li>
+<li>端口定义：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006193134556.png" srcset="/img/loading.gif" lazyload></li>
+<li>实现功能：<br>1、 在任意一个时钟上升沿到来的时候，如果复位信号有效，则将计数器清零；<br>2、 每个时钟上升沿到来的时候，如果使能信号有效，计数器的值+1；<br>3、 在满足1时，即使2的条件满足，也不必执行2；<br>4、 计数器初值为0；<br>5、 当计数器的值在+1后出现溢出的情况时，将会回到零，同时从发生溢出的这个时钟上升沿开始，溢出标志位将会持续输出1，直到计数器被清零为止（其余情况下溢出标志位必须为0）。</li>
+<li>示范波形：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006193239630.png" srcset="/img/loading.gif" lazyload></li>
+<li>格雷码计数方式：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006193310694.png" srcset="/img/loading.gif" lazyload></li>
+<li>思路：<br>其实就是利用一个寄存器进行计数器状态寄存（当前加到几），然后在输出时利用三目运算符分别将当前寄存器中的状态值（就是对应数）变成对应的格雷码即可。<br>本题是同步复位，故Reset输入不需要写入敏感表，只需要注意先判断Reset是否为1即可。同时要注意此处溢出输出也需要利用单独的寄存器进行存储，才能在always块中改变（always 中不能有assign）。<br>状态改变代码：<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> Clk) <span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">if</span>(Reset == <span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>		state &lt;= <span class="hljs-number">0</span>;<br>		overflow_memory &lt;= <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">end</span><br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(En == <span class="hljs-number">1</span>) <span class="hljs-keyword">begin</span><br>		<span class="hljs-keyword">if</span>(state + <span class="hljs-number">1</span> &lt; <span class="hljs-number">8</span>)<br>			state &lt;= state + <span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>		    state &lt;= <span class="hljs-number">0</span>;<br>			overflow_memory &lt;= <span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">end</span><br>		<span class="hljs-keyword">else</span><br>		    state &lt;= state;<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+输出代码：（之前已经定义常量）<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> Output = (state == <span class="hljs-number">0</span>) ? grey_zero :<br>	                (state == <span class="hljs-number">1</span>) ? grey_one :<br>					(state == <span class="hljs-number">2</span>) ? grey_two :<br>					(state == <span class="hljs-number">3</span>) ? grey_three :<br>			<span class="hljs-comment">//……</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="P1-Q5-Verilog表达式状态机"><a href="#P1-Q5-Verilog表达式状态机" class="headerlink" title="P1.Q5 Verilog表达式状态机"></a>P1.Q5 Verilog表达式状态机</h3><ul>
+<li>题面：<br>现在有这样一类表达式F的字符串需要你来验证它们的合法性：<br>1、表达式F中只含有数字0-9，加号+，乘号* 。<br>2、表达式F可以按如下的规则产生：<br>a.单个数字[0-9]是F； b. 如果X是F，Y是F，X+Y也是F； c. 如果X是F，Y是F，X * Y也是F。</li>
+<li>非法情况：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006201738551.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>端口定义：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006201855511.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>功能定义：<br>每个时钟上升沿，状态机从 in 中读入一个ASCII编码的字符。假设读入的第i个字符为ci，则第n个时钟上升沿时，可以拼出一个字符串:<br>s&#x3D;c1c2….cn<br>我们需要你此时判断 s 是否符合表达式F的定义。假如s符合F的定义，那么 out 应输出1，否则输出0。<br>另外，每个 clr 上升沿时，请清零状态；如果 clk 的上升沿时 clr 为 1，也需要清零状态。清零后，上面定义的字符串s也应从空串开始计算。如果s当前是空串，out也应输出0。</p>
+</li>
+<li><p>思路：<br>本题类似于离散数学中的原子公式，首先画出状态转移图。<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221006210757471.png" srcset="/img/loading.gif" lazyload><br>然后根据此定义出四个状态（提前用常量规定），然后进行状态转移即可。本题的状态机比较奇特，因为是输入单个表达式而非考虑末尾，所以一旦进入错误状态（以上表格中4种）就无法再成功成为表达式，因此本题中state4进入就无法转移，不需要添加case4。<br>注意本题是异步复位，所以要把clr信号加入敏感表（注意写法），最后输出即可。</p>
+<p>状态转移模块：</p>
+</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">always</span> @(<span class="hljs-keyword">posedge</span> clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">posedge</span> clr) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">if</span>(clr == <span class="hljs-number">1</span>)<br>	    state = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>	    <span class="hljs-keyword">case</span> (state)<br>		state1:<br>			state &lt;= (in &gt;= <span class="hljs-string">&quot;0&quot;</span> &amp;&amp; in &lt;= <span class="hljs-string">&quot;9&quot;</span>) ? state2 : state4;<br>		state2:<br>		    state &lt;= (in &gt;= <span class="hljs-string">&quot;0&quot;</span> &amp;&amp; in &lt;= <span class="hljs-string">&quot;9&quot;</span>) ? state4 : state3;<br>		state3:<br>		    state &lt;= (in &gt;= <span class="hljs-string">&quot;0&quot;</span> &amp;&amp; in &lt;= <span class="hljs-string">&quot;9&quot;</span>) ? state2 : state4;<br>		<span class="hljs-keyword">endcase</span><br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>输出模块：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">assign</span> out = (state == state2) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="P1-附加题-语言块检查模拟"><a href="#P1-附加题-语言块检查模拟" class="headerlink" title="P1.附加题 语言块检查模拟"></a>P1.附加题 语言块检查模拟</h3><ul>
+<li><p>题面：<br>现在需要你用Verilog语言编写一个模拟语句块检查的工具。<br>为了简化要求，输入由ASCII字母和空格组成。一个或多个连续出现的字母构成一个单词，单词不区分大小写，单词之间由一个或多个空格分隔开。检查工具检查自复位之后的输入中，begin和end是否能够匹配。<br>匹配规则类似括号匹配：一个begin只能匹配一个end，但是一个匹配的begin必须出现在对应的end之前；允许出现嵌套；最后若出现不能按上述规则匹配的begin或end，则匹配失败。<br>输入的读取在时钟上升沿进行。</p>
+</li>
+<li><p>例子：<br>匹配示例：Hello world，begin comPuTer orGANization End。<br>不匹配示例：eND，beGin study。</p>
+</li>
+<li><p>端口定义：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221008120033762.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>其余要求：</p>
+</li>
+</ul>
+<ol>
+<li>必须严格按照模块的端口定义</li>
+<li>模块内不要包含任何$display语句 ，以防造成误判</li>
+<li>我们保证在使用模块前进行复位</li>
+<li>保证输入的单词数和单词长度均小于2^32</li>
+</ol>
+<ul>
+<li><p>示例波形：<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221008120201552.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>思路：本题的主体思路就是，首先建立两个有限状态机（吃了P0的亏，还是感觉对于不同状态利用不同状态机进行检测更加靠谱，否则可能出现状态重叠等问题很难处理），然后建立一个类似栈的寄存器（我此处用的是reg_state寄存器），每当检测到一个begin时其值加一，表示进入一个begin，检测到一个end时值减一，表示进入一个end。</p>
+</li>
+</ul>
+<p>本题的状态转移比较简单，每进入一个符号就是一个新状态即可。同时要区分输入一个破坏单词的字符（比如begi后输入非a）并不是回到空状态，而是进入一个错误状态，因为此时本单词输入还没有结束，并且永远不可能等于begin了。</p>
+<p>状态转移描写的重点在最后几个状态，我把begin检测状态机的代码放出：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs verilog">state_begi:<span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">if</span>(in == <span class="hljs-string">&quot;n&quot;</span> || in == <span class="hljs-string">&quot;N&quot;</span>) <span class="hljs-keyword">begin</span><br>		reg_state &lt;= reg_state + <span class="hljs-number">1</span>;<br>		begin_state &lt;= state_begin;<br>	<span class="hljs-keyword">end</span><br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(in == <span class="hljs-string">&quot; &quot;</span>) <br>		begin_state &lt;= spare;<br>	<span class="hljs-keyword">else</span><br>        begin_state &lt;= state_wrong_begin;				<br><span class="hljs-keyword">end</span><br>state_begin: <span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">if</span>(in == <span class="hljs-string">&quot; &quot;</span>)<br>		begin_state &lt;= spare;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>		begin_state &lt;= state_wrong_begin;<br>		reg_state &lt;= reg_state - <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>这是在检测到“begi”和“begin”时的情况，有以下几点需要注意：<br>首先，观察波形可以发现，当时钟上升沿输入d时，状态机立刻读取了begin，所以是否读取begin要在“begi且输入n”，也即上面的第一个case中就要判断。</p>
+<p>其次，关注到给出波形在endc输入时的波动可以发现，当输入是end时，即使下一个输入不是空格，但在这之间（d输入到c输入间）依然将end看作已经输入，此时改变reg_state值，直到判断下一个输入不是空格，就再把这个输入删除。因此判断输入要在第一个case（reg_state加）而判断是否真的输入了要在第二个case中（如果输入不是空格，证明没有真正输入，reg_state再减回去）</p>
+<p>最后，我这里reg_state的基准是1，也即begin和end匹配时其值为1（初始化也为1），因为如果初始化为0时，相当于可能检测到-1，而此时可能就需要符号转换<code>$signed()</code>，就比较容易出错，所以本题我设定基准是1，这样最少也是0就不会出错（为什么没有负数请看接下来的分析）</p>
+<p>最后就是end检测和输出的时候的一点设计：<br>end：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs verilog">state_end: <span class="hljs-keyword">begin</span><br>	<span class="hljs-keyword">if</span>(in == <span class="hljs-string">&quot; &quot;</span>) <span class="hljs-keyword">begin</span><br>		end_state &lt;= spare;<br>		flag_end &lt;= <span class="hljs-number">0</span>;<br>		<span class="hljs-keyword">if</span>(reg_state == <span class="hljs-number">0</span>)<br>			unable &lt;= <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">end</span><br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">begin</span><br>		end_state &lt;= state_wrong_end;<br>		reg_state &lt;= reg_state + <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<p>输出：<br><code>assign result = (unable == 0 &amp;&amp; reg_state == 1) ? 1 : 0;</code></p>
+<p>这其实是为了让reg_state不会为负数的一点设计，但是也挺符合实际的，也就是，当之前字符串已经匹配（即reg_state&#x3D;&#x3D;1）时出现了end在begin之前的情况，那么我们可以断言在reset之前这个字符串已经不可能符合条件了，因为无法用后置begin抵消前置end，因此只要发现reg_state为0时，就可以让一个寄存器（此处我命名为unable）为1，这时输出一定为0。<br>综上，当unable为0，而且reg_state为1时是全匹配状态，此时输出result为1。</p>
+<p>这就是P1全部作业了……P0第二次上机真得加油，希望自己真的能顺利过关吧！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">#计算机组成原理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P2%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P2课下作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计组P2课下作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P0%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P0课下作业总结">
+                        <span class="hidden-mobile">计组P0课下作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

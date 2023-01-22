@@ -1,0 +1,789 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对计组P2(Mars对C语言的翻译)实验课下作业写法的总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组P2课下作业总结">
+<meta property="og:url" content="http://example.com/2023/01/22/%E8%AE%A1%E7%BB%84P2%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对计组P2(Mars对C语言的翻译)实验课下作业写法的总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/makise3.jpg">
+<meta property="article:published_time" content="2023-01-22T15:25:52.000Z">
+<meta property="article:modified_time" content="2023-01-22T15:37:16.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/makise3.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>计组P2课下作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计组P2课下作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 23:25" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          57 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计组P2课下作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="P2-Q1-矩阵乘法"><a href="#P2-Q1-矩阵乘法" class="headerlink" title="P2.Q1 矩阵乘法"></a>P2.Q1 矩阵乘法</h3><ul>
+<li>题面<br>使用MIPS汇编语言编写一个具有矩阵相乘功能的汇编程序。</li>
+</ul>
+<ol>
+<li>首先读取方形矩阵的阶数n，然后再依次读取第一个矩阵（n行n列）和第二个矩阵（n行n列）中的元素。</li>
+<li>两个矩阵的阶数相同，我们提供的测试数据中0&lt;n≤8,每个矩阵元素是小于10的整数。</li>
+<li>最终将计算出的结果输出，每行n个数据，每个数据间用空格分开。评测机会自动过滤掉行尾空格以及最后的回车。</li>
+<li>请使用syscall结束程序：<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs perl">li $v0,<span class="hljs-number">10</span><br><span class="hljs-keyword">syscall</span><br></code></pre></td></tr></table></figure></li>
+<li>不考虑延迟槽。</li>
+</ol>
+<ul>
+<li>样例<br><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/matrix%201.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+<p>输入：<br>2 1 2 3 4 5 6 7 8（此处空格输入时都为回车)<br>输出：<br>19 22<br>43 50</p>
+<ul>
+<li>思路<br>其实我对MIPS编写现在的思路就是先用C语言想一遍应该怎么编写，然后再利用汇编语言进行翻译。我将这道题拆分成几个部分：</li>
+</ul>
+<ol>
+<li>数据空间的申请和数据初始化<br>在C语言中，要做这道题我大概需要这些变量：</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013115942683.png" srcset="/img/loading.gif" lazyload></p>
+<p>在汇编语言中，对于单个变量，例如i&#x2F;j&#x2F;k都可以直接用寄存器$t0等，所以只需要对二维数组申请空间，同时由于输出要用到空格和回车，所以也需要对这两个字符申请空间，具体如下：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013120116087.png" srcset="/img/loading.gif" lazyload></p>
+<p>由于本题我们无法提前得知行数和列数，因此只能用题目给的范围的最大值进行定义，即定义8 * 8的范围。<br>2. 数据的读取<br>数据的读取分为两个部分，首先就是对具体行数列数的读入，用一个简单的syscall 读入就好：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013120314552.png" srcset="/img/loading.gif" lazyload></p>
+<p>由于本题的行列数需要长期使用，所以将其存入s寄存器，放在$s0中随时取用。</p>
+<p>然后就是对二维数组一个一个读取放入，此时可以首先定义一个寻找地址的宏：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013120438776.png" srcset="/img/loading.gif" lazyload></p>
+<p>需要注意，本题由于圈定的范围是8 * 8而不是n * n，所以数据的地址获取是i * 8 + j而非i * n + j，否则就完全错误了。</p>
+<p>数据的读入就是利用一个简单的循环嵌套，C语言的写法大概是：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013120720144.png" srcset="/img/loading.gif" lazyload></p>
+<p>将其翻译成汇编语言就好，利用beq指令进行判断本行&#x2F;列是否完成输入并进行跳转。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013120834048.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="3">
+<li>数据运算并存入输出二维数组<br>矩阵的乘法其实就是，将第一个矩阵的第i行的所有元素和第二个矩阵第j列所有元素分别相乘后相加，再存入输出矩阵的[i][j]位置就好。所以此处再添加一个k变量进行三重循环就好，和读取的方式很像，仅展示计算处汇编代码：</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013121130436.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li>运算后的结果数组输出<br>和读入几乎完全一致，只是把sw指令换成lw指令，不再赘述。</li>
+</ol>
+<h3 id="P2-Q2-回文串判断"><a href="#P2-Q2-回文串判断" class="headerlink" title="P2.Q2 回文串判断"></a>P2.Q2 回文串判断</h3><ul>
+<li>题面</li>
+</ul>
+<p>实现满足下面功能的汇编程序：<br>判断输入的字符串是不是回文串，输出一个字符，是回文串输出1，否则输出0。</p>
+<p>输入格式：<br>第一行为一个整数n，代表字符串的长度。第二行开始的n行：每行一个字符(小写字母)，连起来为输入的字符串。(0&lt;n&lt;&#x3D;20)</p>
+<p>输出格式：<br>输出为一行，输出一个字符，是回文串输出1，否则输出0。</p>
+<ul>
+<li>注意事项</li>
+</ul>
+<ol>
+<li>如果你采取每次读入一个字符的系统调用（$v0&#x3D;12）来读入数据,那么我们保证你不会读入到任何换行符。如果你采取这种方式输入，那么对于样例，你可以在MARS中首先手动输入5，打回车，然后手动在一行之中输入abbdl。</li>
+<li>如果你采取一次读一行的系统调用（$v0&#x3D;8），那么你读入的每行有一个小写字母以及行尾的一个换行符。</li>
+<li>请使用syscall结束程序。</li>
+</ol>
+<ul>
+<li>思路<br>大致的C语言思路如下，进行翻译：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013165009978.png" srcset="/img/loading.gif" lazyload></p>
+<p>首先进行数据的空间申请，本题需要申请的只有存放字符的数组，也不需要对空格或回车做出说明。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013172053415.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后读入两个量，首先是需要读入的字符数，利用$s1进行存储，然后是判断是否还是回文串的标志变量（相当于flag），利用$s0进行存储。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013172246491.png" srcset="/img/loading.gif" lazyload></p>
+<p>之后的读入和第一题类似，但是一维数组更简单，只需要把循环量乘4就是地址（利用word申请肯定如此）。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013172524552.png" srcset="/img/loading.gif" lazyload></p>
+<p>至于进行判断，其实就是对于i和n-i-1两个对称元素进行判断就可以，可以利用i&lt;n&#x2F;2进行范围缩小（只需要保证前半段可以一一匹配后半段就可以）<br>需要注意的是，我们只能在不相等的时候给$s0赋值1，而不能在相等的时候再赋值0，因为要保证全部相等，如果这么做只要保证最后一次是相等就能判断成功，很明显是不正确的，因此要注意条件语句的写法。</p>
+<p>此处展示判断语句的写法：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013172913313.png" srcset="/img/loading.gif" lazyload></p>
+<p>最后直接输出$s0并且syscall结束即可，不再赘述。</p>
+<h3 id="P2-Q3-卷积运算"><a href="#P2-Q3-卷积运算" class="headerlink" title="P2.Q3 卷积运算"></a>P2.Q3 卷积运算</h3><ul>
+<li>题面</li>
+</ul>
+<p>使用MIPS汇编语言编写一个进行卷积运算的汇编程序。<br>卷积运算的定义：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/conv1.png" srcset="/img/loading.gif" lazyload></p>
+<p>其中f为待卷积矩阵，h为卷积核，g即为输出矩阵，k与l的终值分别为卷积核h的行大小、列大小。计算中不考虑边缘效应。</p>
+<p>具体要求：</p>
+<ol>
+<li>首先读取待卷积矩阵的行数m1和列数n1，然后读取卷积核的行数m2和列数n2。</li>
+<li>然后再依次读取待卷积矩阵(m1行n1列)和卷积核(m2行n2列)中的元素。</li>
+<li>卷积核的行列数分别严格小于待卷积矩阵的行列数.</li>
+<li>测试数据中0&lt;m1, n1, m2, n2 &lt;11</li>
+<li>输入的每个数的绝对值不超过2^10.</li>
+<li>最终输出进行卷积后的结果</li>
+<li>输出中，有m1-m2+1行，每行有n1-n2+1个数据，每个数据用空格分开。</li>
+<li>请使用syscall结束程序。</li>
+</ol>
+<ul>
+<li>样例</li>
+</ul>
+<p>输入：<br>4 3 2 2 1 2 3 4 5 6 7 8 9 10 11 12 0 1 2 3（空格全都是换行符，此处为了节省空间不展示）<br>输出：<br>25 31<br>43 49<br>61 67 </p>
+<ul>
+<li>思路</li>
+</ul>
+<p>先看一下用C语言表示的代码吧：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013212221083.png" srcset="/img/loading.gif" lazyload></p>
+<p>给数组申请空间也是和第一题比较类似，注意申请的时候要初始化0，也即要用“.word 0:100”的格式，如下：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013212516551.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以发现，输入输出和第一题都没有什么差距，可能唯一的差距在于，由于本题的矩阵范围是小于等于10，因此用宏求地址时不是乘8而是乘10，如下：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013212356106.png" srcset="/img/loading.gif" lazyload></p>
+<p>剩下的其实没有什么可以说的，主要是中间的四重循环要小心点写。尤其是我使用了一个all来当作输出矩阵每一个元素的输入值，因此要注意这个寄存器的清零和放入都是在第二层循环中放入的（i,j循环，k,l未循环）（观察C语言也可以发现）<br>其余的和第一题矩阵乘法并没有差别，不再赘述。下面是四层循环最中间的计算部分：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221013212940107.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="P2-Q4-全排列生成"><a href="#P2-Q4-全排列生成" class="headerlink" title="P2.Q4 全排列生成"></a>P2.Q4 全排列生成</h3><ul>
+<li>题面</li>
+</ul>
+<p>实现满足下面功能的汇编程序：</p>
+<ol>
+<li>使用mips实现全排列生成算法。</li>
+<li>以0x00000000为数据段起始地址。</li>
+<li>输入一个小于等于6的正整数，求出n的全排列，并按照字典序输出。</li>
+<li>每组数据最多执行500,000条指令。</li>
+<li>请使用syscall结束程序。</li>
+</ol>
+<p>输入格式：<br>只输入一行，输入一个整数n (0&lt;n&lt;&#x3D;6)</p>
+<p>输出格式：<br>按照字典序输出n!行数组，每行输出n个数字，数字之间以空格隔开，每行最后一个数字后可以有空格。</p>
+<ul>
+<li>样例：</li>
+</ul>
+<p>输入：<br>4<br>输出：<br>1 2 3 4<br>1 2 4 3<br>1 3 2 4<br>1 3 4 2<br>1 4 2 3<br>1 4 3 2<br>2 1 3 4<br>2 1 4 3<br>2 3 1 4<br>2 3 4 1<br>2 4 1 3<br>2 4 3 1<br>3 1 2 4<br>3 1 4 2<br>3 2 1 4<br>3 2 4 1<br>3 4 1 2<br>3 4 2 1<br>4 1 2 3<br>4 1 3 2<br>4 2 1 3<br>4 2 3 1<br>4 3 1 2<br>4 3 2 1</p>
+<ul>
+<li>C代码提示：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/MARS_code_911.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>思路：</li>
+</ul>
+<p>带有递归算法的汇编语言是真的麻烦……这里需要的就是细心。首先，由于需要对每次递归的参数进行保护，所以需要频繁执行入栈、出栈操作，此时可以写push和pop函数来简便算法。（本题开始的存储空间申请部分略去）</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221015104958803.png" srcset="/img/loading.gif" lazyload></p>
+<p>其实要注意的主要就是对函数中何时应该入栈、出栈，何时应该跳转进入下一层。虽然和华哥交流的时候，他推荐把除了ra以外的出入栈操作都写在下一层函数前后，相当于上一层函数对数据进行保护，如下：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221015105212830.png" srcset="/img/loading.gif" lazyload></p>
+<p>但我还是觉得这种方式不够直观，毕竟这种方式把ra的出入栈和其他临时变量的出入栈分离了，写起来比较要动脑子。我喜欢的还是在下一层函数的开头进行入栈，结束进行出栈。这种方式的写法是完全固定的：在函数开始时就全部入栈，然后在后面只要遇到return，或者函数结束，就进行出栈，也不用考虑ra的特殊性，出完栈直接jr回ra存储的地址即可（完全不用考虑调用函数的时候的出入栈，因为不需要，调用下一层函数直接调用就可以，只是要传参，如上图未注释部分）。</p>
+<p>入栈+传参：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221015105520076.png" srcset="/img/loading.gif" lazyload></p>
+<p>两处出栈：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221015105621162.png" srcset="/img/loading.gif" lazyload></p>
+<p>（好像没什么好说的，就是return处写一个，结尾处也写一个，不要忘了结尾处，不然只要到结尾就回主函数了 ）</p>
+<p>还有一些细节：</p>
+<ol>
+<li>入栈和出栈的寄存器顺序应该是正好相反的，这样才能够保证出栈的寄存器还原的数据是入栈的自身的数据，而不是入栈的其他寄存器的数据。</li>
+<li>本题考虑到a0需要在函数中做输出时输出数据的存储寄存器来syscall，所以利用了a1寄存器进行传参。所以本题a1是不需要出入栈的，因为保证a1只有传参用途，只在相邻的上下两层函数中连接，不需要返回旧状态；反之，a0则需要入栈，因为本题a0在函数中起到了输出作用，是一个临时变量，因此需要出入栈。</li>
+<li>调试的时候用2调试看能不能出1 2 2 1就可以了，用4太难了。</li>
+</ol>
+<p>输出（其实和前面的输出几乎一致，就是翻译C代码）：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221015110310601.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="P2-Q5-01迷宫"><a href="#P2-Q5-01迷宫" class="headerlink" title="P2.Q5 01迷宫"></a>P2.Q5 01迷宫</h3><ul>
+<li>题面</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221020105332421.png" srcset="/img/loading.gif" lazyload></p>
+<ol>
+<li>左图表示的是一个4 * 5的01矩阵，这个矩阵就是一个01迷宫。</li>
+<li>如左图，以红色0作为起点，绿色0作为终点，每一次行进只能选择上下左右中值为0且未走过的位置，满足上述条件的路线，即为一条迷宫逃跑路线。如右图中，蓝色的路线即为一条逃跑路线。</li>
+<li>使用mips实现01迷宫路线数目计算。</li>
+<li>以0x00000000为数据段起始地址。</li>
+<li>输入一个n * m的01矩阵作为01迷宫，并给定他的起点与终点，求出他不同逃跑路线的数目（不同逃跑路线中可以有相同的部分，但是不能完全相同）。</li>
+</ol>
+<p>输入格式：<br>  前两行输入两个整数n和m（n、m均为正整数并且小于等于7），分别代表01矩阵行数和列数。接下来的n * m行，每行输入1个整数（0或1），对应着01矩阵各个元素值(第i * m+j个整数为矩阵的第（i+1）行第j个元素，即一行一行输入)。接下来的四行分别代表迷宫的起点和终点，每行一个整数，分别代表起点与终点行数和列数。</p>
+<p>输出格式：<br>  只输出一个整数，代表逃跑路线的数目。</p>
+<p>样例输入：<br>4 5 0 0 1 0 0 1 0 0 0 1 1 0 1 0 1 1 0 0 0 0 1 1 4 5（空格都是回车，为了节省空间进行了修改）<br>样例输出：<br>2</p>
+<ul>
+<li>思路：<br>本题的解决方法其实也是一个递归调用。我的思路是：一开始将一个9 * 9矩阵全部赋值为1，然后后面将中间的7 * 7的部分按题目意思分别赋0或1。其原因是，最后的起点终点表示是从1开始的。如果是（1，1），我们就不需要转化为（0，0）再进行输出。<br>还有一个好处是：我的寻路思路是，先把当前位置赋值为1，然后向上下左右四个方向进行查找，如果是0，就进入那个方向的下一个格子。当四个方向都探索完成后，再把本格赋值改回0。如果本格就是终点就把逃跑路线数加一。所以为了保证四个方向都依然在我们的矩阵中，所以要给原本是7 * 7的矩阵”包一圈1“，这样就不用进行边界判断了。<br>（顺便一提，我一开始写成8 * 8了，只包了左上两个方向，最终果然tle了）<br>给出我的C代码：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-type">int</span> <span class="hljs-built_in">map</span>[<span class="hljs-number">9</span>][<span class="hljs-number">9</span>];<br><span class="hljs-type">int</span> routes = <span class="hljs-number">0</span>;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">getRoad</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y,<span class="hljs-type">int</span> outx,<span class="hljs-type">int</span> outy)</span>&#123;<br>	<span class="hljs-keyword">if</span>(x==outx&amp;&amp;y==outy)&#123;<br>	    routes++;<br>	    <span class="hljs-keyword">return</span>;<br>	&#125;<br>	<span class="hljs-keyword">else</span>&#123;<br>		<span class="hljs-built_in">map</span>[x][y]=<span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">if</span>(<span class="hljs-built_in">map</span>[x<span class="hljs-number">-1</span>][y]==<span class="hljs-number">0</span>)<br>		    getRoad(x<span class="hljs-number">-1</span>,y,outx,outy);<br>		<span class="hljs-keyword">if</span>(<span class="hljs-built_in">map</span>[x][y<span class="hljs-number">-1</span>]==<span class="hljs-number">0</span>)<br>		    getRoad(x,y<span class="hljs-number">-1</span>,outx,outy);<br>		<span class="hljs-keyword">if</span>(<span class="hljs-built_in">map</span>[x+<span class="hljs-number">1</span>][y]==<span class="hljs-number">0</span>)<br>		    getRoad(x+<span class="hljs-number">1</span>,y,outx,outy);<br>	    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">map</span>[x][y+<span class="hljs-number">1</span>]==<span class="hljs-number">0</span>)<br>	        getRoad(x,y+<span class="hljs-number">1</span>,outx,outy);<br>	    <span class="hljs-built_in">map</span>[x][y]=<span class="hljs-number">0</span>;<br>	    <span class="hljs-keyword">return</span>;<br>	&#125;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>	<span class="hljs-type">int</span> i,j,n,m,input;<br>	<span class="hljs-type">int</span> inx,iny,outx,outy;<br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">9</span>;i++)<br>	    <span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;<span class="hljs-number">9</span>;j++)<br>	        <span class="hljs-built_in">map</span>[i][j]=<span class="hljs-number">1</span>;<br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;n);<span class="hljs-comment">//行数 </span><br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;m);<span class="hljs-comment">//列数</span><br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>	    <span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;m;j++)&#123;<br>		    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;input);<br>			<span class="hljs-built_in">map</span>[i+<span class="hljs-number">1</span>][j+<span class="hljs-number">1</span>]=input;<br>		&#125;<span class="hljs-comment">//输入真正的0-1</span><br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;inx);<br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;iny);<br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;outx);<br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;outy); <br>	getRoad(inx,iny,outx,outy);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,routes);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+一旦检测C语言没有太大问题，那么我们进行转化即可。有几个点需要注意：<br>首先是二维矩阵寻址的写法：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221020110706511.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里想要强调的是：一定要在乘法的时候把9赋给一个空寄存器。我一开始是把它赋给了%ans，然后就发现因为后面我有getindex(%t2,%t2,%t1)这样的语句，我们就提前把本来应该作为行数的x也赋成了9，就会出错。</p>
+<p>矩阵的置1和输入都和前面的操作类似，没什么特别的，略过。<br>其次就是最恶心的递归函数的写法。（我们首先忽略出入栈的问题）首先考虑的是其是否到达终点。我的思路就是分别判断行列数是否相等，行数相等就给一个寄存器置1，列数同样。这样这两个寄存器之和为2时，证明到达了重点。如图：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221020111139056.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后就是当没有到终点时，先对本格置1，然后进行四周的探索，最后本格置0。操作如下：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221020111745429.png" srcset="/img/loading.gif" lazyload></p>
+<p>（这个是开头的置1和一个方向的探测递归）</p>
+<p>最后就是考虑出入栈的问题：<br>我的出入栈写法都是在本函数开始的时候进行入栈，最后在本函数结束（return或者最后）进行出栈。这相当于在被调用函数的前后进行维护。当然华哥跟我说在调用下一层函数的开始时入栈，结束时出栈也是可以的。但是我还是觉得我这种方法最好，因为不用脑子。<br>顺便，对于这题，在没有到终点是对本格先置0后置1，这其实也是一种出入栈的维护。<br>没到终点的出栈如下：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221020112236813.png" srcset="/img/loading.gif" lazyload></p>
+<p>记得入栈和出栈要进行顺序上的一一对应。</p>
+<h3 id="P2-Q6-高精度阶乘"><a href="#P2-Q6-高精度阶乘" class="headerlink" title="P2.Q6 高精度阶乘"></a>P2.Q6 高精度阶乘</h3><ul>
+<li>题面<br>使用MIPS汇编语言编写一个求n的阶乘的汇编程序(不考虑延迟槽)。<br>具体要求：</li>
+</ul>
+<ol>
+<li>第一行读取n</li>
+<li>计算并输出n的阶乘，输出字符串长度小于等于1000</li>
+<li>步数限制为200,000</li>
+<li>请使用syscall结束程序</li>
+</ol>
+<p>样例输入：<br>24<br>样例输出：<br>620448401733239439360000</p>
+<ul>
+<li>思路<br>首先先写出C语言代码：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>	<span class="hljs-type">int</span> n,out[<span class="hljs-number">1000</span>]=&#123;<span class="hljs-number">1</span>&#125;,i,j;<br>	<span class="hljs-type">int</span> high=<span class="hljs-number">1</span>,up;<br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;n);<br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">2</span>;i&lt;=n;i++)&#123;<br>		up=<span class="hljs-number">0</span>;<br>		<span class="hljs-keyword">for</span>(j=<span class="hljs-number">0</span>;j&lt;high;j++)&#123;<br>		    out[j]=i*out[j]+up;<br>		    up=out[j]/<span class="hljs-number">10</span>;<br>		    out[j]%=<span class="hljs-number">10</span>;<br>		&#125;<br>		<span class="hljs-keyword">while</span>(up)&#123; <span class="hljs-comment">//最高位 </span><br>			out[high]=up%<span class="hljs-number">10</span>;<br>			high++;<br>			up/=<span class="hljs-number">10</span>;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">for</span>(i=high<span class="hljs-number">-1</span>;i&gt;=<span class="hljs-number">0</span>;i--)<br>	    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,out[i]);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+这里主要就是要领悟乘法的本质。例如123 * 12，其真正的计算方法就是“1”，“2”，“3”这三位分别乘以12再加上进位。所以我们将out数组中从低到高分别乘新数加进位就是这一位新的值。这就是<code>out[j]=i*out[j]+up;</code>的意思，之后还要进行一次进位的计算处理。还有要注意，当阶乘足够大的时候，其进位可能很大，所以对于最高位我们不能只处理一次up%10作低位，up&#x2F;10做高位的操作，而应该进行一个循环，如果进位占满高一位（up&#x2F;10!&#x3D;0）时要继续处理，所以要进行一个while循环。</li>
+</ul>
+<p>将其转换到mips中即可：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221020211023368.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里是对于每一位的计算存储。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221020211323316.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后这里是对最高位残留的up进行处理，确保高位正确。<br>最后进行循环输出就可以，略过。<br>注意：目前为止，我的汇编代码没有办法处理0的阶乘！（甚至不能纳入循环，因为我默认至少是2开始乘，1直接输出），所以最后就写了个如果输入是0直接跳转到输出1的beq，并把输出附在了最后。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221020211603466.png" srcset="/img/loading.gif" lazyload></p>
+<p>还有一个注意：开头的时候我们的数组是全零的，这个时候无法进行乘法，需要把第一位置成1才能开始阶乘运算，也就是<code>int out[1000] = &#123;1&#125;</code></p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221020211817296.png" srcset="/img/loading.gif" lazyload></p>
+<p>以上就是P2的全部题目，由于校庆少了一周上机，我也许现在就要考虑P3的搭CPU了，又怕P2过不了，烦呐。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">#计算机组成原理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P3%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P3课下作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计组P3课下作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P1%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P1课下作业总结">
+                        <span class="hidden-mobile">计组P1课下作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

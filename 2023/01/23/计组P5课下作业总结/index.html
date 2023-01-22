@@ -1,0 +1,2066 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对计组P5(Verilog构建流水线CPU)实验课下作业写法的总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计组P5课下作业总结">
+<meta property="og:url" content="http://example.com/2023/01/23/%E8%AE%A1%E7%BB%84P5%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对计组P5(Verilog构建流水线CPU)实验课下作业写法的总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/nijika1.jpg">
+<meta property="article:published_time" content="2023-01-22T16:06:56.000Z">
+<meta property="article:modified_time" content="2023-01-22T16:13:16.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/nijika1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>计组P5课下作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="计组P5课下作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-23 00:06" pubdate>
+          2023年1月23日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          87 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计组P5课下作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="我的设计思路"><a href="#我的设计思路" class="headerlink" title="我的设计思路"></a>我的设计思路</h3><p>我在P3和P4的单周期CPU设计中思路是非常固定的：那就是首先将单个元件设计好，然后再进行接线，是一种元件驱动式的设计方法。但是这种方法经过我的思考在P5中似乎并不适用：因为在P3和P4中我都可以根据元件功能快速的写出每个元件的端口情况，但是在流水线设计中难以做到，因为控制信号过多和转发暂停判断会让端口非常复杂。</p>
+<p>因此本P中我打算使用元件和功能共同驱动的思路：即首先搭出最基本的用来实现功能的元件，例如PC，GRF，ALU，DM等，然后构建集中式译码的控制器（我打算使用集中式译码），然后进一步实现四级寄存器的数据传输，最后构建控制转发暂停的冒险控制单元，最后的最后进行接线。这样我们就可以不断根据功能添加端口，最后进行合成就获得了最终的元件。</p>
+<h3 id="总体架构"><a href="#总体架构" class="headerlink" title="总体架构"></a>总体架构</h3><p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221121193156367.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="基本功能元件构建"><a href="#基本功能元件构建" class="headerlink" title="基本功能元件构建"></a>基本功能元件构建</h3><h4 id="F级基本元件"><a href="#F级基本元件" class="headerlink" title="F级基本元件"></a>F级基本元件</h4><h5 id="PC"><a href="#PC" class="headerlink" title="PC"></a>PC</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>时钟信号输入</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>同步复位信号输入</td>
+</tr>
+<tr>
+<td>F_PC_DI[31:0]</td>
+<td>I</td>
+<td>下一条指令地址输入</td>
+</tr>
+<tr>
+<td>F_PC_DO[31:0]</td>
+<td>O</td>
+<td>当前指令地址输出</td>
+</tr>
+</tbody></table>
+<p>本题同样要求PC的初始地址为0x3000，因此由于我们依然会设定IM从0地址开始读入，所以我们需要对每一条PC输出的地址减0x3000来取得正确的指令。</p>
+<h5 id="IM"><a href="#IM" class="headerlink" title="IM"></a>IM</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>F_IM_PC[31:0]</td>
+<td>I</td>
+<td>当前要执行的指令所在地址</td>
+</tr>
+<tr>
+<td>F_IM_Instr[31:0]</td>
+<td>O</td>
+<td>当前指令的二进制机器码</td>
+</tr>
+</tbody></table>
+<p>利用reg阵列构建ROM来存储所有指令的16进制机器码，通过$readmemh指令实现读取（从0x0地址开始读取即可，这样不浪费空间）。</p>
+<p>正如PC元件中提到的，本体需要在PC给出的指令初始地址基础上减0x3000才能取到真正的对应指令。</p>
+<h4 id="D级基本元件"><a href="#D级基本元件" class="headerlink" title="D级基本元件"></a>D级基本元件</h4><h5 id="GRF"><a href="#GRF" class="headerlink" title="GRF"></a>GRF</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>时钟信号输入</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>同步复位信号输入</td>
+</tr>
+<tr>
+<td>D_GRF_A1[4:0]</td>
+<td>I</td>
+<td>读取的第一个寄存器编号(rs)</td>
+</tr>
+<tr>
+<td>D_GRF_A2[4:0]</td>
+<td>I</td>
+<td>读取的第二个寄存器编号(rt)</td>
+</tr>
+<tr>
+<td>D_GRF_A3[4:0]</td>
+<td>I</td>
+<td>写入的寄存器编号</td>
+</tr>
+<tr>
+<td>D_GRF_Wr</td>
+<td>I</td>
+<td>GRF中寄存器写入的写使能控制信号</td>
+</tr>
+<tr>
+<td>D_GRF_WD[31:0]</td>
+<td>I</td>
+<td>GRF中需要被写入A3的值</td>
+</tr>
+<tr>
+<td>D_GRF_PC[31:0]</td>
+<td>I</td>
+<td>当前执行写入操作的指令地址</td>
+</tr>
+<tr>
+<td>D_GRF_RD1[31:0]</td>
+<td>O</td>
+<td>从A1号寄存器中读取的值</td>
+</tr>
+<tr>
+<td>D_GRF_RD2[31:0]</td>
+<td>O</td>
+<td>从A2号寄存器中读取的值</td>
+</tr>
+</tbody></table>
+<p>同样利用32个32位reg寄存器构成的阵列来模拟CPU中的寄存器堆。同时由于和P4一样需要展示寄存器的写入情况，因此需要将当前正在执行的写入指令的地址值PC传入（我认为它既然是写入指令，那么应该是从W级寄存器中得到的而不能是从F级传入的。这点我们之后再进行设计）</p>
+<h5 id="EXT0"><a href="#EXT0" class="headerlink" title="EXT0"></a>EXT0</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D_EXT_Input[15:0]</td>
+<td>I</td>
+<td>机器码的0-15位作为立即数进行扩展</td>
+</tr>
+<tr>
+<td>D_EXT_EXTOp[1:0]</td>
+<td>I</td>
+<td>确定扩展方式的控制信号：00:0扩展 01:符号扩展 10:低位补0(lui)</td>
+</tr>
+<tr>
+<td>D_EXT_Output[31:0]</td>
+<td>O</td>
+<td>输出32位扩展结果</td>
+</tr>
+</tbody></table>
+<p>由于流水线CPU我们希望尽量减少数据冒险以减少转发和暂停情况，所以我们希望Tnew尽可能小，那就要让计算都尽可能前移，因此扩展模块在D级中就可以完成即将其归为D级。</p>
+<p>同时，我希望能够将跳转相关的操作全部放入NPC，而计算相关操作不经过NPC，所以这里EXT中的扩展仅针对后续计算有关的扩展，而beq和jal指令中的扩展操作都放在NPC模块中完成。</p>
+<h5 id="CMP"><a href="#CMP" class="headerlink" title="CMP"></a>CMP</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D_CMP_RD1[31:0]</td>
+<td>I</td>
+<td>A1号寄存器读出的32位二进制数</td>
+</tr>
+<tr>
+<td>D_CMP_RD2[31:0]</td>
+<td>I</td>
+<td>A2号寄存器读出的32位二进制数</td>
+</tr>
+<tr>
+<td>D_CMP_Result</td>
+<td>O</td>
+<td>GPR[rs]和GPR[rt]的比较结果，如果相等输出1，否则输出0</td>
+</tr>
+</tbody></table>
+<p>和EXT放到D级中的理由相同，我们希望能够将指令的完成尽量前移。在P3和P4中，我们的rs和rt对应寄存器值的比较都是在ALU模块中完成的，而ALU模块只可能在E级中。因此我们可以在这两个值流出GRF后就立刻用一个比较模块进行比较，就可以将beq等指令的完成前移到D级。这就是我构建一个新的比较模块的原因。</p>
+<h5 id="NPC"><a href="#NPC" class="headerlink" title="NPC"></a>NPC</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D_NPC_PC[31:0]</td>
+<td>I</td>
+<td>输入当前指令的地址</td>
+</tr>
+<tr>
+<td>D_NPC_NPCOp[2:0]</td>
+<td>I</td>
+<td>控制NPC的计算方式的信号：000:PC+4 001:beq 010:jal 011:jr</td>
+</tr>
+<tr>
+<td>D_NPC_Zero</td>
+<td>I</td>
+<td>CMP模块中GPR[rs]和GPR[rt]的比较结果，相等输入1，否则输入0</td>
+</tr>
+<tr>
+<td>D_NPC_Imm26[25:0]</td>
+<td>I</td>
+<td>针对jal指令取的二进制机器码的26位立即数</td>
+</tr>
+<tr>
+<td>D_NPC_Imm16[15:0]</td>
+<td>I</td>
+<td>针对beq指令取的二进制机器码的16位立即数</td>
+</tr>
+<tr>
+<td>D_NPC_RA[31:0]</td>
+<td>I</td>
+<td>针对jr指令输入的GPR[rs]值</td>
+</tr>
+<tr>
+<td>D_NPC_NPC[31:0]</td>
+<td>O</td>
+<td>计算所得下一条指令的32位二进制地址</td>
+</tr>
+</tbody></table>
+<p>后续可能要考虑跳转的延迟槽问题，同时PC信息应该会随着DEMW四级寄存器不断转移，所以PC8信息是否需要从这里给出也可以后续再进行决定，如果决定从其他位置引入就可以省略这个接口。<br>这里的控制信号选择三位是为了后续如果还有其他跳转方式可以直接进行控制信号编码而不需要让控制信号的位数变化。</p>
+<h4 id="E级基本元件"><a href="#E级基本元件" class="headerlink" title="E级基本元件"></a>E级基本元件</h4><h5 id="ALU"><a href="#ALU" class="headerlink" title="ALU"></a>ALU</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>E_ALU_A[31:0]</td>
+<td>I</td>
+<td>ALU模块第一个读入数GPR[rs]</td>
+</tr>
+<tr>
+<td>E_ALU_B[31:0]</td>
+<td>I</td>
+<td>ALU模块第二个读入数GPR[rt]或立即数的扩展EXT</td>
+</tr>
+<tr>
+<td>E_ALU_MSel[2:0]</td>
+<td>I</td>
+<td>ALU模块进行什么运算的控制信号：000:A+B 001:A-B 010:A 011:B</td>
+</tr>
+<tr>
+<td>E_ALU_C[31:0]</td>
+<td>O</td>
+<td>ALU模块的计算结果输出</td>
+</tr>
+</tbody></table>
+<p>由于比较模块已经前移至D级中的比较器中，因此这里不需要有P4中的Zero输出，同时这里MSel的位数为3也是为了后续的指令添加。</p>
+<h4 id="M级基本元件"><a href="#M级基本元件" class="headerlink" title="M级基本元件"></a>M级基本元件</h4><h5 id="DM"><a href="#DM" class="headerlink" title="DM"></a>DM</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>时钟信号输入</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>同步复位信号输入</td>
+</tr>
+<tr>
+<td>M_DM_Addr[31:0]</td>
+<td>I</td>
+<td>ALU计算所得需要被写入内存或从内存读取的地址</td>
+</tr>
+<tr>
+<td>M_DM_WD[31:0]</td>
+<td>I</td>
+<td>需要被写入Addr地址的32位二进制数据</td>
+</tr>
+<tr>
+<td>M_DM_PC[31:0]</td>
+<td>I</td>
+<td>这条写入指令在IM中的地址</td>
+</tr>
+<tr>
+<td>M_DM_Wr</td>
+<td>I</td>
+<td>控制DM执行读取功能还是写入功能的控制信号，0:读取 1:写入</td>
+</tr>
+<tr>
+<td>M_DM_RD[31:0]</td>
+<td>O</td>
+<td>将A地址中的数据从RD读出</td>
+</tr>
+</tbody></table>
+<p>这里也是使用reg的阵列模拟RAM的效果。同时由于每次写入内存时也需要输出写入信息，其中包括本条写入指令的地址，因而也需要PC的输入。</p>
+<h4 id="W级基本元件"><a href="#W级基本元件" class="headerlink" title="W级基本元件"></a>W级基本元件</h4><h5 id="GRF-1"><a href="#GRF-1" class="headerlink" title="GRF"></a>GRF</h5><p>由于本题GRF在元件内进行内部转发，因此不需要在W级重新创建新原件，GRF情况见上。</p>
+<h3 id="控制器CU（在D级集中式译码）"><a href="#控制器CU（在D级集中式译码）" class="headerlink" title="控制器CU（在D级集中式译码）"></a>控制器CU（在D级集中式译码）</h3><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D_CU_opcode[5:0]</td>
+<td>I</td>
+<td>输入当前指令opcode</td>
+</tr>
+<tr>
+<td>D_CU_funct[5:0]</td>
+<td>I</td>
+<td>输入当前指令funct</td>
+</tr>
+<tr>
+<td>D_CU_NPCOp[2:0]</td>
+<td>O</td>
+<td>当前指令的跳转方式：000:PC+4 001:beq 010:jal 011:jr</td>
+</tr>
+<tr>
+<td>D_CU_WRSel[1:0]</td>
+<td>O</td>
+<td>当前指令回写寄存器的选择：00:rt 01:rd 10:31</td>
+</tr>
+<tr>
+<td>D_CU_WDSel[2:0]</td>
+<td>O</td>
+<td>当前指令回写寄存器的内容选择：000:ALU 001:DM 010:PC8</td>
+</tr>
+<tr>
+<td>D_CU_GRFWr</td>
+<td>O</td>
+<td>当前指令是否需要回写寄存器：0:不允许回写 1:允许回写</td>
+</tr>
+<tr>
+<td>D_CU_EXTOp[2:0]</td>
+<td>O</td>
+<td>当前指令中立即数的扩展方式：00:0扩展 01:符号扩展 10:低位补0(lui)</td>
+</tr>
+<tr>
+<td>D_CU_BSel</td>
+<td>O</td>
+<td>选择输入ALU的B口的数据：0:RD2 1:EXT</td>
+</tr>
+<tr>
+<td>D_CU_MSel[2:0]</td>
+<td>O</td>
+<td>选择ALU的计算方式：000:A+B 001:A-B 010:A</td>
+</tr>
+<tr>
+<td>D_CU_DMWr</td>
+<td>O</td>
+<td>选择内存是否可以写入：0:不可写入 1:可以写入</td>
+</tr>
+</tbody></table>
+<p>这里的控制信号是和单周期CPU一致的，后续还应该判断此处的Tnew和Tuse并流水，这些到暂停和转发的相关设计处再进行添加。</p>
+<p>以下附上各个指令的机器码和对应控制信号。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>机器码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add</td>
+<td>opcode:000000,funct:100000</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>opcode:000000,funct:100010</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>opcode:001101</td>
+</tr>
+<tr>
+<td>lw</td>
+<td>opcode:100011</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>opcode:101011</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>opcode:001111</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>opcode:000100</td>
+</tr>
+<tr>
+<td>jal</td>
+<td>opcode:000011</td>
+</tr>
+<tr>
+<td>jr</td>
+<td>opcode:000000,funct:001000</td>
+</tr>
+<tr>
+<td>nop</td>
+<td>opcode:000000,funct:000000</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>NPCOp</th>
+<th>WRSel</th>
+<th>WDSel</th>
+<th>RFWr</th>
+<th>EXTOp</th>
+<th>BSel</th>
+<th>MSel</th>
+<th>DMWr</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nop</td>
+<td>000</td>
+<td>000</td>
+<td>000</td>
+<td>0</td>
+<td>000</td>
+<td>0</td>
+<td>000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>add</td>
+<td>000</td>
+<td>001</td>
+<td>000</td>
+<td>1</td>
+<td>000</td>
+<td>0</td>
+<td>000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>000</td>
+<td>001</td>
+<td>000</td>
+<td>1</td>
+<td>000</td>
+<td>0</td>
+<td>001</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>000</td>
+<td>000</td>
+<td>000</td>
+<td>1</td>
+<td>000</td>
+<td>1</td>
+<td>010</td>
+<td>0</td>
+</tr>
+<tr>
+<td>lw</td>
+<td>000</td>
+<td>000</td>
+<td>001</td>
+<td>1</td>
+<td>001</td>
+<td>1</td>
+<td>000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>000</td>
+<td>000</td>
+<td>000</td>
+<td>0</td>
+<td>001</td>
+<td>1</td>
+<td>000</td>
+<td>1</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>000</td>
+<td>000</td>
+<td>000</td>
+<td>1</td>
+<td>010</td>
+<td>1</td>
+<td>011</td>
+<td>0</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>001</td>
+<td>000</td>
+<td>000</td>
+<td>0</td>
+<td>000</td>
+<td>0</td>
+<td>000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>jal</td>
+<td>010</td>
+<td>010</td>
+<td>010</td>
+<td>1</td>
+<td>000</td>
+<td>0</td>
+<td>000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>jr</td>
+<td>011</td>
+<td>000</td>
+<td>000</td>
+<td>0</td>
+<td>000</td>
+<td>0</td>
+<td>000</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<h3 id="四级流水线寄存器的构建"><a href="#四级流水线寄存器的构建" class="headerlink" title="四级流水线寄存器的构建"></a>四级流水线寄存器的构建</h3><h4 id="D级寄存器-IF-x2F-ID"><a href="#D级寄存器-IF-x2F-ID" class="headerlink" title="D级寄存器(IF&#x2F;ID)"></a>D级寄存器(IF&#x2F;ID)</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>时钟信号输入</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>同步复位信号输入</td>
+</tr>
+<tr>
+<td>D_F_PC[31:0]</td>
+<td>I</td>
+<td>F级取得的PC地址</td>
+</tr>
+<tr>
+<td>D_F_Instr[31:0]</td>
+<td>I</td>
+<td>F级通过PC地址从IM中取得的机器码</td>
+</tr>
+<tr>
+<td>D_D_PC[31:0]</td>
+<td>O</td>
+<td>需要被传输进入D级的PC地址</td>
+</tr>
+<tr>
+<td>D_D_Instr[31:0]</td>
+<td>O</td>
+<td>需要被传输进入D级的机器码</td>
+</tr>
+</tbody></table>
+<p>对于后续需要写入的PC4和需要输出的写入指令的PC进行合并，只传输每条信息的PC，然后再根据具体情况传入计算元件。</p>
+<h4 id="E级寄存器-ID-x2F-EX"><a href="#E级寄存器-ID-x2F-EX" class="headerlink" title="E级寄存器(ID&#x2F;EX)"></a>E级寄存器(ID&#x2F;EX)</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>时钟信号输入</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>同步复位信号输入</td>
+</tr>
+<tr>
+<td>E_D_PC[31:0]</td>
+<td>I</td>
+<td>当前指令的地址</td>
+</tr>
+<tr>
+<td>E_D_RD1[31:0]</td>
+<td>I</td>
+<td>GRF输出的第一个寄存器中的内容</td>
+</tr>
+<tr>
+<td>E_D_RD2[31:0]</td>
+<td>I</td>
+<td>GRF输出的第二个寄存器中的内容</td>
+</tr>
+<tr>
+<td>E_D_EXTOut[31:0]</td>
+<td>I</td>
+<td>EXT输出的立即数扩展内容</td>
+</tr>
+<tr>
+<td>E_D_GRFA3[4:0]</td>
+<td>I</td>
+<td>回写GRF的寄存器地址</td>
+</tr>
+<tr>
+<td>E_D_WRSel[2:0]</td>
+<td>I</td>
+<td>当前指令回写寄存器的选择控制信号</td>
+</tr>
+<tr>
+<td>E_D_WDSel[2:0]</td>
+<td>I</td>
+<td>当前指令回写寄存器的内容选择控制信号</td>
+</tr>
+<tr>
+<td>E_D_GRFWr</td>
+<td>I</td>
+<td>当前指令是否需要回写寄存器的控制信号</td>
+</tr>
+<tr>
+<td>E_D_BSel</td>
+<td>I</td>
+<td>选择输入ALU的B口的数据控制信号</td>
+</tr>
+<tr>
+<td>E_D_MSel[2:0]</td>
+<td>I</td>
+<td>选择ALU的计算方式控制信号</td>
+</tr>
+<tr>
+<td>E_D_DMWr</td>
+<td>I</td>
+<td>选择内存是否可以写入的控制信号</td>
+</tr>
+<tr>
+<td>E_E_PC[31:0]</td>
+<td>O</td>
+<td>当前指令的地址</td>
+</tr>
+<tr>
+<td>E_E_RD1[31:0]</td>
+<td>O</td>
+<td>GRF输出的第一个寄存器中的内容</td>
+</tr>
+<tr>
+<td>E_E_RD2[31:0]</td>
+<td>O</td>
+<td>GRF输出的第二个寄存器中的内容</td>
+</tr>
+<tr>
+<td>E_E_EXTOut[31:0]</td>
+<td>O</td>
+<td>EXT输出的立即数扩展内容</td>
+</tr>
+<tr>
+<td>E_E_GRFA3[4:0]</td>
+<td>O</td>
+<td>回写GRF的寄存器地址</td>
+</tr>
+<tr>
+<td>E_E_WRSel[2:0]</td>
+<td>O</td>
+<td>当前指令回写寄存器的选择控制信号</td>
+</tr>
+<tr>
+<td>E_E_WDSel[2:0]</td>
+<td>O</td>
+<td>当前指令回写寄存器的内容选择控制信号</td>
+</tr>
+<tr>
+<td>E_E_GRFWr</td>
+<td>O</td>
+<td>当前指令是否需要回写寄存器的控制信号</td>
+</tr>
+<tr>
+<td>E_E_BSel</td>
+<td>O</td>
+<td>选择输入ALU的B口的数据控制信号</td>
+</tr>
+<tr>
+<td>E_E_MSel[2:0]</td>
+<td>O</td>
+<td>选择ALU的计算方式控制信号</td>
+</tr>
+<tr>
+<td>E_E_DMWr</td>
+<td>O</td>
+<td>选择内存是否可以写入的控制信号</td>
+</tr>
+</tbody></table>
+<p>这些寄存器需要存储和传输的东西的本质就是：要传输这条机器码的所有相关信息，直到它在这一级被使用了，就不需要继续传递。例如在E级寄存器上就不需要储存CMP元件的比较结果，因为CMP的比较结果在F和D中就使用完毕。所以我们只需要对需要使用的信号进行无脑传输即可。<br>同时有输入就有输出，所以有来自上一级的指令相关内容，也就有传递到下一级的指令相关内容。所以需要让这些流水线寄存器输入输出完全对称。</p>
+<h4 id="M级寄存器-EX-x2F-MEM"><a href="#M级寄存器-EX-x2F-MEM" class="headerlink" title="M级寄存器(EX&#x2F;MEM)"></a>M级寄存器(EX&#x2F;MEM)</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>时钟信号输入</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>同步复位信号输入</td>
+</tr>
+<tr>
+<td>M_E_PC[31:0]</td>
+<td>I</td>
+<td>当前指令的所在地址</td>
+</tr>
+<tr>
+<td>M_E_RD2[31:0]</td>
+<td>I</td>
+<td>GRF输出的第二个寄存器中的内容RD2</td>
+</tr>
+<tr>
+<td>M_E_ALUAns[31:0]</td>
+<td>I</td>
+<td>ALU计算出的结果</td>
+</tr>
+<tr>
+<td>M_E_GRFA3[4:0]</td>
+<td>I</td>
+<td>回写GRF的寄存器地址</td>
+</tr>
+<tr>
+<td>M_E_WRSel[2:0]</td>
+<td>I</td>
+<td>当前指令回写寄存器的选择控制信号</td>
+</tr>
+<tr>
+<td>M_E_WDSel[2:0]</td>
+<td>I</td>
+<td>当前指令回写寄存器的内容选择控制信号</td>
+</tr>
+<tr>
+<td>M_E_GRFWr</td>
+<td>I</td>
+<td>当前指令是否需要回写寄存器的控制信号</td>
+</tr>
+<tr>
+<td>M_E_DMWr</td>
+<td>I</td>
+<td>选择内存是否可以写入的控制信号</td>
+</tr>
+<tr>
+<td>M_M_PC[31:0]</td>
+<td>O</td>
+<td>当前指令的所在地址</td>
+</tr>
+<tr>
+<td>M_M_RD2[31:0]</td>
+<td>O</td>
+<td>GRF输出的第二个寄存器中的内容RD2</td>
+</tr>
+<tr>
+<td>M_M_ALUAns[31:0]</td>
+<td>O</td>
+<td>ALU计算出的结果</td>
+</tr>
+<tr>
+<td>M_M_GRFA3[4:0]</td>
+<td>O</td>
+<td>回写GRF的寄存器地址</td>
+</tr>
+<tr>
+<td>M_M_WRSel[2:0]</td>
+<td>O</td>
+<td>当前指令回写寄存器的选择控制信号</td>
+</tr>
+<tr>
+<td>M_M_WDSel[2:0]</td>
+<td>O</td>
+<td>当前指令回写寄存器的内容选择控制信号</td>
+</tr>
+<tr>
+<td>M_M_GRFWr</td>
+<td>O</td>
+<td>当前指令是否需要回写寄存器的控制信号</td>
+</tr>
+<tr>
+<td>M_M_DMWr</td>
+<td>O</td>
+<td>选择内存是否可以写入的控制信号</td>
+</tr>
+</tbody></table>
+<p>和D级寄存器的端口设计方式是相似的，不再赘述。</p>
+<h4 id="W级寄存器-MEM-x2F-WB"><a href="#W级寄存器-MEM-x2F-WB" class="headerlink" title="W级寄存器(MEM&#x2F;WB)"></a>W级寄存器(MEM&#x2F;WB)</h4><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLK</td>
+<td>I</td>
+<td>时钟信号输入</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>I</td>
+<td>同步复位信号输入</td>
+</tr>
+<tr>
+<td>W_M_PC[31:0]</td>
+<td>I</td>
+<td>当前指令的所在地址</td>
+</tr>
+<tr>
+<td>W_M_DMOut[31:0]</td>
+<td>I</td>
+<td>DM输出的内存中的数据</td>
+</tr>
+<tr>
+<td>W_M_ALUAns[31:0]</td>
+<td>I</td>
+<td>ALU计算出的结果</td>
+</tr>
+<tr>
+<td>W_M_GRFA3[4:0]</td>
+<td>I</td>
+<td>回写GRF的寄存器地址</td>
+</tr>
+<tr>
+<td>W_M_WRSel[2:0]</td>
+<td>I</td>
+<td>当前指令回写寄存器的选择控制信号</td>
+</tr>
+<tr>
+<td>W_M_WDSel[2:0]</td>
+<td>I</td>
+<td>当前指令回写寄存器的内容选择控制信号</td>
+</tr>
+<tr>
+<td>W_M_GRFWr</td>
+<td>I</td>
+<td>当前指令是否需要回写寄存器的控制信号</td>
+</tr>
+<tr>
+<td>W_W_PC[31:0]</td>
+<td>O</td>
+<td>当前指令的所在地址</td>
+</tr>
+<tr>
+<td>W_W_DMOut[31:0]</td>
+<td>O</td>
+<td>DM输出的内存中的数据</td>
+</tr>
+<tr>
+<td>W_W_ALUAns[31:0]</td>
+<td>O</td>
+<td>ALU计算出的结果</td>
+</tr>
+<tr>
+<td>W_W_GRFA3[4:0]</td>
+<td>O</td>
+<td>回写GRF的寄存器地址</td>
+</tr>
+<tr>
+<td>W_W_WRSel[2:0]</td>
+<td>O</td>
+<td>当前指令回写寄存器的选择控制信号</td>
+</tr>
+<tr>
+<td>W_W_WDSel[2:0]</td>
+<td>O</td>
+<td>当前指令回写寄存器的内容选择控制信号</td>
+</tr>
+<tr>
+<td>W_W_GRFWr</td>
+<td>O</td>
+<td>当前指令是否需要回写寄存器的控制信号</td>
+</tr>
+</tbody></table>
+<p>和以上寄存器的设计相似，不再赘述。</p>
+<h3 id="流水线冒险的避免"><a href="#流水线冒险的避免" class="headerlink" title="流水线冒险的避免"></a>流水线冒险的避免</h3><h4 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h4><ol>
+<li>冒险的种类</li>
+</ol>
+<p>冒险的种类分为：结构冒险，控制冒险和数据冒险。<br>结构冒险是指不同时间使用同一个数据位置的数据所造成的冲突。因为本题的IM和DM分开，因此不存在内存中的结构冒险。但是可能出现GRF中的结构冒险，即在D级读取和W级写入相同寄存器的数据，此时需要让GRF内部转发。</p>
+<p>控制冒险是指分支指令(beq)的判断影响之后的指令运行的情况，由于判断不及时会让后续指令流入流水线。我们可以利用延迟槽解决这一问题。(pc+4变为pc+8)</p>
+<p>数据冒险是指后面指令需求的数据正好是前面指令提供的数据，但是在后续指令需求时前面指令提供的数据还没有存入，导致后续指令读取的数据不正确。我们可以利用AT法建模，比较Tuse和Tnew值来决定转发和暂停来解决。</p>
+<ol start="2">
+<li>结构冒险</li>
+</ol>
+<p>如上，我们唯一要考虑的情况就是D级读取与W级写入操作都针对同一个寄存器，此时导致D级无法读取正确的寄存器信息。此时我们就在GRF内部让D级指令中那个冲突的寄存器输出正在从W级存入的寄存器内容即可。</p>
+<ol start="3">
+<li>AT法建模</li>
+</ol>
+<p>我们需要首先针对每一级寄存器都给出当前该级寄存器中指令的Tnew和Tuse。所谓Tnew，就是该指令还有几个周期会生成新的数据并存储到流水线寄存器中。例如add指令，当它在E级时，它已经通过ALU算出了值，但是还没有存入M级寄存器中，因此其Tnew就是1，但是在M和W级中Tnew就是0。因此我们发现不同指令在不同寄存器中的Tnew全都不同，我们需要分指令分寄存器计算。最终储存在流水线寄存器中</p>
+<p>*上下级寄存器针对同一条指令的Tnew计算一般是：Tnew’&#x3D;max{Tnew,0}</p>
+<p>所谓Tuse，就是流水线什么时候需要结果数据。这个值我们是站在D级进行分析的，并且同一条指令在不同流水线级的Tuse是定值。例如beq指令在D级就需要寄存器的值进行比较，因此Tuse&#x3D;0。同时一个指令可能有两个不同的Tuse值，例如sw指令，在E级中需要用到rs寄存器中的值计算内存地址，在M级需要用到rt寄存器中的值确定存入数据。</p>
+<p>对于A，就是寄存器所在地址，因为即使对于指令顺序可能出现冒险，但是如果他们读写针对的不是同一个寄存器，那就不可能存在冒险。所以只有A相等且不为0时我们才需要考虑冒险情况。</p>
+<ol start="4">
+<li>暂停</li>
+</ol>
+<p>我们需要在D级就优先判断暂停。所以每一条指令进入D级流水线寄存器时，我们都需要判断前面E,M,W级寄存器的Tnew和D级指令的Tuse。当Tuse&lt;Tnew时，就需要人为插入Nop气泡。</p>
+<p>此处附上相关暂停判断的策略矩阵(S为暂停情况，F为转发情况)：</p>
+<table>
+<thead>
+<tr>
+<th>Tuse\Tnew</th>
+<th>E_Tnew</th>
+<th>E_Tnew</th>
+<th>E_Tnew</th>
+<th>M_Tnew</th>
+<th>M_Tnew</th>
+<th>W_Tnew</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tuse\Tnew</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>S</td>
+<td>S</td>
+<td>F</td>
+<td>S</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>1</td>
+<td>S</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>2</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+</tbody></table>
+<p>以及不同指令的Tuse和Tnew：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>Tuse_rs</th>
+<th>Tuse_rt</th>
+<th>Tnew(E)</th>
+<th>A</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>rd</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>rd</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>1</td>
+<td>x</td>
+<td>1</td>
+<td>rt</td>
+</tr>
+<tr>
+<td>lw</td>
+<td>1</td>
+<td>x</td>
+<td>2</td>
+<td>rt</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>1</td>
+<td>2</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>x</td>
+<td>x</td>
+<td>0</td>
+<td>rt</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>0</td>
+<td>0</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr>
+<td>jal</td>
+<td>x</td>
+<td>x</td>
+<td>0</td>
+<td>31</td>
+</tr>
+<tr>
+<td>jr</td>
+<td>0</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody></table>
+<p>则出现满足暂停情况的AT组合时，我们需要做到：<br>冻结 PC 的值；<br>冻结 D 级流水线寄存器的值；<br>将 E 级流水线寄存器清零（这等价于插入了一个 nop 指令）。<br>为了冻结PC和D级流水线，我们要为其增加使能信号，并且只有使能信号为1时我们才能让他们的值改变。<br>为了清除E级流水线寄存器，我们需要增加一个清空信号，这样只要需要暂停就可以用这个信号清空E级流水线寄存器。<br>设置的时候如果没有Tuse就设定为最大值，没有Tnew就设定为最小值。<br>当某个指令的Tuse为x（不需要使用寄存器值），则人为将其Tuse调到最大（本题我调到3），当Tnew&#x3D;x，人为将其调到0，并且让其A为0（这样肯定不会写入）。</p>
+<ol start="5">
+<li>转发</li>
+</ol>
+<p>我们首先弄清楚可能需要转发信息的寄存器：D级中的RD1,RD2(CMP,NPC)；E级中的A,B(ALU)；M级中的RD(DM)。可能提供转发信息的寄存器：E、M级中的ALU答案以及W中的最终回写值。具体如表格：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>M级ALU计算结果</th>
+<th>W级回写结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D级被转发</td>
+<td>RS寄存器值、RT寄存器值</td>
+<td>RS寄存器值、RT寄存器值</td>
+</tr>
+<tr>
+<td>E级被转发</td>
+<td>ALU的A、ALU的B、RT寄存器值</td>
+<td>ALU的A、ALU的B、RT寄存器值</td>
+</tr>
+<tr>
+<td>M级被转发</td>
+<td></td>
+<td>DM的WD</td>
+</tr>
+</tbody></table>
+<h4 id="新增端口"><a href="#新增端口" class="headerlink" title="新增端口"></a>新增端口</h4><h5 id="PC-1"><a href="#PC-1" class="headerlink" title="PC"></a>PC</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>F_PC_EN</td>
+<td>I</td>
+<td>为PC元件赋能，如果为0则被冻结</td>
+</tr>
+</tbody></table>
+<p>添加赋能信号是为了配合暂停时冻结PC的存储值。</p>
+<h5 id="CU"><a href="#CU" class="headerlink" title="CU"></a>CU</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D_CU_Instr[31:0]</td>
+<td>I</td>
+<td>当前指令机器码</td>
+</tr>
+<tr>
+<td>CU_D_Tuse_rs[1:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令的D级Tuse_rs</td>
+</tr>
+<tr>
+<td>CU_D_Tuse_rt[1:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令的D级Tuse_rt</td>
+</tr>
+<tr>
+<td>CU_D_Tnew[1:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令的D级Tnew</td>
+</tr>
+<tr>
+<td>CU_D_ATarget[4:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令的输入寄存器</td>
+</tr>
+<tr>
+<td>CU_D_Read1[4:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令要读取的第一个寄存器</td>
+</tr>
+<tr>
+<td>CU_D_Read2[4:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令要读取的第一个寄存器</td>
+</tr>
+<tr>
+<td>CU_D_PC8EXTSel</td>
+<td>O</td>
+<td>若Tnew(E)为0，则要选择读取EXT出的lui还是jal的PC8</td>
+</tr>
+<tr>
+<td>CU_D_PC8ALUSel</td>
+<td>O</td>
+<td>若Tnew(M)为0，则要选择读取ALUOut还是PC+8</td>
+</tr>
+</tbody></table>
+<p>在控制器中计算出当前指令的T情况</p>
+<h5 id="D级寄存器-IF-x2F-ID2"><a href="#D级寄存器-IF-x2F-ID2" class="headerlink" title="D级寄存器(IF&#x2F;ID2"></a>D级寄存器(IF&#x2F;ID2</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D_EN</td>
+<td>I</td>
+<td>为D级寄存器赋能，如果为0则被冻结</td>
+</tr>
+</tbody></table>
+<p>添加赋能信号是为了配合暂停时冻结D级寄存器的存储值。</p>
+<h5 id="E级寄存器-EX-x2F-MEM"><a href="#E级寄存器-EX-x2F-MEM" class="headerlink" title="E级寄存器(EX&#x2F;MEM)"></a>E级寄存器(EX&#x2F;MEM)</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>E_Clr</td>
+<td>I</td>
+<td>E级寄存器的清空信号，当暂停时需要激活来清空E级寄存器模拟插入NOP</td>
+</tr>
+<tr>
+<td>E_CU_Instr[31:0]</td>
+<td>I</td>
+<td>需要被传输进入E级的机器码</td>
+</tr>
+<tr>
+<td>E_CU_Tuse_rs[1:0]</td>
+<td>I</td>
+<td>上一级传入的当前指令的D级Tuse_rs</td>
+</tr>
+<tr>
+<td>E_CU_Tuse_rt[1:0]</td>
+<td>I</td>
+<td>上一级传入的当前指令的D级Tuse_rt</td>
+</tr>
+<tr>
+<td>E_CU_Tnew[1:0]</td>
+<td>I</td>
+<td>上一级传入的当前指令的D级Tnew</td>
+</tr>
+<tr>
+<td>E_CU_Read1[4:0]</td>
+<td>I</td>
+<td>上一级传入的当前指令的D级要读取的第一个寄存器</td>
+</tr>
+<tr>
+<td>E_CU_Read2[4:0]</td>
+<td>I</td>
+<td>上一级传入的当前指令的D级要读取的第二个寄存器</td>
+</tr>
+<tr>
+<td>E_CU_PC8EXTSel</td>
+<td>I</td>
+<td>选择需要转发的是jal的PC8还是lui的EXTOut</td>
+</tr>
+<tr>
+<td>E_CU_PC8ALUSel</td>
+<td>O</td>
+<td>若Tnew(M)为0，则要选择读取ALUOut还是PC+8</td>
+</tr>
+<tr>
+<td>E_E_Instr[31:0]</td>
+<td>O</td>
+<td>需要被传输进入M级的机器码</td>
+</tr>
+<tr>
+<td>E_E_Tuse_rs[1:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令的E级Tuse_rs</td>
+</tr>
+<tr>
+<td>E_E_Tuse_rt[1:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令的E级Tuse_rt</td>
+</tr>
+<tr>
+<td>E_E_Tnew[1:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令的E级Tnew</td>
+</tr>
+<tr>
+<td>E_E_Read1[4:0]</td>
+<td>O</td>
+<td>当前指令的E级要读取的第一个寄存器</td>
+</tr>
+<tr>
+<td>E_E_Read2[4:0]</td>
+<td>O</td>
+<td>当前指令的E级要读取的第二个寄存器</td>
+</tr>
+<tr>
+<td>E_E_PC8EXTSel</td>
+<td>O</td>
+<td>选择需要转发的是jal的PC8还是lui的EXTOut</td>
+</tr>
+<tr>
+<td>E_E_PC8ALUSel</td>
+<td>O</td>
+<td>若Tnew(M)为0，则要选择读取ALUOut还是PC+8</td>
+</tr>
+</tbody></table>
+<p>添加清空信号是为了配合暂停时清空E级寄存器的存储值。同时需要传输当前指令机器码来确定寄存器地址，来确定是否存在冒险可能。</p>
+<h5 id="M级寄存器-EX-x2F-MEM-1"><a href="#M级寄存器-EX-x2F-MEM-1" class="headerlink" title="M级寄存器(EX&#x2F;MEM)"></a>M级寄存器(EX&#x2F;MEM)</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>M_E_Instr[31:0]</td>
+<td>I</td>
+<td>需要被传输进入M级的机器码</td>
+</tr>
+<tr>
+<td>M_E_Tuse_rt[1:0]</td>
+<td>I</td>
+<td>上一级传入的当前指令的E级Tuse_rt</td>
+</tr>
+<tr>
+<td>M_E_Tnew[1:0]</td>
+<td>I</td>
+<td>上一级传入的当前指令的E级Tnew</td>
+</tr>
+<tr>
+<td>M_E_Read2[4:0]</td>
+<td>I</td>
+<td>上一级传入的当前指令的E级要读取的第二个寄存器</td>
+</tr>
+<tr>
+<td>M_E_PC8ALUSel</td>
+<td>O</td>
+<td>若Tnew(M)为0，则要选择读取ALUOut还是PC+8</td>
+</tr>
+<tr>
+<td>M_M_Instr[31:0]</td>
+<td>O</td>
+<td>需要被传输进入W级的机器码</td>
+</tr>
+<tr>
+<td>M_M_Tuse_rt[1:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令的M级Tuse_rt</td>
+</tr>
+<tr>
+<td>M_M_Tnew[1:0]</td>
+<td>O</td>
+<td>寄存器传输的当前指令的M级Tnew</td>
+</tr>
+<tr>
+<td>M_M_Read2[4:0]</td>
+<td>O</td>
+<td>当前指令的M级要读取的第二个寄存器</td>
+</tr>
+<tr>
+<td>M_M_PC8ALUSel</td>
+<td>O</td>
+<td>若Tnew(M)为0，则要选择读取ALUOut还是PC+8</td>
+</tr>
+</tbody></table>
+<p>由于在M级中只可能需求rt寄存器中的值（用来当作内容存入DM），因此不需要再传入Tuse_rs进行判断了。</p>
+<h5 id="W级寄存器-MEM-x2F-WB-1"><a href="#W级寄存器-MEM-x2F-WB-1" class="headerlink" title="W级寄存器(MEM&#x2F;WB)"></a>W级寄存器(MEM&#x2F;WB)</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>W_M_Instr[31:0]</td>
+<td>I</td>
+<td>需要被传输进入W级的机器码</td>
+</tr>
+<tr>
+<td>W_W_Instr[31:0]</td>
+<td>O</td>
+<td>需要被传输进入冒险控制单元的W级的机器码</td>
+</tr>
+</tbody></table>
+<p>同时，由于W级寄存器不可能作为数据的需求者，所以不需要判断T_use，且其T_new一定为0（一定已经完成了数据的产生），所以不需要新增定位T相关端口。</p>
+<h5 id="HCU-冒险控制单元-新增"><a href="#HCU-冒险控制单元-新增" class="headerlink" title="HCU(冒险控制单元)(新增)"></a>HCU(冒险控制单元)(新增)</h5><table>
+<thead>
+<tr>
+<th>端口</th>
+<th>方向</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HCU_D_Tuse_rs[1:0]</td>
+<td>I</td>
+<td>D级Tuse_rs</td>
+</tr>
+<tr>
+<td>HCU_D_Tuse_rt[1:0]</td>
+<td>I</td>
+<td>D级Tuse_rt</td>
+</tr>
+<tr>
+<td>HCU_D_Tnew[1:0]</td>
+<td>I</td>
+<td>D级Tnew</td>
+</tr>
+<tr>
+<td>HCU_D_ATarget[4:0]</td>
+<td>I</td>
+<td>D级指令需要输入的寄存器位置</td>
+</tr>
+<tr>
+<td>HCU_D_Read1[4:0]</td>
+<td>I</td>
+<td>D级指令读取的第一个寄存器编号</td>
+</tr>
+<tr>
+<td>HCU_D_Read2[4:0]</td>
+<td>I</td>
+<td>D级指令读取的第二个寄存器编号</td>
+</tr>
+<tr>
+<td>HCU_D_GRFWr</td>
+<td>I</td>
+<td>D级指令是否允许写入寄存器的控制信号</td>
+</tr>
+<tr>
+<td>HCU_E_Tuse_rs[1:0]</td>
+<td>I</td>
+<td>E级Tuse_rs</td>
+</tr>
+<tr>
+<td>HCU_E_Tuse_rt[1:0]</td>
+<td>I</td>
+<td>E级Tuse_rt</td>
+</tr>
+<tr>
+<td>HCU_E_Tnew[1:0]</td>
+<td>I</td>
+<td>E级Tnew</td>
+</tr>
+<tr>
+<td>HCU_E_ATarget[4:0]</td>
+<td>I</td>
+<td>E级指令需要输入的寄存器位置</td>
+</tr>
+<tr>
+<td>HCU_E_Read1[4:0]</td>
+<td>I</td>
+<td>E级指令读取的第一个寄存器编号</td>
+</tr>
+<tr>
+<td>HCU_E_Read2[4:0]</td>
+<td>I</td>
+<td>E级指令读取的第二个寄存器编号</td>
+</tr>
+<tr>
+<td>HCU_E_GRFWr</td>
+<td>I</td>
+<td>E级指令是否允许写入寄存器的控制信号</td>
+</tr>
+<tr>
+<td>HCU_M_Tuse_rt[1:0]</td>
+<td>I</td>
+<td>M级Tuse_rt</td>
+</tr>
+<tr>
+<td>HCU_M_Tnew[1:0]</td>
+<td>I</td>
+<td>M级Tnew</td>
+</tr>
+<tr>
+<td>HCU_M_ATarget[4:0]</td>
+<td>I</td>
+<td>M级指令需要输入的寄存器位置</td>
+</tr>
+<tr>
+<td>HCU_M_Read2[4:0]</td>
+<td>I</td>
+<td>M级指令读取的第二个寄存器编号</td>
+</tr>
+<tr>
+<td>HCU_M_GRFWr</td>
+<td>I</td>
+<td>M级指令是否允许写入寄存器的控制信号</td>
+</tr>
+<tr>
+<td>HCU_W_ATarget[4:0]</td>
+<td>I</td>
+<td>W级指令需要输入的寄存器位置</td>
+</tr>
+<tr>
+<td>HCU_W_GRFWr</td>
+<td>I</td>
+<td>W级指令是否允许写入寄存器的控制信号</td>
+</tr>
+<tr>
+<td>HCU_PC_EN</td>
+<td>O</td>
+<td>判断是否应该冻结PC</td>
+</tr>
+<tr>
+<td>HCU_D_EN</td>
+<td>O</td>
+<td>判断是否应该冻结D级寄存器</td>
+</tr>
+<tr>
+<td>HCU_E_Clr</td>
+<td>O</td>
+<td>判断是否应该清空E级寄存器</td>
+</tr>
+<tr>
+<td>HCU_D_RD1MUX[1:0]</td>
+<td>O</td>
+<td>D级中RD1的转发信号</td>
+</tr>
+<tr>
+<td>HCU_D_RD2MUX[1:0]</td>
+<td>O</td>
+<td>D级中RD2的转发信号</td>
+</tr>
+<tr>
+<td>HCU_E_RD1MUX[1:0]</td>
+<td>O</td>
+<td>E级中RD1的转发信号</td>
+</tr>
+<tr>
+<td>HCU_E_RD2MUX[1:0]</td>
+<td>O</td>
+<td>E级中RD2的转发信号</td>
+</tr>
+<tr>
+<td>HCU_M_WDMUX</td>
+<td>O</td>
+<td>M级中WD的转发信号</td>
+</tr>
+</tbody></table>
+<h3 id="思考题："><a href="#思考题：" class="headerlink" title="思考题："></a>思考题：</h3><p>1.例如lw+beq，ori+beq，由于beq的Tnew变成0了，就更有可能需要暂停。<br>2.因为这样才能回到延迟槽下面的指令，否则延迟槽指令将被重复执行。<br>3.可能需要考虑PC8的选择问题，同时这样比较规整。(idk)<br>4.可以避免W级转发的复杂操作判断，就是当读寄存器和写寄存器指向相同的非零寄存器并且Wr&#x3D;1允许写入时，直接将写入值读给读取值。<br>5.供给者可能是EXT(lui)，PC8，DM，ALU，需求者是D_RD1,D_RD2,E_RD1,E_RD2,M_RD2。<br>6.首先需要修改CU让它的信息能被读取，然后如果有新的不属于前面的供给者情况需要进行多路选择。<br>7.译码器采取集中式译码，在D级将Instr输入译码器并且将全部控制信号输出给E级寄存器，然后只要该信号还有效果就需要顺着流水线向后传递。优点是不需要动脑子，想要新增加控制信号就在控制器中翻译然后无脑向后传递即可，劣势是增加控制信号时需要增加很多端口。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">#计算机组成原理</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/23/%E8%AE%A1%E7%BB%84P6%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P6课下作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计组P6课下作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/%E8%AE%A1%E7%BB%84P4%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="计组P4课下作业总结">
+                        <span class="hidden-mobile">计组P4课下作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

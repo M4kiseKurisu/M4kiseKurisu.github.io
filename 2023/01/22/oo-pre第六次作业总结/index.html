@@ -1,0 +1,662 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对oopre课第六次作业本人代码的一些思路总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oo-pre第六次作业总结">
+<meta property="og:url" content="http://example.com/2023/01/22/oo-pre%E7%AC%AC%E5%85%AD%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="对oopre课第六次作业本人代码的一些思路总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/rem1.jpg">
+<meta property="article:published_time" content="2023-01-22T14:45:12.000Z">
+<meta property="article:modified_time" content="2023-01-22T14:49:06.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/rem1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>oo-pre第六次作业总结 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="oo-pre第六次作业总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 22:45" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          77 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">oo-pre第六次作业总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>（这里只强调改动）</p>
+<ol>
+<li>qsend和qrecv的模糊查询模式新增四个参数-ssq, -ssr, -pre, -pos，从左到右分别表示：查询以后续输入字符串为子序列(subsquence)，子串(substring)，前缀(prefix)，后缀(postfix)的发送者&#x2F;接收者名称的消息。即现在上述两条指令的完整形式为qsend [-v] [param] “str”和qrecv [-v] [param] “str”。其中param为上述四个参数中的一个。当param缺省而-v存在时，表示含义与param&#x3D;-ssr且-v存在时一致。</li>
+<li>所有指令新增参数-c “str”(-c: clean)表示将所有该指令输出消息中的消息内容中的子串str（引号是指令格式要求，并非str内的内容）改为由字符’ * ‘组成的字符串后再输出，其长度与被修改的字符串长度相同。该参数永远是所有指令的最后一个参数。且子串匹配优先级为从左到右（具体解释见样例）<br>指令参数之间的顺序关系见后续限制说明部分以及样例。</li>
+</ol>
+<p>这里我们还需要大家实现对指令格式的检查。格式错误的指令只需按照指导书要求输出即可，无需将错误指令执行，具体如下：</p>
+<ol>
+<li>qdate指令的日期若不符合现实中的日期表示，则需要输出Command Error!: Wrong Date Format! “cmd”，其中cmd为出错指令。</li>
+<li>qsend和qrecv中，新增的四个参数只适用于模糊匹配，所以，若-ssq, -ssr, -pre, -pos参数在-v参数之前出现，或-v参数未出现而这四个参数出现了，则需要输出Command Error!: Not Vague Query! “cmd”，其中cmd为出错指令。</li>
+<li>显然一条指令至多只有一种错误。</li>
+</ol>
+<p>输入样例：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2023</span>/<span class="hljs-number">12</span>/<span class="hljs-number">23</span>-timetraveler:<span class="hljs-string">&quot;I am from future!!!&quot;</span>;<br><span class="hljs-attribute">2022</span>/<span class="hljs-number">8</span>/<span class="hljs-number">3</span>-fishlifehh:<span class="hljs-string">&quot;I am lying flat@kasumi . too tired to tap.&quot;</span>;<br><span class="hljs-attribute">2021</span>/<span class="hljs-number">3</span>/<span class="hljs-number">12</span>-meloneater:<span class="hljs-string">&quot;@timetraveler so what is happen, maybe I should say what will happen in the future?&quot;</span>;<br><span class="hljs-attribute">1999</span>/<span class="hljs-number">12</span>/<span class="hljs-number">31</span>-earthwarrior:<span class="hljs-string">&quot;so, do we win?&quot;</span>; <span class="hljs-number">1999</span>/<span class="hljs-number">12</span>/<span class="hljs-number">31</span>-militaryleader:<span class="hljs-string">&quot;hey! @earthwarrior , you should abide by the agreement!&quot;</span>; <span class="hljs-number">1999</span>/<span class="hljs-number">12</span>/<span class="hljs-number">31</span>-earthwarrior@militaryleader :<span class="hljs-string">&quot;aaah! I forget it.&quot;</span>;<br><span class="hljs-attribute">2022</span>/<span class="hljs-number">3</span>/<span class="hljs-number">23</span>-ooer:<span class="hljs-string">&quot;why you crashed again?&quot;</span>;<br><span class="hljs-attribute">2022</span>/<span class="hljs-number">6</span>/<span class="hljs-number">4</span>-urgenter:<span class="hljs-string">&quot;hurry! the next class will start immediately.&quot;</span>;<br><span class="hljs-attribute">0257</span>/<span class="hljs-number">5</span>/<span class="hljs-number">3</span>-ancienter:<span class="hljs-string">&quot;you mean this is the prophecy of a prophet.&quot;</span>;<br><span class="hljs-attribute">0257</span>/<span class="hljs-number">5</span>/<span class="hljs-number">4</span>-ancientress@ancienter :<span class="hljs-string">&quot;yes, and i dont know why we speak english.&quot;</span>;<br><span class="hljs-attribute">END_OF_MESSAGE</span><br><span class="hljs-attribute">qdate</span> <span class="hljs-number">2022</span>/<span class="hljs-number">2</span>/<span class="hljs-number">30</span><br><span class="hljs-attribute">qdate</span> /<span class="hljs-number">13</span>/<br><span class="hljs-attribute">qsend</span> -v -pos <span class="hljs-string">&quot;er&quot;</span><br><span class="hljs-attribute">qrecv</span> -pos <span class="hljs-string">&quot;or&quot;</span><br><span class="hljs-attribute">qsend</span> <span class="hljs-string">&quot;militaryleader&quot;</span> -c <span class="hljs-string">&quot;agreement&quot;</span><br><span class="hljs-attribute">qrecv</span> -v -pre <span class="hljs-string">&quot;an&quot;</span> -c <span class="hljs-string">&quot;english&quot;</span><br><span class="hljs-attribute">qsend</span> <span class="hljs-string">&quot;earthwarrior&quot;</span> -c <span class="hljs-string">&quot;aa&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>输出样例：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk">Command Error!: Wrong Date Format! <span class="hljs-string">&quot;qdate 2022/2/30&quot;</span><br>Command Error!: Wrong Date Format! <span class="hljs-string">&quot;qdate /13/&quot;</span><br><span class="hljs-number">2023</span><span class="hljs-regexp">/12/</span><span class="hljs-number">23</span>-timetraveler:<span class="hljs-string">&quot;I am from future!!!&quot;</span>;<br><span class="hljs-number">2021</span><span class="hljs-regexp">/3/</span><span class="hljs-number">12</span>-meloneater:<span class="hljs-string">&quot;@timetraveler so what is happen, maybe I should say what will happen in the future?&quot;</span>;<br><span class="hljs-number">1999</span><span class="hljs-regexp">/12/</span><span class="hljs-number">31</span>-militaryleader:<span class="hljs-string">&quot;hey! @earthwarrior , you should abide by the agreement!&quot;</span>;<br><span class="hljs-number">2022</span><span class="hljs-regexp">/3/</span><span class="hljs-number">23</span>-ooer:<span class="hljs-string">&quot;why you crashed again?&quot;</span>;<br><span class="hljs-number">2022</span><span class="hljs-regexp">/6/</span><span class="hljs-number">4</span>-urgenter:<span class="hljs-string">&quot;hurry! the next class will start immediately.&quot;</span>;<br><span class="hljs-number">0257</span><span class="hljs-regexp">/5/</span><span class="hljs-number">3</span>-ancienter:<span class="hljs-string">&quot;you mean this is the prophecy of a prophet.&quot;</span>;<br>Command Error!: Not Vague Query! <span class="hljs-string">&quot;qrecv -pos &quot;</span>o<span class="hljs-string">r&quot;&quot;</span><br><span class="hljs-number">1999</span><span class="hljs-regexp">/12/</span><span class="hljs-number">31</span>-militaryleader:<span class="hljs-string">&quot;hey! @earthwarrior , you should abide by the *********!&quot;</span>;<br><span class="hljs-number">0257</span><span class="hljs-regexp">/5/</span><span class="hljs-number">4</span>-ancientress@ancienter :<span class="hljs-string">&quot;yes, and i dont know why we speak *******.&quot;</span>;<br><span class="hljs-number">1999</span><span class="hljs-regexp">/12/</span><span class="hljs-number">31</span>-earthwarrior:<span class="hljs-string">&quot;so, do we win?&quot;</span>;<br><span class="hljs-number">1999</span><span class="hljs-regexp">/12/</span><span class="hljs-number">31</span>-earthwarrior@militaryleader :<span class="hljs-string">&quot;**ah! I forget it.&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>样例解释：<br>对于最后一条指令，忽略-c参数时的输出如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1999</span>/<span class="hljs-number">12</span>/<span class="hljs-number">31</span>-earthwarrior:<span class="hljs-string">&quot;so, do we win?&quot;</span>;<br><span class="hljs-attribute">1999</span>/<span class="hljs-number">12</span>/<span class="hljs-number">31</span>-earthwarrior@militaryleader:<span class="hljs-string">&quot;aaah! I forget it.&quot;</span>;<br></code></pre></td></tr></table></figure>
+<ol>
+<li>考虑-c第一条消息的内容不以aa为子串，而第二条消息的内容中存在子串aa，根据从左往右的匹配规则，将前两个aa替换成* *后输出。</li>
+<li>若第二条消息的原版是1999&#x2F;12&#x2F;31-earthwarrior@militaryleader:”aaaah! I forget it.”;，则根据从左到右的匹配规则，会先匹配到前两个aa并将其替换成* <em>，然后匹配到后两个aa并替换成</em> <em>，最终输出的是1999&#x2F;12&#x2F;31-earthwarrior@militaryleader:”</em> * * *h! I forget it.”;（星号中间没有空格）</li>
+</ol>
+<p>限制说明（在上一次的基础上）：</p>
+<ol>
+<li>保证所有的消息符合格式，指令错误只涉及上面谈到的那些类型。</li>
+<li>qdate指令保证输入的日期中年月日三个参数不同时缺省。</li>
+<li>qsend和qrecv指令中，保证-ssq, -ssr, -pre, -pos四个参数至多出现其中一个。</li>
+<li>正文内容仅由大小写英文字母、数字、空格、四种标点符号（? ! , .）构成。</li>
+<li>日期格式异常只需考虑月，日大小以及平闰年，无需考虑1582年的10月份少了10天等类似的非常偏门的错误。</li>
+<li>当日期发生参数缺省时，只需考虑已给定参数的合法性，具体而言。若在固定已有参数值的情况下，存在缺省参数的一组取值，使得日期合法，则认为该日期参数合法。<br> 例子1：指令qdate &#x2F;2&#x2F;29合法，因为2月可以有29日，且当年份为闰年时，整个日期合法，所以  该日期参数合法。<br> 例子2：指令qdate &#x2F;9&#x2F;31非法，因为9月不可能有31日，这与缺省的年份无关。<br> 例子3：指令qdate 2022&#x2F;&#x2F;31合法，因为存在有31号的月份。<br> 例子4：指令qdate &#x2F;&#x2F;32非法，因为不存在有32号的月份。这与缺省的年、月份无关。<br> 例子5：指令qdate &#x2F;13&#x2F;非法，因为不存在有13月的年份，这与缺省的年、日无关。<br> 例子6：指令qdate &#x2F;&#x2F;0非法，因为不存在0号。</li>
+</ol>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>（同样只重点提一下和上次的差别）</p>
+<ol>
+<li><p>由于和之前的状态相比，对于输入的要求字符串要匹配的项目变多，如果全部放在main中会让main函数比较冗长，因此新建了一个operate类对这些要求进行分类读取。<br>main函数中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Operate</span> <span class="hljs-variable">operate</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Operate</span>();<br><span class="hljs-keyword">while</span> (scanner.hasNext()) &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">inputQuest</span> <span class="hljs-operator">=</span> scanner.nextLine();<br>    operate.operation(inputQuest, memory);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>对operate类，要进行两到三个东西的检查：如果是针对发送者和接收者，则要检查-v，param和-c的检查。<br>注意几个事情：首先是对-c进行检查，如果没有-c就直接判断-v（因为本体param和-v是完全相关的，一个正确的模糊输入必须要有-v，所以只需要整个输入就不会漏掉信息），其次是如果有-c的情况，要单独分离-c后面的屏蔽词，所以不能直接split”-“符号（可能把-v也split了），我的方法是把它用另一个符号”#“替换再分开即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (quest.substring(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>).equals(<span class="hljs-string">&quot;qsend&quot;</span>)) &#123; <span class="hljs-comment">//查询输入相同发送者</span><br>    <span class="hljs-keyword">if</span> (!quest.contains(<span class="hljs-string">&quot;-c&quot;</span>)) &#123; <span class="hljs-comment">//不需要屏蔽词</span><br>        <span class="hljs-keyword">if</span> (quest.substring(<span class="hljs-number">6</span>, <span class="hljs-number">8</span>).equals(<span class="hljs-string">&quot;-v&quot;</span>)) &#123;  <span class="hljs-comment">//模糊输入</span><br>            memory.printSenderV(quest.substring(<span class="hljs-number">6</span>), quest, <span class="hljs-string">&quot;&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            memory.printSender(quest.substring(<span class="hljs-number">6</span>), quest, <span class="hljs-string">&quot;&quot;</span>);<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">newQuest</span> <span class="hljs-operator">=</span> quest.replace(<span class="hljs-string">&quot;-c&quot;</span>, <span class="hljs-string">&quot;#c&quot;</span>);<br>        String[] clearString = newQuest.split(<span class="hljs-string">&quot;#&quot;</span>);<br>        String[] needClear = clearString[<span class="hljs-number">1</span>].split(<span class="hljs-string">&quot;\&quot;&quot;</span>);<br>        <span class="hljs-keyword">if</span> (quest.substring(<span class="hljs-number">6</span>, <span class="hljs-number">8</span>).equals(<span class="hljs-string">&quot;-v&quot;</span>)) &#123;  <span class="hljs-comment">//模糊输入</span><br>            memory.printSenderV(clearString[<span class="hljs-number">0</span>].trim().substring(<span class="hljs-number">6</span>), quest, needClear[<span class="hljs-number">1</span>]);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            memory.printSender(clearString[<span class="hljs-number">0</span>].trim().substring(<span class="hljs-number">6</span>), quest, needClear[<span class="hljs-number">1</span>]);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>而如果是针对时间则只需要考虑-c的情况，同样需要分离需要被替换的词（先用-分再用“分，最后取出）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (quest.substring(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>).equals(<span class="hljs-string">&quot;qdate&quot;</span>)) &#123; <span class="hljs-comment">//查询输入相同日期</span><br>    <span class="hljs-keyword">if</span> (!quest.contains(<span class="hljs-string">&quot;-c&quot;</span>)) &#123; <span class="hljs-comment">//不需要屏蔽词</span><br>        memory.printDate(quest.substring(<span class="hljs-number">6</span>), quest, <span class="hljs-string">&quot;&quot;</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">//需要屏蔽词，格式为qdate yyyy/mm/dd -c &quot;Str&quot;</span><br>        String[] clearString = quest.split(<span class="hljs-string">&quot;-&quot;</span>);<br>        String[] needClear = clearString[<span class="hljs-number">1</span>].split(<span class="hljs-string">&quot;\&quot;&quot;</span>);<br>        memory.printDate(clearString[<span class="hljs-number">0</span>].trim().substring(<span class="hljs-number">6</span>), quest, needClear[<span class="hljs-number">1</span>]);<br>    &#125; <span class="hljs-comment">//qdate 12/23 -c &quot;f&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>3.对于时间的输入，首先判断是否错误。我在这里写了一个判断错误的函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">dateCheck</span><span class="hljs-params">(<span class="hljs-type">int</span> year, <span class="hljs-type">int</span> month, <span class="hljs-type">int</span> day)</span> &#123;<br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">runYear</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">if</span> (year != -<span class="hljs-number">1</span>) &#123; <span class="hljs-comment">//年份不缺省，需要判断闰年</span><br>        <span class="hljs-keyword">if</span> ((year % <span class="hljs-number">4</span> == <span class="hljs-number">0</span> &amp;&amp; year % <span class="hljs-number">100</span> != <span class="hljs-number">0</span>) || (year % <span class="hljs-number">400</span> == <span class="hljs-number">0</span>)) &#123;<br>            runYear = <span class="hljs-literal">true</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (year == -<span class="hljs-number">1</span>) &#123; <span class="hljs-comment">//年份缺省，考虑最好情况</span><br>        runYear = <span class="hljs-literal">true</span>;<br>    &#125;<br>        <span class="hljs-comment">//考虑各种不成立的情况</span><br>    <span class="hljs-keyword">if</span> (month != -<span class="hljs-number">1</span> &amp;&amp; day != -<span class="hljs-number">1</span>) &#123; <span class="hljs-comment">//无缺省或缺省年份</span><br>        <span class="hljs-keyword">if</span> (month &gt; <span class="hljs-number">12</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (month == <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-keyword">if</span> (!runYear &amp;&amp; day &gt; <span class="hljs-number">28</span>) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            <span class="hljs-keyword">return</span> !runYear || day &lt;= <span class="hljs-number">29</span>;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (month == <span class="hljs-number">4</span> || month == <span class="hljs-number">6</span> || month == <span class="hljs-number">9</span> || month == <span class="hljs-number">11</span>) &#123;<br>            <span class="hljs-keyword">return</span> day &lt;= <span class="hljs-number">30</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> day &lt;= <span class="hljs-number">31</span>;<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (month != -<span class="hljs-number">1</span> &amp;&amp; day == -<span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span> month &lt;= <span class="hljs-number">12</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (month == -<span class="hljs-number">1</span> &amp;&amp; day != -<span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">return</span> day &lt;= <span class="hljs-number">31</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>其精髓就是要考虑最好情况，就比如在年份缺省的时候，就默认其为闰年，默认2月可以有29天；如果月份缺省，就默认每个月最多都可以有31号。</p>
+<p>然后首先进行错误分析，进行错误抛出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (!dateCheck(inputYear, inputMonth, inputDay)) &#123; <span class="hljs-comment">//非法情况</span><br>    System.out.println(<span class="hljs-string">&quot;Command Error!: Wrong Date Format! \&quot;&quot;</span> + cmd + <span class="hljs-string">&quot;\&quot;&quot;</span>);<br>&#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">//合法情况</span><br></code></pre></td></tr></table></figure>
+<p>对正确情况，就进行屏蔽操作。我对printDate,printSender等等多加了一个字符串的输入，代表的是应该被屏蔽的字符串。当其为空时则不用屏蔽，如果非空就进行屏蔽操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (needClear.equals(<span class="hljs-string">&quot;&quot;</span>)) &#123; <span class="hljs-comment">//不用屏蔽</span><br>    System.out.print(strings.get(index).getUsedString().trim());<br>    System.out.println(<span class="hljs-string">&quot;;&quot;</span>);<br>&#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">//需要屏蔽</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> strings.get(index).getUsedString().trim();<br>    System.out.print(changeOutput(needClear, out));<br>    System.out.println(<span class="hljs-string">&quot;;&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>对于屏蔽操作，我也进行了一个函数的封装，用来对原有字符串改变为星号。其原理就是，首先看屏蔽词的长度，然后生成同样长度的星号串，最后利用replace函数将内容改变。<br>这里有一个重点：屏蔽词只屏蔽内容！比如屏蔽字符”1“就只能屏蔽内容的1而不能屏蔽日期中的。所以要把原有字符串引号中的内容提取出来再进行更换，最后字符串拼接后输出。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> String <span class="hljs-title function_">changeOutput</span><span class="hljs-params">(String clear, String beforeOutput)</span> &#123;<br>    String[] words = beforeOutput.split(<span class="hljs-string">&quot;\&quot;&quot;</span>);<br>    <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> clear.length();<br>    <span class="hljs-type">String</span> <span class="hljs-variable">change</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; length; i++) &#123;<br>        change = change + <span class="hljs-string">&quot;*&quot;</span>;<br>    &#125;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">afterOutput</span> <span class="hljs-operator">=</span> beforeOutput;<br>    <span class="hljs-keyword">return</span> words[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;\&quot;&quot;</span> + words[<span class="hljs-number">1</span>].replace(clear, change) + <span class="hljs-string">&quot;\&quot;&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>考虑发送、接收者相关函数：<br>如果没有-v时，判断错误只需要判断有没有多余的-param就可以，此时同样写了一个函数：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">checkPeople</span><span class="hljs-params">(String quest)</span> &#123;<br>    <span class="hljs-keyword">if</span> (quest.contains(<span class="hljs-string">&quot;-ssq&quot;</span>)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (quest.contains(<span class="hljs-string">&quot;-ssr&quot;</span>)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (quest.contains(<span class="hljs-string">&quot;-pre&quot;</span>)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (quest.contains(<span class="hljs-string">&quot;-pos&quot;</span>)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+这样判断完这个函数就可以直接利用上面的方法进行输出，不再赘述。</li>
+</ol>
+<p>如果有-v时，也需要判断错误，但是这个时候判断的错误是-param是否在-v前面，这个函数需要改成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">checkPeopleV</span><span class="hljs-params">(String quest)</span> &#123;<br>    <span class="hljs-keyword">if</span> (quest.indexOf(<span class="hljs-string">&quot;-ssq&quot;</span>) &lt; quest.indexOf(<span class="hljs-string">&quot;-v&quot;</span>) &amp;&amp; quest.contains(<span class="hljs-string">&quot;-ssq&quot;</span>)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-comment">//……</span><br></code></pre></td></tr></table></figure>
+<p>意思就是如果有param就要有后置的一个-v，非常易于理解。随后就是针对不同的四种param进行输出处理。<br>对于-ssq：此处检测的是子序列，没有现成的函数，需要自己写一个函数进行判断，这里是-ssq的输出函数：（同样最后考虑了是否需要屏蔽，同样套用上面的方法）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (cmd.contains(<span class="hljs-string">&quot;-ssq&quot;</span>)) &#123;<br>    <span class="hljs-keyword">if</span> (checkSsq(name[<span class="hljs-number">1</span>], strings.get(index).getReceiverName())) &#123;<br>        <span class="hljs-keyword">if</span> (needClear.equals(<span class="hljs-string">&quot;&quot;</span>)) &#123;<br>            System.out.print(strings.get(index).getUsedString().trim());<br>            System.out.println(<span class="hljs-string">&quot;;&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> strings.get(index).getUsedString().trim();<br>            System.out.print(changeOutput(needClear, out));<br>            System.out.println(<span class="hljs-string">&quot;;&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>子序列检测函数：（子序列相当于可以断开的子串）就是对子串的每一个字符都从检测字符串从前往后检测，如果检测到了就从该位开始检测下一个字符，最后如果所有字串字符都能按顺序在检测字符串中找到，则证明子串是子序列。函数如图：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">checkSsq</span><span class="hljs-params">(String quest, String string)</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">questIn</span> <span class="hljs-operator">=</span> quest;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">stringIn</span> <span class="hljs-operator">=</span> string;<br>    <span class="hljs-keyword">while</span> (stringIn.length() != <span class="hljs-number">0</span> &amp;&amp; questIn.length() != <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">if</span> (stringIn.charAt(<span class="hljs-number">0</span>) == questIn.charAt(<span class="hljs-number">0</span>)) &#123;<br>            questIn = questIn.substring(<span class="hljs-number">1</span>);<br>            stringIn = stringIn.substring(<span class="hljs-number">1</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            stringIn = stringIn.substring(<span class="hljs-number">1</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> questIn.length() == <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>对于-pre（前缀检测）：直接利用现有的前缀检测函数startsWith即可。如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (cmd.contains(<span class="hljs-string">&quot;-pre&quot;</span>)) &#123;<br>    <span class="hljs-keyword">if</span> (strings.get(index).getSenderName().startsWith(name[<span class="hljs-number">1</span>])) &#123;<br>        <span class="hljs-comment">//……</span><br></code></pre></td></tr></table></figure>
+<p>对于-pos（后缀检测）也类似，只是利用的是后缀检测函数endsWith。<br>对于-ssr，就和只有-v是等价的，只需要进行屏蔽操作就可以了，不再赘述。</p>
+<p>以上，就是第六次作业的改动总结。又一个场景结束啦，最后一次看上去好难的样子orz</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">#面向对象</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/22/oo-pre%E7%AC%AC%E4%B8%83%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="oo-pre第七次作业总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">oo-pre第七次作业总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/22/oo-pre%E7%AC%AC%E4%BA%94%E6%AC%A1%E4%BD%9C%E4%B8%9A%E6%80%BB%E7%BB%93/" title="oo-pre第五次作业总结">
+                        <span class="hidden-mobile">oo-pre第五次作业总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

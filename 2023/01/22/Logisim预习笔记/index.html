@@ -1,0 +1,1021 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="开学初本人对Logisim的一些预习记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Logisim预习笔记">
+<meta property="og:url" content="http://example.com/2023/01/22/Logisim%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="开学初本人对Logisim的一些预习记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/lucy2.jpg">
+<meta property="article:published_time" content="2023-01-22T13:24:45.000Z">
+<meta property="article:modified_time" content="2023-01-22T13:55:38.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二秋季">
+<meta property="article:tag" content="计算机组成">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/lucy2.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Logisim预习笔记 - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Logisim预习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-22 21:24" pubdate>
+          2023年1月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Logisim预习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="一些Logisim元件的用法"><a href="#一些Logisim元件的用法" class="headerlink" title="一些Logisim元件的用法"></a>一些Logisim元件的用法</h3><p>1.splitter </p>
+<ul>
+<li><p>Fan out:确定输出的分离份数或输入的份数</p>
+</li>
+<li><p>Bit Width In：输入的数据长度</p>
+</li>
+<li><p>Bit n：对输出位数的位置分配</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/splitter.png" srcset="/img/loading.gif" lazyload></p>
+<p>2.Bit Extender</p>
+<ul>
+<li><p>Bit Width In：输入的数据长度</p>
+</li>
+<li><p>Bit Width Out：输出的数据长度（即扩展到多少位）</p>
+</li>
+<li><p>Extension Type：扩展方式选择：</p>
+<p> zero补0<br> one补1<br> sign补原数据符号位<br> input根据上方输入选择补充0或1</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Bit%20Extender.png" srcset="/img/loading.gif" lazyload></p>
+<p>3.And,Or,Nand,Nor,Xor,Xnor</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>and</th>
+<th>or</th>
+<th>nand</th>
+<th>nor</th>
+<th>xor</th>
+<th>xnor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>and的表达式是AB，or的表达式是A+B</li>
+<li>xor门当输入数据超过2时，对应位为1的数量超过1时其异或结果即为0</li>
+</ul>
+<p>4.Odd Parity（奇校验）</p>
+<ul>
+<li><p>Data Bits：输入数据的长度设置（下同）</p>
+</li>
+<li><p>Numbers Of Inputs：输入数据个数的设置</p>
+</li>
+<li><p>Output Value：通过检验和没通过检验分别输出数据类型</p>
+</li>
+<li><p>奇校验门输入数据同一位有奇数个1就输出1，和Xor门有差别</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Odd%20parity.png" srcset="/img/loading.gif" lazyload></p>
+<p>5.Controlled Buffer</p>
+<ul>
+<li><p>当控制输入引脚输入为0或浮动时，输出数据也是浮动的</p>
+</li>
+<li><p>当控制输入引脚输入为1时，输出数据即为输入数据（缓冲器作用）</p>
+</li>
+<li><p>当控制输入引脚输入错误，输出数据也是错误</p>
+</li>
+<li><p>Controlled Inverter相当于Controlled Buffer+not</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Controlled%20Buffer.png" srcset="/img/loading.gif" lazyload></p>
+<p>6.Multiplexer</p>
+<ul>
+<li><p>Select Bits：选择端输入数据长度设置，若其长度为n，则输入数据个数为2^n</p>
+</li>
+<li><p>Include Enable：若选择，在元件下部右侧出现使能输入，当输入为1时元件才可用（默认1）</p>
+</li>
+<li><p>解复用器Demultiplexer和mux类似（功能相反），注意其下侧左侧为使能，右侧为选择输入</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Mux.png" srcset="/img/loading.gif" lazyload></p>
+<p>7.Decoder</p>
+<ul>
+<li><p>Select Bits同上，差别为此元件无输入，和Select Bits输入数据对应的端口（例如输入110就是6号端口输出1）</p>
+</li>
+<li><p>Three State选择：可以决定没被选择的端口输出0还是浮动值</p>
+</li>
+<li><p>与Dex相同，下侧左端为使能输入，右端为选择输入</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Decoder.png" srcset="/img/loading.gif" lazyload></p>
+<p>8.Bit Selector</p>
+<ul>
+<li><p>其原理是对输入数据进行分段和选择输出，例如输入端长度设定为8，输入为110101001，输出端长度为3，则相当于要将输入端以三位为一组分开，此时选择段输入长度即为2（因为第0，1，2组都有值），若选择段输入0，相当于取第0组，即输出001（从低位开始排序），以此类推，如果输入10取第2组，则需要在最高位补0，故输出011，第三组完全没有值，则输出000</p>
+<ul>
+<li>因此本元件的分组大小和选择段输入长度都由输入输出长度确定</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Bit%20Selector.png" srcset="/img/loading.gif" lazyload></p>
+<p>9.Adder,Subtractor,Multiplier,Divider</p>
+<ul>
+<li><p>加减乘除元件大体类似，都是以西北侧输入为第一个数，西南侧输入为第二个数，结果从东侧输出</p>
+</li>
+<li><p>加法北侧可以输入要加入总和的进位值，南侧可以输出计算完成后的进位位</p>
+</li>
+<li><p>减法北侧可以标记借位，如果输入1表示借1，南侧可以输出符号，如果得到负数，则输出1，否则输出0</p>
+</li>
+<li><p>乘法北侧也表示进位值，东侧输出的是符合输出长度的低位，而南侧输出的是结果中没有被完全输出的高位值</p>
+</li>
+<li><p>除法北侧表示被除数的高位（即西北侧输入的数的高位），东侧输出的是符合输出长度的商低位，南侧输出的是余数</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/add%252Csub%252Cmult%252Cdiv.png" srcset="/img/loading.gif" lazyload></p>
+<p>10.Negator(-x)</p>
+<ul>
+<li>取反加一，输出补码</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Negator.png" srcset="/img/loading.gif" lazyload></p>
+<p>11.Comparator</p>
+<ul>
+<li><p>Numeric Type：输入的两个数据的类型，二进制补码或者无符号数</p>
+</li>
+<li><p>输入以西北侧输入为a，西南侧输入为b，当a&gt;b时东北侧输出1，a&#x3D;b时正东侧输出1，a&lt;b时东南侧输出1</p>
+</li>
+<li><p>比较原理是从每个数字的最有效位开始并行向下比较，直到找到不同值位置，如果遇到错误值或浮点值，那么输出也匹配错误值和浮点值</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Comparator.png" srcset="/img/loading.gif" lazyload></p>
+<p>12.Shifter</p>
+<ul>
+<li><p>西北侧输入为需要被移位的数据data，西南侧输入为移位多少的数据dist，两者的关系是dist&#x3D;[log2data]+1，这样才能满足可以把所有数据位都移走的上限</p>
+</li>
+<li><p>shift Type：移位规则，分为：</p>
+<p> 逻辑左移：所有数据左移dist位，低位用0填充（被移除数据范围的位数丢弃，下同）<br> 逻辑右移：所有数据右移dist位，高位用0填充<br> 算术右移：所有数据右移dist位，高位用原数据最高位填充<br> 循环左移：所有数据左移dist位，被移出数据范围的位循环进入低位<br> 循环右移：所有数据右移dist位，被移除数据范围的位循环进入高位</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Shifter.png" srcset="/img/loading.gif" lazyload></p>
+<p>13.Register（寄存器）</p>
+<ul>
+<li><p>其功能为将输入值实时存储在寄存器中，在时钟上升沿将储存在寄存器中的数据传输给输出</p>
+</li>
+<li><p>正西侧为输入，西南侧为使能输入，南侧左端为时钟输入信号，右端为复位信号，东侧输出</p>
+</li>
+<li><p>使能在没有输入时默认为1</p>
+</li>
+<li><p>复位信号是异步重置，相当于其只要为1就让寄存器的值重置为0，和时钟上升沿无关</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/register.png" srcset="/img/loading.gif" lazyload></p>
+<p>14.Counter</p>
+<ul>
+<li><p>计数器持有单个值，每次时钟到达上升沿触发计数器，其会根据左侧输入更新值并且更新输出</p>
+</li>
+<li><p>西北侧和西南侧输入分别为load和count，南侧的时钟和reset和register相同，正东侧为输出，东南侧为carry（进位）输出，当计数器中值最大但仍对其指示加一或值最小但仍指示减一时即变为1</p>
+</li>
+<li><p>计数器存储数字的更新方式（增加减少都是随时钟上沿增加减少1）</p>
+<table>
+<thead>
+<tr>
+<th>load</th>
+<th>count</th>
+<th>触发情况</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0或x</td>
+<td>0</td>
+<td>值不变</td>
+</tr>
+<tr>
+<td>0或x</td>
+<td>1或x</td>
+<td>值增加</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>载入输入值</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1或x</td>
+<td>值减少</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Action On Overflow：当存入数据溢出时的处理方式</li>
+</ul>
+<p> Wrap around重新计数：递增则回0，递减则回最大值<br> Stay at value保持前值：递增时保持最大值，递减时保持0<br> Countinue counting继续计数：计数器继续递增、递减，保持数据位计数<br> Load next value加载下一个值：下一个值直接从输入中获取</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/Counter.png" srcset="/img/loading.gif" lazyload></p>
+<p>15.RAM</p>
+<ul>
+<li><p>使用分离的加载和存储端口模式，即将数据接口选择”Seperate load and store ports”</p>
+</li>
+<li><p>西侧A接口表示要操作的数据的地址，D接口表示要存入RAM的数据</p>
+</li>
+<li><p>南侧左边小三角形输入时钟信号，右侧ld接口输入选择信号（1bit）为0时储存数据，为1时读取数据</p>
+</li>
+<li><p>东侧D接口输出显示当前正在存储&#x2F;读取的数据</p>
+</li>
+<li><p>其余引脚：str输入引脚，当其为1或浮动时才能将左侧D数据存储到RAM中</p>
+</li>
+<li><p>其余引脚：sel输入引脚，根据其为1，0或浮动决定启动或者禁用整个RAM</p>
+</li>
+<li><p>其余引脚：clr输入引脚，当值为1时RAM所有储存值固定为0(clear)</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002152733373.png" srcset="/img/loading.gif" lazyload></p>
+<p>16.ROM</p>
+<ul>
+<li><p>和RAM比较类似，但是是只读存储器（无法修改）</p>
+</li>
+<li><p>左侧A接口表示想要读取的数据地址，右侧D输出读取的数据</p>
+</li>
+<li><p>南侧sel引脚输入值为1时才能正常读取，当输入值为0时就无法读取，D输出为浮动值</p>
+</li>
+<li><p>改变其存储内容的方式有：利用右键手动输入存储值，或者导入txt文件。如果想要导入txt文件（例如MARS输出的）需要在文件第一行写”v2.0 raw”字样才能正常读入。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002153402383.png" srcset="/img/loading.gif" lazyload></p>
+<p>  （其余元件用到再补充）</p>
+<h3 id="Logisim和组合电路"><a href="#Logisim和组合电路" class="headerlink" title="Logisim和组合电路"></a>Logisim和组合电路</h3><p>利用logisim构成组合电路的问题是，难以直接从真值表转化为logisim的电路图，此时需要利用布尔表达式来进行传递，先将真值表变为布尔表达式，再将表达式用电路的与或非门表示。<br>（但是可以从电路图直接转化为真值表，只需要一个一个带入0，1值即可）<br>真值表向表达式的转化可以有两种方法完成：<br>eg.(c为输出)</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>1.积项求和和和项求积（相当于离散数学中的主析取范式和主合取范式）</p>
+<ul>
+<li>积项求和：输出为1的行产生积项（and)，然后将所有项求和（or），注意要将所有为0的变量取反，则此处c&#x3D;((<del>a)b+a(</del>b))</li>
+<li>和项求积：输出为0的行产生和项，然后将所有项求积，其余同上，则此处为c&#x3D;(<del>a+</del>b)(a+b)</li>
+</ul>
+<p>2.卡诺图</p>
+<ul>
+<li>将输入信号尽可能均匀的分为两组（一组n个一组m个），然后构造一个2^n * 2^m的矩阵，注意相邻的两个组合只有一个信号的值有变化</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/canuo1.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>将真值表填入卡诺图</p>
+</li>
+<li><p>相邻的邻居如果都为1，则可以进行化简，但是邻居个数必须是2的整数幂</p>
+</li>
+<li><p>组越大最终表达式越简单，则应该尽可能选择尽可能大的单元，避免单个单元</p>
+</li>
+<li><p>注意四角的单元，因为其相当于和另一端的单元相邻</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/canuo2.png" srcset="/img/loading.gif" lazyload></p>
+<p>卡诺图是更加好的选择，因为卡诺图不仅可以求出表达式，还可以化简，让电路图更加精简</p>
+<p>在logisim中可以利用window&gt;Combinational Analysis，自己定义输入输出并输入真值表或者计算公式，logisim就可以自动构建组合电路，还可以选择保证所有门元件都只有两个输入，或者只适用Nand门。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/combinational%20Analysis.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Logisim和时序电路"><a href="#Logisim和时序电路" class="headerlink" title="Logisim和时序电路"></a>Logisim和时序电路</h3><p>双稳态电路：由两个反相器构成双稳态，该电路的输出取决于电路的初始状态，当初始Q为0时，Q永远为0，当初始Q为1时，Q永远为1。因此其已经可以保存1位信息了，但是缺乏实用价值。</p>
+<ul>
+<li>此处已经可以看出，我们可以利用门等运算器的逻辑关系，利用组合电路构建出拥有储存性质的电路，将其进行拓展即可得到时序电路</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002143019862.png" srcset="/img/loading.gif" lazyload></p>
+<p>RS锁存器：其结构如下图。首先分析当R&#x3D;1或S&#x3D;1的这些情况，因为此时N1,N2的nor门明显输出为0，因此这三种状态和之前的输出Qprev无关。</p>
+<ul>
+<li>再考虑R&#x3D;S&#x3D;0时，则新的输出Q和之前的输出Qprev有关，此时若Qprev为0，则Q为0，Qprev为1，则Q为1。我们可以发现Q的输出在这种情况下完全取决于Qprev并和Qprev完全相同。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/shixu2.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>因此我们可以手动利用RS储存器存入0或1，方法就是先利用R&#x2F;S取值为0&#x2F;1或1&#x2F;0时给Q赋一个初值，比如如果想给Q赋值1，则R&#x2F;S赋值为0&#x2F;1。然后再将R和S变成0，相当于切断了外界对这个锁存器储存值的影响，此时Qprev为1且R&#x3D;S&#x3D;0，则Q值恒为1。</li>
+<li>RS锁存器中R输入即为Reset，而S输入为Set的意思。因为当S&#x3D;1,R&#x3D;0时给Q置1（称为置位）S&#x3D;0&#x2F;R&#x3D;1的状态给Q置0（称为清零）S&#x3D;R&#x3D;0时称为保持状态，因为Q只和前状态Qprev相关。</li>
+<li>RS锁存器中S&#x3D;R&#x3D;1是非法状态，不应被调至此种状态。</li>
+<li>RS锁存器的局限是不具备时间特性，无法被时钟信号控制。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002144547009.png" srcset="/img/loading.gif" lazyload></p>
+<p>D锁存器：输入包括CLK（时钟信号）和D信号</p>
+<ul>
+<li>D锁存器是RS锁存器的扩展，其中使用了一个RS锁存器模块，结构见下图：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002145012861.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>分析方法：当CLK信号为0时，无论D信号，进入RS锁存器的信号R和S都一定为0，此时RS锁存器的状态一定为保持（R&#x3D;S&#x3D;0）</li>
+<li>当CLK信号为1时考虑D信号，当D为0时R&#x3D;1,S&#x3D;0，此时Q为0，当D&#x3D;1时R&#x3D;0,S&#x3D;1，此时Q为1，相当于D值可以选择置位或者清除操作，并且这种结构可以保证不会出现R&#x3D;S&#x3D;1的非法状态。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002145420725.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>因此D锁存器已经有了很明显的时间概念，CLK输入决定何时进行保存（为1传输D值，为0保持Qprev），D输入决定保存什么值。</li>
+<li>局限在于，在高电平（CLK为1）时Q值对D值敏感，会随时随D值翻转（这种特性被称作电平缓冲器），则没有完全达到对时钟的设计初衷。</li>
+</ul>
+<p>D寄存器：利用两个D锁存器串联，并且两个锁存器的CLK输入反相。</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002150203342.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>先研究CLK：当CLK为0时L1可以透传而L2保持，相当于将D传送到N1；当CLK为1时L2可以透传而L1保持，则相当于把确认为稳定值的D(N1)传送到Q。</p>
+</li>
+<li><p>则相当于，在CLK由0变1时将D透传到Q，因为CLK为0时Q不变，同时保证CLK为1时D不变，因此Q的值就是CLK由0变1时传入的D值。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002150508669.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>其优点在于，实现了边沿处（时钟上升沿）保存数据，而确保D在非时钟上升沿的任何变化都不会影响Q。这种特性被称为边沿触发。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002150705217.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>D寄存器时间特性：<br> 建立时间：CLK边沿前D保持稳定的时间TS<br> 保持时间：CLK边沿后D保持稳定的时间TH<br> 输出延迟：CLK边沿后Q输出有效值的时间TQ</li>
+<li>D值能否被保存取决于TS,TH，而Q值何时能被看到取决于TQ</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002151146185.png" srcset="/img/loading.gif" lazyload></p>
+<p>Logisim中和时序相关的功能：</p>
+<ul>
+<li>Tick Once 时钟高低平变化一次（ctrl+T）</li>
+<li>Ticks Enabled 允许时钟开始工作（高低平反复变化）（ctrl+K）</li>
+<li>Tick Frequency 调节时钟变化频率</li>
+<li>Reset Simulation 回到初始状态（ctrl+R）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002151744947.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Logisim和有限状态机"><a href="#Logisim和有限状态机" class="headerlink" title="Logisim和有限状态机"></a>Logisim和有限状态机</h3><p>有限状态机</p>
+<ul>
+<li>定义：表示有限个状态以及这些状态之间的转移和动作等行为的离散数学模型</li>
+<li>”状态“：电路所处的特定工作阶段，每一个状态需要给予一个编码值，然后将一个寄存器作为状态的寄存器（输出的编码值就是状态），其中存储的状态取决于次态逻辑的输出（寄存器的输入）</li>
+<li>次态逻辑：根据当前状态和输入，计算下一个状态（的编码值），是一种组合逻辑</li>
+<li>输出逻辑：根据输入和状态计算输出值</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002161850459.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>状态机表示方法：状态机，状态表</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002162001151.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>状态机开发步骤：</p>
+<blockquote>
+<p>1.规划状态总数，确保所有状态都被包括<br>2.构造状态图，必须让所有的状态转移条件都是完备的，保证状态转移能够进行<br>3.根据输入信号，当前状态，下个状态构造寄存器输入信号门电路（真值表推演）（次态逻辑）<br>4.根据设计选择当前状态的输出值（输出逻辑）</p>
+</blockquote>
+</li>
+<li><p>状态机核心：用次态逻辑计算下一个时钟周期寄存器的输入</p>
+</li>
+<li><p>设计要点：需要给状态机设计一个初始状态，这样在开始的时候有一个确定的状态。同时需要有一个复位信号将状态机转化为初始状态。</p>
+</li>
+<li><p>不同类型状态机：</p>
+<blockquote>
+<p>Moore型状态机：输出信号只由当前状态决定，和输入信号无关<br>Meely型状态机：输出信号由当前状态和输入信号共同决定</p>
+</blockquote>
+</li>
+<li><p>状态机构建例子：<br>序列检测器的1位串行输入与时钟严格同步。当检测器连续收到串行码{1101}后，检测标志输出1且持续时间为1个cycle，否则输出0。构建序列检测机。</p>
+</li>
+<li><p>1.构建状态<br>由于一个收到串行码的过程需要四个时间周期（分别输入1101），则可以将其分为四个状态：1(S1)、11(S2)、110(S3)、1101(S4)，最后再添加一个没有匹配成功需要从头开始的状态(S0)。</p>
+</li>
+<li><p>2.根据状态和题意给出状态转移情况</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002164224838.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>3.增加复位信号Reset，即如果输入信号是复位信号的话，状态变回S0</li>
+<li>4.构造门电路，创建次态逻辑：普适方法为把每个状态转移转化为一行真值表，再转化为表达式和门电路。（可靠性设计：所有的未定义状态转化为初态）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002164503643.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>5.产生输出信号（输出逻辑）：本题的条件是”检测标志输出1且持续时间为1个cycle，否则输出0“，有两种输出逻辑（本质是选择哪一种类型的状态机）</p>
+<blockquote>
+<p>如果理解是状态是S3（110）并且检测到输入为1，就直接输出1，则为Meely型<br>如果理解是状态是S4（1101）才输出1，则为Moore型<br>由于本题S3或S4都只持续一个cycle，因此不用考虑状态持续问题</p>
+</blockquote>
+</li>
+<li><p>对比两种类型状态机输出：Moore型输出晚，有效时间只和状态相关，以cycle为单位</p>
+</li>
+<li><p>Meely型输出提前（因为考虑输入），但是有效时间不止考虑状态，也考虑输入</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002165747038.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>利用Logisim构建状态机的一般方法：将状态机分成三个模块：状态转移模块（构建次态逻辑），状态存储模块（存储当前状态）以及输出模块（构建输出逻辑），最终将三个模块结合即可。（Moore和Meely的差别是输入数据是否同时输入给次态逻辑和输出逻辑，如果是就是Meely型，否则是Moore型）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/image-20221002170012224.png" srcset="/img/loading.gif" lazyload></p>
+<p>（此图为Meely型）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E7%A7%8B%E5%AD%A3/">#大二秋季</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/">#计算机组成</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/22/Verilog%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Verilog预习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Verilog预习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/19/Hello-World-0/" title="Hello World!">
+                        <span class="hidden-mobile">Hello World!</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
