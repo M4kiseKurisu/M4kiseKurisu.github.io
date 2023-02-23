@@ -1,0 +1,831 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="操作系统网站预习教程的学习笔记，很多就是跟着记了一遍实践了一遍，感觉用命令行操作确实很帅啊~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS预习教程笔记（1）">
+<meta property="og:url" content="http://example.com/2023/02/23/OS%E9%A2%84%E4%B9%A0%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="操作系统网站预习教程的学习笔记，很多就是跟着记了一遍实践了一遍，感觉用命令行操作确实很帅啊~">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/futaba1.jpg">
+<meta property="article:published_time" content="2023-02-23T03:01:35.000Z">
+<meta property="article:modified_time" content="2023-02-23T03:15:28.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二春季">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/futaba1.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>OS预习教程笔记（1） - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OS预习教程笔记（1）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-23 11:01" pubdate>
+          2023年2月23日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          112 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">OS预习教程笔记（1）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>Linux操作系统是基于Linux内核的开源操作系统，课程使用Linux发行版为Ubuntu。</p>
+<p>对网上的Linux环境访问后出现界面为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css">开始连接到 git<span class="hljs-keyword">@10</span>.134.170.246  <span class="hljs-number">0.1</span><br>Welcome to Ubuntu <span class="hljs-number">22.04</span>.<span class="hljs-number">1</span> LTS (GNU/Linux <span class="hljs-number">5.15</span>.<span class="hljs-number">0</span>-<span class="hljs-number">46</span>-generic x86_64)<br><br> * <span class="hljs-attribute">Documentation</span>:  <span class="hljs-attribute">https</span>://help.ubuntu.com<br> * <span class="hljs-attribute">Management</span>:     <span class="hljs-attribute">https</span>://landscape.canonical.com<br> * <span class="hljs-attribute">Support</span>:        <span class="hljs-attribute">https</span>://ubuntu.com/advantage<br>Last <span class="hljs-attribute">login</span>: Mon Feb <span class="hljs-number">20</span> <span class="hljs-number">14</span>:<span class="hljs-number">15</span>:<span class="hljs-number">31</span> <span class="hljs-number">2023</span> from <span class="hljs-number">10.134</span>.<span class="hljs-number">170.231</span><br>git@<span class="hljs-number">21373343</span>:~ $ <br></code></pre></td></tr></table></figure>
+
+<p>最后一行git为用户名，学号为主机名。</p>
+<p>本界面即为Ubentu操作系统界面，这种没有图形界面的界面被称为命令行界面CLI。<br>操作系统的“外壳”(Shell)，也即用户界面分为命令行界面(CLI Shell)和图形用户界面(GUI Shell)，我们使用的操作系统一般是GUI Shell，服务器运行的Linux一般是CLI Shell。</p>
+<h4 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h4><p>在命令行界面中用户要通过命令指示操作系统，命令格式一般是：<code>命令名 [选项] [参数] ...</code></p>
+<h5 id="cd命令"><a href="#cd命令" class="headerlink" title="cd命令"></a>cd命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span>命令<br>用法：<span class="hljs-built_in">cd</span> [选项] 目录<br>作用：切换到某个对应目录<br></code></pre></td></tr></table></figure>
+
+<p>举例测试：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>cd /<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:/</span> <span class="hljs-variable">$ </span><br></code></pre></td></tr></table></figure>
+
+<p>指令意思是通过cd指令进入了&#x2F;这一目录。<br>Linux文件系统最顶层为根目录，就用&#x2F;表达，因此上面的操作就是“切换到根目录”。根目录中有所有的二级目录，其中包括：<br>Linux内核启动需要的&#x2F;boot，系统配置文件的&#x2F;etc，存放普通用户主目录的目录&#x2F;home，系统管理员的用户主目录&#x2F;root，用户系统资源存放的目录&#x2F;usr等。</p>
+<p>第一行中的<del>则是当前用户主目录的简写，用<code>cd ~</code>指令就能回到当前用户的主目录。对于一般用户</del>就是<code>/home/用户名</code>，root用户就是<code>/root</code>。</p>
+<p>两行中都有的$代表当前的用户是普通用户，如果是管理员用户，即root用户，就会显示#，教程也提到后续会用<code>$ xxx</code>表示需要在终端中输入<code>xxx</code>，而用$代表终端中显示的符号。</p>
+<p>同时cd命令也支持相对路径寻找目录。例如：假设目前处于根目录&#x2F;，我们如果想进入&#x2F;etc，不但可以通过<code>cd /etc</code>完成，也可以通过<code>cd etc</code>完成，此时会在当前所处目录中寻找etc目录并进入。</p>
+<p>还需要了解返回上一级目录的方式：在Linux中用.表示当前目录，..表示上一级目录，所以<code>cd .</code>就是会到当前目录，等于没有操作，而<code>cd ..</code>表示回到上一级目录。</p>
+<p>输入<code>cd -</code>可以跳转到上一次访问的目录。</p>
+<p>（在输入文件、目录名时可以用tab联想，按一次可以自动补全，按两次可以显示所有可能选择）</p>
+<h5 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">ls命令<br>用法：ls <span class="hljs-selector-attr">[选项]</span> <span class="hljs-selector-attr">[目录]</span><br>作用：列出目录中的文件，如果目录参数没有给出就列出当前所在目录中的文件<br>一些常见选项： -<span class="hljs-selector-tag">a</span>  显示隐藏的文件   -l  每行只列出一个文件<br></code></pre></td></tr></table></figure>
+
+<h5 id="mkdir命令"><a href="#mkdir命令" class="headerlink" title="mkdir命令"></a>mkdir命令</h5><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arduino">mkdir命令<br>用法：mkdir [选项] 目录<br>作用：创建一个新目录<br></code></pre></td></tr></table></figure>
+
+<p>举例测试（在用户主目录，即~下面创建一个叫做newdir的新目录并进入）：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:/</span> <span class="hljs-variable">$ </span>cd ~<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>mkdir newdir<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>cd newdir<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~/newdir</span> <span class="hljs-variable">$ </span><br></code></pre></td></tr></table></figure>
+
+<h5 id="pwd命令"><a href="#pwd命令" class="headerlink" title="pwd命令"></a>pwd命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">pwd</span>命令<br>用法：<span class="hljs-built_in">pwd</span> [选项]<br>作用：输出当前目录的绝对路径<br></code></pre></td></tr></table></figure>
+
+<p>举例测试（查看刚才新建的newdir目录的绝对路径）：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@21373343:</span>~/newdir $ pwd<br>/home/git/newdir<br></code></pre></td></tr></table></figure>
+
+<h5 id="rmdir命令"><a href="#rmdir命令" class="headerlink" title="rmdir命令"></a>rmdir命令</h5><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arduino">rmdir命令<br>用法：rmdir [选项] 目录<br>作用：删除一个空的目录（当目录非空时无法用这条命令删除）<br></code></pre></td></tr></table></figure>
+
+<p>举例测试（退回用户主目录并删除newdir目录）：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~/newdir</span> <span class="hljs-variable">$ </span>cd ..<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>rmdir newdir<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls ~<br><span class="hljs-number">21373343</span>       //(已经没有newdir目录在用户主目录中)<br></code></pre></td></tr></table></figure>
+
+<h4 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h4><p>Linux的哲学是一切皆文件，即目录、设备等都以文件形式存储在操作系统中的，以下的操作都是最普适的针对文件的命令，而之前的目录操作是针对目录这一独有文件的命令。</p>
+<h5 id="touch命令"><a href="#touch命令" class="headerlink" title="touch命令"></a>touch命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span>命令<br>用法：<span class="hljs-built_in">touch</span> [选项] 文件名<br>作用：当文件存在时更新文件时间戳，当文件不存在时创建新文件<br></code></pre></td></tr></table></figure>
+<p>举例测试（在用户主目录中创建一个helloworld.c文件）：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>touch helloworld.c<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls <br><span class="hljs-number">21373343</span>  helloworld.c        //证明这个新建文件可以被ls看到<br></code></pre></td></tr></table></figure>
+
+<h5 id="rm命令"><a href="#rm命令" class="headerlink" title="rm命令"></a>rm命令</h5><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs diff">rm命令<br>用法：rm [选项] 文件<br>作用：删除文件<br>一些常见选项：<br><span class="hljs-deletion">-r  递归删除目录和其内容，如果要删除非空目录就必须要此选项，否则无法删除</span><br><span class="hljs-deletion">-f  强制删除，不提示用户确认</span><br><span class="hljs-deletion">-i  系统要一一提示用户确认文件是否要删除</span><br></code></pre></td></tr></table></figure>
+
+<p>注意：<code>rm -rf 文件</code>是危险命令，非必要不使用，因为这相当于不经确认的删除所有目标文件。如果使用root用户执行rm -rf &#x2F;就会将所有文件和Linux一起删除。</p>
+<p>在rm删除多个文件时可用*匹配任意长度字符串，如果要删除当前目录下的所有文件，只可以用<code>rm -rf *</code>（相对路径）或<code>rm -rf ./*</code>（绝对路径），而不能使用<code>rm -rf /*</code>，这样就全删除了。</p>
+<h5 id="cp命令"><a href="#cp命令" class="headerlink" title="cp命令"></a>cp命令</h5><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-keyword">cp</span>命令<br>用法：<span class="hljs-keyword">cp</span> [选项] 源文件 目标路径<br>作用：将源文件（目录等也都可以）复制为目标路径对应的文件（若目标路径是文件）或复制到目标路径（若目标路径是目录）<br>一些常见选项：<br>-r  递归复制目录及子目录内的所有内容<br></code></pre></td></tr></table></figure>
+
+<p>举例测试（在用户主目录创建一个test.txt和一个dir目录，再执行cp命令）</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>touch test.txt<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>mkdir dir<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls<br><span class="hljs-number">21373343</span>  dir  helloworld.c  test.txt<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>cp test.txt dir/<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls<br><span class="hljs-number">21373343</span>  dir  helloworld.c  test.txt  //原先位置的text.txt并没有消失<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls dir<br>test.txt  //在新创建的dir目录下也出现了text.txt文件<br></code></pre></td></tr></table></figure>
+
+<p>这里可以发现cp在这种文件+目录的情况下就是一个复制的作用，原来的文件并不会消失。</p>
+<p>同时我比较疑惑的是此处dir文件是否需要写成<code>dir/</code>，如果看作相对路径能否省略最后的反斜杠。上网查证得到的信息是这样：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">譬如C:\Program Files\Java\jdk1<span class="hljs-number">.8</span><span class="hljs-number">.0_05</span>\<span class="hljs-built_in">bin</span>与C:\Program Files\Java\jdk1<span class="hljs-number">.8</span><span class="hljs-number">.0_05</span>\<span class="hljs-built_in">bin</span>\的区别？<br><br>加上的话表示，在<span class="hljs-built_in">bin</span>的文件夹里的所有文件和文件夹，<br>不加的话，可以访问到<span class="hljs-built_in">bin</span>文件夹里的所有文件和与<span class="hljs-built_in">bin</span>同节的文件。<br></code></pre></td></tr></table></figure>
+
+<h5 id="mv命令"><a href="#mv命令" class="headerlink" title="mv命令"></a>mv命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span>命令<br>用法：<span class="hljs-built_in">mv</span> [选项] 源文件 目标路径<br>作用：将源文件（目录等也都可以）移动为目标路径对应文件（若目标路径是文件）或移动到目标路径（若目标路径是目录）<br>一些常见选项：<br>-r  递归移动目录及其子目录中的所有内容<br></code></pre></td></tr></table></figure>
+
+<p>举例测试（删除dir目录下的test.txt然后利用mv操作用户主目录中的test.txt）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs powershell">git@<span class="hljs-number">21373343</span>:~ <span class="hljs-variable">$</span> <span class="hljs-built_in">rm</span> <span class="hljs-literal">-r</span> <span class="hljs-built_in">dir</span>/test.txt<br>git@<span class="hljs-number">21373343</span>:~ <span class="hljs-variable">$</span> <span class="hljs-built_in">ls</span> <span class="hljs-built_in">dir</span>       //这行后面没反应证明已经成功删除文件<br>git@<span class="hljs-number">21373343</span>:~ <span class="hljs-variable">$</span> <span class="hljs-built_in">mv</span> test.txt <span class="hljs-built_in">dir</span>/<br>git@<span class="hljs-number">21373343</span>:~ <span class="hljs-variable">$</span> <span class="hljs-built_in">ls</span>           //在用户主目录中已经没有了test.txt<br><span class="hljs-number">21373343</span>  <span class="hljs-built_in">dir</span>  helloworld.c<br>git@<span class="hljs-number">21373343</span>:~ <span class="hljs-variable">$</span> <span class="hljs-built_in">ls</span> <span class="hljs-built_in">dir</span><br>test.txt                      //在<span class="hljs-built_in">dir</span>目录中依然有test.txt<br></code></pre></td></tr></table></figure>
+
+<p>证明在文件+目录状态下mv可以被看作一个移动或者剪切指令，将文件转移到新的目录，同时原来的位置的文件消失。</p>
+<p>mv可以用来重命名文件（利用文件+文件的命令组合），相当于把一个文件用不同的名字移动到当前目录，例如在dir中用<code>mv test.txt test2.txt</code>就可以将test.txt重命名为test2.txt。</p>
+<h5 id="diff命令"><a href="#diff命令" class="headerlink" title="diff命令"></a>diff命令</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">diff命令<br>用法：diff <span class="hljs-selector-attr">[选项]</span> 文件<span class="hljs-number">1</span> 文件<span class="hljs-number">2</span><br>一些常用选项：<br>-<span class="hljs-selector-tag">b</span>  不检查空白字符的不同<br>-<span class="hljs-selector-tag">B</span>  不检查空行<br>-<span class="hljs-selector-tag">q</span>  只检查有无差异，不显示详细信息<br></code></pre></td></tr></table></figure>
+
+<p>本命令只能对两个纯文本文件使用。</p>
+<h4 id="Vim编辑器"><a href="#Vim编辑器" class="headerlink" title="Vim编辑器"></a>Vim编辑器</h4><p>教程中介绍的Vim的基本操作举例：<br>1.创建helloworld.c文件（利用touch命令）<br>2.打开这个文件，需要在创建这个文件的目录下输入<code>vim helloworld.c</code>来打开<br>3.输入内容，需要用I键进入插入模式后输入内容<br>4.完成输入后用Esc回命令模式，用Shift加；进入底线命令模式。观察到左下角有一个冒号，输入w按下回车即保存文件；再进入底线命令模式输入q关闭文件（可以利用wq同时完成）</p>
+<p>在目录中创建并进入文件：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>touch helloworld.c<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls<br><span class="hljs-number">21373343</span>  dir  helloworld.c<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>vim helloworld.c<br></code></pre></td></tr></table></figure>
+
+<p>插入：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World!\n&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125; <br></code></pre></td></tr></table></figure>
+
+<p>最后用Esc，Shift+;和wq保存并返回。</p>
+<h4 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h4><p>在Linux下需要命令来完成搜索文件的功能。</p>
+<h5 id="find命令"><a href="#find命令" class="headerlink" title="find命令"></a>find命令</h5><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sqf"><span class="hljs-built_in">find</span>命令<br>用法：<span class="hljs-built_in">find</span> [路径] &lt;选项&gt;<br>作用：在给定路径下递归查找文件并输出符合要求的路径。没有给出路径时就在当前目录下查找（即使没有给出路径，在当前目录下也是递归查找）。<br>一些常用选项：<br>-<span class="hljs-built_in">name</span> &lt;文件名&gt;  指定需要查找的文件名<br></code></pre></td></tr></table></figure>
+
+<p>例如在用户主目录中查找之前创建的在dir目录下的test.txt文件：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>find -name test.txt<br>./dir/test.txt<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>find . -name test.txt<br>./dir/test.txt<br></code></pre></td></tr></table></figure>
+
+<p>可以发现，给不给路径都可以基于当前所处目录给出正确路径。</p>
+<h5 id="grep命令"><a href="#grep命令" class="headerlink" title="grep命令"></a>grep命令</h5><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs diff">grep命令<br>用法：grep [选项] PATTERN FILE（Pattern匹配字符串，File是文件或目录路径）<br>作用：输出匹配PATTERN的文件及相关行<br>一些常用选项<br><span class="hljs-deletion">-a  不忽略二进制数据进行搜索</span><br><span class="hljs-deletion">-i  忽略大小写差异</span><br><span class="hljs-deletion">-r  从目录中递归查找</span><br><span class="hljs-deletion">-n  显示行号</span><br></code></pre></td></tr></table></figure>
+
+<p>教程提到了：grep和find的区别是grep是要匹配文件内容来进行查找，而find是根据文件的属性（例如文件名）来查找。所以可以使用grep来查找某个函数名等特定文本。</p>
+<p>例如搜查刚才编辑过的helloworld.c文件（PATTERN处要用单引号）：</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs autoit">git<span class="hljs-symbol">@21373343</span>:~ $ grep -n <span class="hljs-string">&#x27;include&lt;stdio.h&gt;&#x27;</span> ./helloworld.c <br><span class="hljs-number">1</span>:<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h5 id="tree命令"><a href="#tree命令" class="headerlink" title="tree命令"></a>tree命令</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">tree命令<br>用法： tree <span class="hljs-selector-attr">[选项]</span> <span class="hljs-selector-attr">[目录名]</span><br>作用：直接输出给出目录下的文件树<br>一些常用选项：<br>-<span class="hljs-selector-tag">a</span>  列出全部文件（包括隐藏文件）<br>-d  只列出目录<br></code></pre></td></tr></table></figure>
+
+<p>tree命令是一个比ls命令更强的命令，但并不是Linux发行版预装载的。我尝试在自己的用户主目录下执行tree：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>tree .<br>.<br>├── <span class="hljs-number">21373343</span><br>├── dir<br>│   └── test.txt<br>└── helloworld.c<br><br><span class="hljs-number">2</span> directories, <span class="hljs-number">2</span> files<br></code></pre></td></tr></table></figure>
+
+<h4 id="操作总结"><a href="#操作总结" class="headerlink" title="操作总结"></a>操作总结</h4><h5 id="命令总结"><a href="#命令总结" class="headerlink" title="命令总结"></a>命令总结</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span>：进入目录<br><span class="hljs-built_in">ls</span>：列出目录内容<br><span class="hljs-built_in">pwd</span>：显示当前目录绝对路径<br><span class="hljs-built_in">mkdir</span>：创建一个目录<br><span class="hljs-built_in">rmdir</span>：删除一个空目录<br><span class="hljs-built_in">touch</span>：新建文件<br><span class="hljs-built_in">rm</span>：删除文件<br><span class="hljs-built_in">cp</span>：复制文件<br><span class="hljs-built_in">mv</span>：移动或重命名文件<br></code></pre></td></tr></table></figure>
+
+<p>还有一个帮助命令：man</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs inform7"><span class="hljs-keyword">man</span>命令<br>用法：<span class="hljs-keyword">man</span> <span class="hljs-comment">[选项]</span> 命令<br>作用：查看命令详细说明手册<br></code></pre></td></tr></table></figure>
+
+<h5 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css">ctrl+c  终止当前程序执行，由于在Linux CLI中ctrl+c是结束进程，因此复制终端中         内容不能用这个快捷键而应该右键复制<br>ctrl+z  挂起程序，暂停程序并放到后台，会显示挂起编号，回复程序就用fg <span class="hljs-selector-attr">[挂起编         号]</span>即可<br>ctrl+d  终止输入，若在使用shell则退出，在标准输入中使用相当于输入EOF<br>ctrl+l  清屏，相当于命令<span class="hljs-attribute">clear</span><br>ctrl+s  在终端中作用是暂停终端，编辑时误触会卡死，用ctrl+<span class="hljs-selector-tag">q</span>恢复<br>左右方向键  控制光标位置<br>上下方向键  切换最近使用命令<br></code></pre></td></tr></table></figure>
+
+<h4 id="实用工具"><a href="#实用工具" class="headerlink" title="实用工具"></a>实用工具</h4><h5 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h5><p>GCC是GNU编辑器套件，包含了C语言编辑器gcc，使用方法如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css">gcc命令<br>用法： gcc <span class="hljs-selector-attr">[选项]</span> 源代码文件<br>作用：编译源代码文件<br></code></pre></td></tr></table></figure>
+
+<p>利用之前编辑的helloworld.c进行编译尝试：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>gcc helloworld.c<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls .<br><span class="hljs-number">21373343</span>  a.out  dir  helloworld.c  //编译后出现a.out文件<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>./a.out<br><span class="hljs-title class_">Hello</span> <span class="hljs-title class_">World</span>!<br></code></pre></td></tr></table></figure>
+
+<p>a.out文件是gcc编译器默认的可执行程序文件名。<br>我们利用命令<code>$ ./a.out</code>进行执行，<code>./</code>代表当前目录下，如果不加上就会在系统PATH中寻找，因为不存在就会报错。<br>当运行a.out后就出现了输出<code>Hello World!</code>。</p>
+<h5 id="make-amp-makefile"><a href="#make-amp-makefile" class="headerlink" title="make &amp; makefile"></a>make &amp; makefile</h5><p>GNU中有一个“make”工具，用来进行C语言项目构建，其本质为“制作出一个文件”。在开发大项目时可以用make工具将这些文件编译链接成可执行文件。<br>这些编译链接工作需要人工指导，而人工指导文件就是Makefile。</p>
+<p>Makefile的基本格式：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">target</span>: dependencies<br>    <span class="hljs-keyword">command</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">command</span> <span class="hljs-number">2</span><br>    ...<br>    <span class="hljs-keyword">command</span> n<br></code></pre></td></tr></table></figure>
+
+<p>target是构建的目标，可以是目标文件、可执行文件，也可以是标签；dependencies是构建目标需要的其他文件或目标；command是构建出这个目标需要执行的命令，需要注意每个命令前需要用tab而非空格进行缩进，否则会报错。</p>
+<p>这些规则的意义就是：想要构建target需要先准备好dependencies然后一条条执行command，最后得到target。</p>
+<p>在写完这些后，只需要在shell中输入make target就可以执行相应命令生成目标。</p>
+<p>举例测试（用这种方式再次编译刚才的helloworld.c）</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>touch <span class="hljs-title class_">Makefile</span>  //创建<span class="hljs-title class_">Makefile</span>文件<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls .<br><span class="hljs-number">21373343</span>  a.out  dir  helloworld.c  <span class="hljs-title class_">Makefile</span><br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>vim ./<span class="hljs-title class_">Makefile</span><br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>make hello  //产生可执行文件hello<br>gcc -o hello helloworld.c<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls .<br><span class="hljs-number">21373343</span>  a.out  dir  hello  helloworld.c  <span class="hljs-title class_">Makefile</span><br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>./hello  //执行相应命令<br><span class="hljs-title class_">Hello</span> <span class="hljs-title class_">World</span>!<br></code></pre></td></tr></table></figure>
+
+<p>在Makefile文件中的编写：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">all:</span> hello<br><span class="hljs-symbol">hello:</span> helloworld.c<br>        gcc -o hello helloworld.c<br></code></pre></td></tr></table></figure>
+
+<p>在教程中出现了一个all，我暂时还不知道它的意思，上网搜索好像是这样：相当于给所有的目标（比如这里的hello）取一个名字，这样进行make命令时可以依次生成（此处需要后续再看看）。</p>
+<h5 id="ctags"><a href="#ctags" class="headerlink" title="ctags"></a>ctags</h5><p>ctags是方便代码阅读的工具，在教程中需要用代码跳转功能。</p>
+<p>根据教程，需要先修改Vim的配置文件来支持ctags。修改.vimrc文件（用<code>vim ~/.vimrc</code>进入并编辑），修改如下，增加两句：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">set</span> <span class="hljs-attribute">tags</span>=tags<br><span class="hljs-built_in">set</span> autochdir<br></code></pre></td></tr></table></figure>
+
+<p>更改helloworld.c文件：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>#include <span class="hljs-string">&quot;ctags_test.h&quot;</span><br><span class="hljs-symbol">2 </span><span class="hljs-keyword">int</span> main()&#123;<br><span class="hljs-symbol">3 </span>        struct Pair p;<br><span class="hljs-symbol">4 </span>        p.a = <span class="hljs-number">1</span>;<br><span class="hljs-symbol">5 </span>        p.b = <span class="hljs-number">2</span>;<br><span class="hljs-symbol">6 </span>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><span class="hljs-symbol">7 </span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>相当于引入一个ctags_test.h的头文件，并创建一个叫做Pair的结构体类型，然后对其中的变量进行赋值。因此我们需要新建这个引入的头文件并进行编辑（&#96;touch ctags_test.h）：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>struct Pair &#123;<br><span class="hljs-symbol">2 </span>        <span class="hljs-keyword">int</span> a;<br><span class="hljs-symbol">3 </span>        <span class="hljs-keyword">int</span> b;<br><span class="hljs-symbol">4 </span>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>相当于在头文件中给出了Pair这一结构体的具体结构，只有这样才能够在helloworld.c文件中直接利用这一人为定义的结构体。</p>
+<p>之后执行命令<code>ctags -R *</code>就会在目录中出现tags文件，用来索引符号名：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ctags -R *<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls<br><span class="hljs-number">21373343</span>  a.out  ctags_test.h  dir  hello  helloworld.c  <span class="hljs-title class_">Makefile</span>  tags<br></code></pre></td></tr></table></figure>
+
+<p>再次打开helloworld.c文件并将光标放在a或b上，按下ctrl+]就可以跳转到定义结构体a,b的头文件对应位置处。再利用ctrl+o就可以回到原位。</p>
+<h5 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h5><p>很多时候Linux要同时运行多个程序并观察输出，所以不能让它只显示一个程序；而且当终端和Linux断开连接时终端前台进程会被杀死，而我们很多时候需要一直保持连接状态，所以我们可以利用tmux来进行终端窗口和进程分离并同时显示多个进程运行。</p>
+<p>tumx基本操作如下：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">输入命令tumx  进入tmux新会话<br>ctrl+<span class="hljs-keyword">B+shift+% </span> 左右分屏（同时按下Ctrl和<span class="hljs-keyword">B，然后松开这两个键，紧接着立刻输入“%”，下面同理）</span><br><span class="hljs-keyword"></span>ctrl+<span class="hljs-keyword">B+shift+&#x27; </span> 上下分屏<br>ctrl+<span class="hljs-keyword">B+上下左右 </span> 根据案件方向切换到某窗格（不能三个一起按，先前两个）<br>ctrl+<span class="hljs-keyword">B+space </span> 切换布局，上下变左右、左右变上下<br>ctrl+<span class="hljs-keyword">B+X </span> 关闭正在使用的窗格（按Y确认）<br>ctrl+<span class="hljs-keyword">B+D </span> 分离当前会话并回到<span class="hljs-keyword">Shell环境，此时程序仍然在会话中状态</span><br><span class="hljs-keyword"></span>输入命令tmux ls  查看当前有哪些会话并记住会话名（一般为数字）<br>输入命令tmux a -t 会话名  回到原来的对应会话<br></code></pre></td></tr></table></figure>
+
+<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h4><p>Git是一种版本控制系统。</p>
+<h5 id="Git的存储"><a href="#Git的存储" class="headerlink" title="Git的存储"></a>Git的存储</h5><p>Git有三种存储位置：工作区(Working Directory)，暂存区(Staging Area)和储存库(Repository)</p>
+<p>项目在Git中以目录存在，包含工作区（.git子目录之外）和储存库（.git子目录），工作区是：目前正在编辑的版本；储存库在隐藏目录.git中，存放已提交版本内容和联系；暂存区存放确认修改但是没有提交的文件（也在.git中，但和储存库不同），如图所示：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/os%20pre%201.png" srcset="/img/loading.gif" lazyload></p>
+<p>Git也有四种状态：未跟踪(Untracked)，未修改(Unmodified)，已修改(Modified)和已暂存(Staged)</p>
+<p>一个文件在储存库版本信息中都没有被记录过（例如新建的文件）就是未跟踪状态；一个文件在被跟踪后没有被改动或改动已经提交就是未修改状态；当文件已经被修改但是没有加入暂存区的情况是已修改状态；当文件已经被加入暂存区，在下次提交时会被提交则是已暂存状态。如图所示：</p>
+<p><img src="https://raw.githubusercontent.com/M4kiseKurisu/blog-images/main/os%20pre%202.jpg" srcset="/img/loading.gif" lazyload></p>
+<h5 id="Git常用命令"><a href="#Git常用命令" class="headerlink" title="Git常用命令"></a>Git常用命令</h5><p><code>git init</code></p>
+<p>将当前目录变成空Git仓库，开始版本管理。</p>
+<p><code>git clone &lt;URL&gt;</code></p>
+<p>从互联网地址URL处克隆一个已有的储存库到当前目录，可以看作下载。</p>
+<p><code>git status</code></p>
+<p>查看分支状态，工作区变动和暂存区内容。</p>
+<p><code>git add</code></p>
+<p>将一个新文件或已修改文件加入暂存区，例如完成部分实验内容以后可以用<code>git add .</code>把所有修改加入暂存区，或<code>git add &lt;filename&gt;</code>将指定文件加入。</p>
+<p><code>git restore</code></p>
+<p>当文件没有通过<code>git add</code>加入暂存区时可以使用<code>git restore &lt;filename&gt;</code>撤销该文件修改到上一次commit的状态，如果已经加入了，就要用<code>git restore --staged &lt;filename&gt;</code>来取消暂存。</p>
+<p><code>git checkout</code></p>
+<p>利用<code>git checkout lab&lt;x&gt;</code>可以在各Lab（其实就是各分支）之间切换。要保证切换时所有文件是未修改状态。</p>
+<p><code>git commit</code></p>
+<p>用<code>git commit -m &lt;message&gt;</code>将暂存区修改提交到储存库，若message参数有空格要用引号将其包括，此处用来给出说明性文字，可以任意填写增加可读性。</p>
+<p><code>git push</code></p>
+<p>这个命令将本地commit推送到远程仓库，这里应该就是GitLab。</p>
+<p><code>git pull</code></p>
+<p>这个命令将远程新建分支下载到本地并将远程更改合并到当前分支。评测机进行实验分支初始化后可以在开发机中用这个命令将新分支下载到本地。</p>
+<h4 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h4><p>需要学习Shell脚本语言，需要学习其使用的Bash语法。</p>
+<h5 id="Shell脚本的执行"><a href="#Shell脚本的执行" class="headerlink" title="Shell脚本的执行"></a>Shell脚本的执行</h5><p>在Linux中脚本文件的后缀为.sh，该后缀对于运行没有影响，但是可以用于区分其他文件。</p>
+<p>脚本文件的运行方式和gcc编译产生的可执行文件运行方式一样，利用<code>./文件名</code>的命令即可，此处文件名中需要有.sh。</p>
+<p>但是被执行的文件需要有”执行“权限，每个文件对不同用户都分别有”读“、”写“、”执行“的权限，新用<code>touch</code>创建的文件默认没有”执行“权限，要手动添加（执行时报错Permission denied很可能就是未添加执行权限）</p>
+<p>手动添加方式：<code>chmod +x 文件名</code></p>
+<h5 id="Bash-Shell语法"><a href="#Bash-Shell语法" class="headerlink" title="Bash Shell语法"></a>Bash Shell语法</h5><h6 id="第一个例子"><a href="#第一个例子" class="headerlink" title="第一个例子"></a>第一个例子</h6><p>首先写出了教程中给出的例子（在用户子目录中创建一个新脚本文件hello.sh并vim编辑）：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>#!/bin/bash<br><span class="hljs-symbol">2 </span>#My first <span class="hljs-keyword">Shell</span> script!<br><span class="hljs-symbol">3 </span>echo <span class="hljs-string">&quot;Hello, world!&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>这些内容的意思是：</p>
+<p>第一行：指定脚本默认运行程序（解释器），这里指定的是bash（#!出现在脚本文件第一行前两个字符被称为Shebang，当存在时加载器会分析其后内容并作为解释器）。</p>
+<p>第二行：以#开头，是注释。</p>
+<p>第三行：输出，此处是用echo将后面的字符串输出，由于Shell脚本是命令的组合，可把echo也看成命令。如果直接在终端写入这一行命令：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>echo <span class="hljs-string">&quot;Hello, world!&quot;</span><br><span class="hljs-title class_">Hello</span>, world!<br></code></pre></td></tr></table></figure>
+
+<h6 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h6><p>在Shell中定义变量不需要指定类型，定义方法为（var_name变量名，value变量值）：</p>
+<p><code>var_name=value</code></p>
+<p>这种定义方式等号两侧不允许有空格。同时用<code>$var_name</code>可以获得变量值（建议使用<code>$&#123;var_name&#125;</code>,可以标识变量名的边界)</p>
+<p>教程中也对刚才的脚本做出了更改：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>#!/bin/bash<br><span class="hljs-symbol">2 </span>str=<span class="hljs-string">&quot;Hello, world!&quot;</span><br><span class="hljs-symbol">3 </span>echo $str<br></code></pre></td></tr></table></figure>
+
+<p>运行脚本<code>./hello.sh</code>也能弹出Hello, world!</p>
+<h6 id="脚本参数（特殊变量）"><a href="#脚本参数（特殊变量）" class="headerlink" title="脚本参数（特殊变量）"></a>脚本参数（特殊变量）</h6><p>在Shell中也可以进行参数传递，在其中参数体现为特殊变量，在执行语句中参数用空格分隔，每个参数在脚本中都是一个字符串变量。第一个字符串映射到变量1，第二个映射到2……</p>
+<p>教程中再次修改hello.sh：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>#!/bin/bash<br><span class="hljs-symbol">2 </span>str=<span class="hljs-string">&quot;Hello, $1 and $2!&quot;</span><br><span class="hljs-symbol">3 </span>echo $str<br></code></pre></td></tr></table></figure>
+
+<p>此时运行时如果参数传递如下（应该是将字符串’world’和’OS‘当作参数进行了传递）：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>./hello.sh world <span class="hljs-title class_">OS</span><br><span class="hljs-title class_">Hello</span>, world <span class="hljs-keyword">and</span> <span class="hljs-title class_">OS</span>!<br></code></pre></td></tr></table></figure>
+
+<p>还要注意只能在双引号中添加参数变量$1等，若用单引号则会原样输出。</p>
+<p>特殊变量：$# 传递的参数个数；$* 一个字符串，内容是传递的全部参数。</p>
+<h6 id="条件与循环"><a href="#条件与循环" class="headerlink" title="条件与循环"></a>条件与循环</h6><p>if语句块如下：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">if</span> condition1<br>then<br>    <span class="hljs-keyword">command</span>11<br>    <span class="hljs-keyword">command</span>12<br>    <span class="hljs-string">......</span><br>elif condition2<br>then<br>    <span class="hljs-keyword">command</span>21<br>    <span class="hljs-keyword">command</span>22<br>    <span class="hljs-string">......</span><br>else<br>    <span class="hljs-keyword">command</span>31<br>    <span class="hljs-keyword">command</span>32<br>    <span class="hljs-string">......</span><br>fi<br></code></pre></td></tr></table></figure>
+
+<p>fi是if的倒写，代表语句块结束，elif和else都可以省略。</p>
+<p>试一下教程给出的例子,这里(())是比较整数大小的表达方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"> 1 <span class="hljs-comment">#!/bin/bash</span><br> 2 <span class="hljs-keyword">if</span> (( <span class="hljs-variable">$1</span> &gt; <span class="hljs-variable">$2</span>))<br> 3 <span class="hljs-keyword">then</span>    <br> 4         <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;first &gt; second&quot;</span><br> 5 <span class="hljs-keyword">elif</span> (( <span class="hljs-variable">$1</span> &lt; <span class="hljs-variable">$2</span> ))<br> 6 <span class="hljs-keyword">then</span><br> 7         <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;first &lt; second&quot;</span><br> 8 <span class="hljs-keyword">elif</span> (( <span class="hljs-variable">$1</span> == <span class="hljs-variable">$2</span>))<br> 9 <span class="hljs-keyword">then</span><br>10         <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;first == second&quot;</span><br>11 <span class="hljs-keyword">else</span>    <br>12         <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;I don&#x27;t know...&quot;</span><br>13 <span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+
+<p>尝试输入：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>./hello.sh <span class="hljs-number">2</span> <span class="hljs-number">3</span><br>first &lt; second<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>./hello.sh <span class="hljs-number">3</span> <span class="hljs-number">3</span><br>first == second<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>./hello.sh <span class="hljs-number">3</span> <span class="hljs-number">2</span><br>first &gt; second<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>./hello.sh world <span class="hljs-number">0</span>S<br>./<span class="hljs-symbol">hello.sh:</span> 行 <span class="hljs-number">2</span>: ((: world &gt; <span class="hljs-number">0</span>S：数值太大不可为算术进制的基 (错误符号是 <span class="hljs-string">&quot;0S&quot;</span>)<br>./<span class="hljs-symbol">hello.sh:</span> 行 <span class="hljs-number">5</span>: ((: world &lt; <span class="hljs-number">0</span>S：数值太大不可为算术进制的基 (错误符号是 <span class="hljs-string">&quot;0S&quot;</span>)<br>./<span class="hljs-symbol">hello.sh:</span> 行 <span class="hljs-number">8</span>: ((: world == <span class="hljs-number">0</span>S：数值太大不可为算术进制的基 (错误符号是 <span class="hljs-string">&quot;0S&quot;</span>)<br>I don<span class="hljs-string">&#x27;t know...</span><br><span class="hljs-string">git@21373343:~ $ ./hello.sh a b</span><br><span class="hljs-string">first == second</span><br></code></pre></td></tr></table></figure>
+
+<p>while语句块如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">while</span> condition<br><span class="hljs-keyword">do</span> <br>    command1<br>    command2<br>    ...<br><span class="hljs-keyword">done</span>  <span class="hljs-comment">#表示do语句块结束</span><br></code></pre></td></tr></table></figure>
+
+<p>教程举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">mkdir</span> files<br><span class="hljs-built_in">cd</span> files<br>i=1<br><span class="hljs-keyword">while</span> ((<span class="hljs-variable">$i</span> &lt;= <span class="hljs-variable">$1</span>))<br><span class="hljs-keyword">do</span><br>		<span class="hljs-built_in">touch</span> <span class="hljs-string">&quot;file<span class="hljs-variable">$i</span>.txt&quot;</span><br>		<span class="hljs-built_in">let</span> i=i+1  <span class="hljs-comment">#或者i=$((i+1))，此处let是为变量赋值的命令</span><br><span class="hljs-keyword">done</span><br></code></pre></td></tr></table></figure>
+
+<p>这段程序应该意思是读取参数$1，然后将i从1开始递增并在files目录中新建对应文件名的文件。观察结果如下：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs elixir">git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>./hello.sh <span class="hljs-number">2</span>  //运行，给参数赋值<span class="hljs-number">2</span><br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>ls<br><span class="hljs-number">21373343</span>  files  hello.sh  //出现files目录<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~</span> <span class="hljs-variable">$ </span>cd files<br>git<span class="hljs-variable">@21373343</span><span class="hljs-symbol">:~/files</span> <span class="hljs-variable">$ </span>ls<br>file1.txt  file2.txt  //其中有两个新建文件<br></code></pre></td></tr></table></figure>
+
+<h6 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h6><p>函数的定义方式如下：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">function</span> <span class="hljs-title">fun_name</span>() &#123;<br>    #body...<br>    <span class="hljs-keyword">return</span> <span class="hljs-type">int_value</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>几点注意：首先function和()可以省略一个；其次返回语句非必要，可以不返回值；最后若要返回则只能返回一个[0,255]间的整数Int_value，否则会出现错误结果。</p>
+<p>函数的调用方法就是：<code>fun_name param1 param2 ... paramN</code>。其中第N个参数直接在函数体中用$N调用即可，但若N&gt;&#x3D;10就要用${N}，否则只会读取第一位数字。如果函数有返回值则后续用$?获取。</p>
+<p>教程举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">fun1</span></span>() &#123;<br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Hello, world!&quot;</span><br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">fun2</span></span>() &#123;<br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;I&#x27;ve got &quot;</span><span class="hljs-variable">$1</span><span class="hljs-string">&quot; and &quot;</span><span class="hljs-variable">$2</span><span class="hljs-string">&quot;!&quot;</span><br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">fun3</span></span>() &#123;<br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;I&#x27;m computing first + second!&quot;</span><br>        <span class="hljs-built_in">return</span> $((<span class="hljs-variable">$1</span> + <span class="hljs-variable">$2</span>))  <span class="hljs-comment">#此处意思是先计算$1+$2的值</span><br>&#125;<br>fun1<br>fun2 2 3<br>fun3 4 5<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;The sum is &quot;</span>$?<span class="hljs-string">&quot;.&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>尝试运行：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">git</span>@<span class="hljs-number">21373343</span>:~ $ ./hello.sh<br><span class="hljs-attribute">Hello</span>, world!<br><span class="hljs-attribute">I</span>&#x27;ve got <span class="hljs-number">2</span> and <span class="hljs-number">3</span>!<br><span class="hljs-attribute">I</span>&#x27;m computing first + second!<br><span class="hljs-attribute">The</span> sum is <span class="hljs-number">9</span>.<br></code></pre></td></tr></table></figure>
+
+<p>可见，每个函数体中的参数变量都只会接受这个函数给的值，同时$?给出的是最后一个函数的返回值。</p>
+<h4 id="sed的使用"><a href="#sed的使用" class="headerlink" title="sed的使用"></a>sed的使用</h4><p>之前对文本的编辑只用了Vim工具，但是也可以通过Shell脚本中的命令对文本文件内容进行编辑输出，其工具就是sed。通过sed命令可以实现文本内容编辑和选择输出的自动化。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml">sed命令<br>用法：sed [选项] &#x27;命令&#x27; 输入文本<br>一些常用选项：<br>-n  安静模式，只显示sed处理过的内容，否则显示输入文本全内容<br>-i  直接修改读取的档案内容而不输出。否则只输出不编辑，即当不加此选项时只是输出了编辑后的文件内容，而文件本身没有被改变<br>一些常用命令：<br><span class="hljs-tag">&lt;<span class="hljs-name">行号</span>&gt;</span>a<span class="hljs-tag">&lt;<span class="hljs-name">内容</span>&gt;</span>： 新增，在行号后新增一行相应内容。行号可以是“数字”，在这一行之后新增，也可以是“起始行，终止行”，在其中的每一行后新增。当不写行号时，在每一行之后新增。使用$表示最后一行。后面的命令同理<br><span class="hljs-tag">&lt;<span class="hljs-name">行号</span>&gt;</span>c<span class="hljs-tag">&lt;<span class="hljs-name">内容</span>&gt;</span>：取代。用内容取代相应行的文本<br><span class="hljs-tag">&lt;<span class="hljs-name">行号</span>&gt;</span>i<span class="hljs-tag">&lt;<span class="hljs-name">内容</span>&gt;</span>：插入。在当前行的上面插入一行文本<br><span class="hljs-tag">&lt;<span class="hljs-name">行号</span>&gt;</span>d：删除当前行的内容<br><span class="hljs-tag">&lt;<span class="hljs-name">行号</span>&gt;</span>p：输出选择的内容。通常与选项-n一起使用<br>s/<span class="hljs-tag">&lt;<span class="hljs-name">re</span>&gt;</span>/<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>：将<span class="hljs-tag">&lt;<span class="hljs-name">re</span>&gt;</span>（正则表达式）匹配的内容替换为<span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>教程举例：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">sed</span> -n <span class="hljs-string">&#x27;3p&#x27;</span> my.txt<br><span class="hljs-comment"># 输出 my.txt 的第三行</span><br>sed <span class="hljs-string">&#x27;2d&#x27;</span> my.txt<br><span class="hljs-comment"># 删除 my.txt 文件的第二行</span><br>sed <span class="hljs-string">&#x27;2,<span class="hljs-variable">$d</span>&#x27;</span> my.txt<br><span class="hljs-comment"># 删除 my.txt 文件的第二行到最后一行</span><br>sed <span class="hljs-string">&#x27;s/str1/str2/g&#x27;</span> my.txt<br><span class="hljs-comment"># 在整行范围内把 str1 替换为 str2。</span><br><span class="hljs-comment"># 如果没有 g 标记，则只有每行第一个匹配的 str1 被替换成 str2</span><br>sed -e <span class="hljs-string">&#x27;4astr &#x27;</span> -e <span class="hljs-string">&#x27;s/str/aaa/&#x27;</span> my.txt<br><span class="hljs-comment">#-e 选项允许在同一行里执行多条命令。例子的第一条是第四行后添加一个 str，</span><br><span class="hljs-comment"># 第二个命令是将 str 替换为 aaa。命令的执行顺序对结果有影响。</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="重定向和管道"><a href="#重定向和管道" class="headerlink" title="重定向和管道"></a>重定向和管道</h4><h5 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h5><p>重定向能够把命令的控制台输出写入文件中。Linux定义了三种流：</p>
+<ol>
+<li>标准输入：stdin，用0表示</li>
+<li>标准输出：stdout，用1表示</li>
+<li>标准错误：stderr，用2表示</li>
+</ol>
+<p>一般来说这些流使用的设备是控制台（所以我们能在控制台看到命令输出），但是在命令后使用&gt;符号可以重定向输出。</p>
+<p>例如<code>$ ls / &gt; lsoutput.txt</code>就是将根目录下文件名输出转移到lsoutput.txt这一文件中并覆盖原有内容，若想在文件后追加命令输出而不是覆盖，就使用&gt;&gt;符号。当然由于重定向无法在控制台中看到输出。</p>
+<p>还要注意，实际上&gt;是1&gt;的简写，也就是只有标准输出被重定向，如果是标准错误的报错信息就无法进行重定向，若将错误输出也重定向到文件要使用2&gt;符号。</p>
+<p>自然也可以将输入重定向，这样我们就可以从文本文件中读取输入信息了。</p>
+<h5 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h5><p>管道符号|被用来连接命令：<code>command1 | command2 | command3 | ...</code>，其意义是将command1的输出传给command2的输入，以此类推。</p>
+<p>教程举例是，cat命令是将文件内容转移到标准输出，而grep命令支持从标准输入读取文本进行查找。因此这两个命令就可以用管道连接：<code>cat hello.txt | grep &#39;Hello&#39;</code>，这个命令意思是将hello.txt文件输出，并把内容传入grep命令，由其在内容中查找Hello字符串。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%AD%A3/">#大二春季</a>
+      
+        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/04/P5R%E7%8E%A9%E5%90%8E%E6%84%9F%EF%BC%9A%E7%8E%8B%E9%81%93%E7%9A%84%E6%8B%AF%E6%95%91%E4%B8%96%E7%95%8C%E4%B9%8B%E6%97%85/" title="P5R玩后感：王道的拯救世界之旅">
+                        <span class="hidden-mobile">P5R玩后感：王道的拯救世界之旅</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
