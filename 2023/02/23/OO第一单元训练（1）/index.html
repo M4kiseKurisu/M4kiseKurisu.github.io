@@ -1,0 +1,762 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="M4kiseKurisu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="oo第一单元第一次训练的解题思路和层次化结构及递归解析相关笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO第一单元训练（1）">
+<meta property="og:url" content="http://example.com/2023/02/23/OO%E7%AC%AC%E4%B8%80%E5%8D%95%E5%85%83%E8%AE%AD%E7%BB%83%EF%BC%881%EF%BC%89/index.html">
+<meta property="og:site_name" content="M4kiseKurisu&#39;s Blog">
+<meta property="og:description" content="oo第一单元第一次训练的解题思路和层次化结构及递归解析相关笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover/futaba2.jpg">
+<meta property="article:published_time" content="2023-02-23T09:28:17.000Z">
+<meta property="article:modified_time" content="2023-02-23T09:36:10.000Z">
+<meta property="article:author" content="M4kiseKurisu">
+<meta property="article:tag" content="大二春季">
+<meta property="article:tag" content="面向对象">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/cover/futaba2.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>OO第一单元训练（1） - M4kiseKurisu&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M4kiseKurisu&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/bg/Makise1.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OO第一单元训练（1）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-23 17:28" pubdate>
+          2023年2月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          94 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">OO第一单元训练（1）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="训练栏目"><a href="#训练栏目" class="headerlink" title="训练栏目"></a>训练栏目</h3><h4 id="表达式的层次化结构"><a href="#表达式的层次化结构" class="headerlink" title="表达式的层次化结构"></a>表达式的层次化结构</h4><p>数据结构中曾经用栈来将表达式转化为后缀式来进行处理。但表达式具有层次化结构，栈解析破坏了层次结构，也不利于其他表达式操作，因此教程中不建议使用。</p>
+<p>可以将表达式（只包含加减和乘除）划分为三个层次：</p>
+<ol>
+<li>最底层是表达式基本元素，数字（0~9），称为因子</li>
+<li>中间是用乘除法连接的数字，称为项</li>
+<li>最上层是用加减法连接的项，称为表达式</li>
+</ol>
+<p>则表达式的运算优先级和层次的高低有一一对应，自底向上。所以层次结构隐含了运算顺序：处理高层次结构前要先处理低层次结构子对象。</p>
+<h4 id="正则表达式法"><a href="#正则表达式法" class="headerlink" title="正则表达式法"></a>正则表达式法</h4><p>利用正则表达式来解析的方法。</p>
+<p>重点：对每个层次的对象用不同的正则表达式进行描述，如果当前串可以匹配某个部分的正则表达式就用这个层次的对应方法解析（每个部分用一个方法），用工厂模式进行建模。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs">网络上查到的工厂模式的介绍：<br>意图：定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行。<br>主要解决：主要解决接口选择的问题。<br>何时使用：我们明确地计划不同条件下创建不同实例时。<br>如何解决：让其子类实现工厂接口，返回的也是一个抽象的产品。<br>关键代码：创建过程在其子类执行。<br></code></pre></td></tr></table></figure>
+
+<p>教程中的补充例子：例如项的形式为<code>数字 +/- 数字 +/- ...</code>，我们可以编写出对应的正则表达式和对应的解析方法，然后尝试用正则表达式去匹配当前的子串。如果匹配上了，则调用对应的方法解析；否则，尝试另外的匹配模式。</p>
+<h4 id="嵌套括号的处理"><a href="#嵌套括号的处理" class="headerlink" title="嵌套括号的处理"></a>嵌套括号的处理</h4><p>如果出现嵌套括号，就无法用正则表达式进行解析，这种时候就要采用”递归解析“的方式。</p>
+<p>教程举例：有一个解析表达式（无括号）方法叫<code>Expr parseExpr(String)</code>，那么当这个方法解析到括号时，就应该找到与其匹配的括号，然后将括号中间的子串再用这一方法进行解析。在字串解析完成后将完成的表达式当作因子，再按照项的方式处理上一级表达式。</p>
+<h4 id="训练1"><a href="#训练1" class="headerlink" title="训练1"></a>训练1</h4><p>补全给出程序，读入一个不带括号、运算符只有+和*的表达式并输出后缀表达式，例子如下：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit">输入：<br>1<span class="hljs-string">+2</span>*3<span class="hljs-string">+2</span><br>输出：<br>1 2 3 * + 2 +<br></code></pre></td></tr></table></figure>
+
+<p>教程给出的形式化定义：</p>
+<ol>
+<li>表达式 → 表达式 ‘+’ 项 | 项</li>
+<li>项 → 项 ‘*‘ 因子 | 因子</li>
+<li>因子 → 数字因子</li>
+<li>数字因子 → [‘1’|’2’|’3’|’4’|’5’|’6’|’7’|’8’|’9’]{‘0’|’1’|’2’|’3’|’4’|’5’|’6’|’7’|’8’|’9’}</li>
+</ol>
+<p>同时给出了一些形式化定义符号的含义：</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>名称</th>
+<th>含义</th>
+<th>样例</th>
+<th>样例解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>→</td>
+<td>生成符</td>
+<td>由前置表达式可以生成后置表达式</td>
+<td>A-&gt;Ba</td>
+<td>由前置表达式 A 可以生成表达式 B 后接小写字母 a 的表达式</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>‘或’选择符</td>
+<td>从由‘或’选择符连接的集合中选择一个</td>
+<td>A-&gt;a</td>
+</tr>
+<tr>
+<td>[ ]</td>
+<td>‘0或1’ 选择符</td>
+<td>可以从中括号内的表达式中选择0个或1个表达式</td>
+<td>A-&gt;[B]a</td>
+<td>由前置表达式A可以生成Ba或a</td>
+</tr>
+<tr>
+<td>{ }</td>
+<td>‘0或多’ 选择符</td>
+<td>可以从花括号内的表达式中选择0个或1个多个表达式</td>
+<td>A-&gt;{a|b|c}</td>
+<td>由前置表达式 A 可以生成由小写字母 a、b、c 组成的可以为空的字符串 如: ∅ (空串), a, b, c, aa, ab, bc, ca, acb, acbccaabcba 等等</td>
+</tr>
+</tbody></table>
+<p>查看给出的代码。首先是Term类（项）：</p>
+<p>构建了一个factors容器来装数字因子：<code>private ArrayList&lt;Integer&gt; factors;</code></p>
+<p>同时也有自己的构建函数，写的是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">Term</span><span class="hljs-params">(String s)</span> &#123;<br>    factors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    String[] factorStrs = s.split(<span class="hljs-comment">/* TODO */</span>);<br>    <span class="hljs-keyword">for</span> (String factorStr : factorStrs) &#123;<br>        factors.add(Integer.parseInt(factorStr));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>初始化用到了一个字符串s，同时初始化的时候就创建了上面提到的factors容器。中间我们似乎需要对这个字符串s进行分割：split方法后面的括号要给出指定的分隔符。然后把这些分割后的小字符串放进字符串容器factorStrs中。</p>
+<p>后面的<code>for (String factorStr : factorStrs) &#123;&#125;</code>相当于遍历factorStrs中的元素，然后用parseInt方法将字符串变成整数。那么这里应该就是要让项向下转化成因子,就要在乘除处分开。我的填法是：<code>String[] factorStrs = s.split(&quot;\\*&quot;);</code>（乘号是转义字符，要加<code>\\</code>）</p>
+<p>之后的写法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (factors.size() == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> factors.get(<span class="hljs-number">0</span>).toString();<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>            sb.append(factors.get(<span class="hljs-number">0</span>));<br>            sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>            <span class="hljs-comment">/* TODO */</span><br>            sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>            sb.append(<span class="hljs-string">&quot;*&quot;</span>);<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>; i &lt; factors.size(); i++) &#123;<br>                sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>                sb.append(factors.get(i));<br>                sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>                sb.append(<span class="hljs-string">&quot;*&quot;</span>);<br>            &#125;<br>            <span class="hljs-keyword">return</span> sb.toString();<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>由于有了<code>@Override</code>，证明这里一定是字符串处理过程，因为同一个方法要对应不同类型的字符串所以写的时候要重载。</p>
+<p>针对刚才的factors容器做了一个判断：如果这个容器只含有一个元素，那么证明根本就没有分割，这个项就是一个数字因子，就把这个数字再当作字符串输出（利用toString方法）</p>
+<p>如果不是的话，我们就要构建一个新的项字符串。于是新建了一个StringBuilder类（我现在先当成一种比较好用的字符串类好了）的对象sb。首先将第一个分割出的数字因子放在开头，然后加入空格，所以这里要添加的肯定就是第二个分割出的数字因子（由于数字因子不止一个，则第二个肯定存在），写成<code>sb.append(factors.get(1));</code>。后面再加上乘号。</p>
+<p>如果再有数字因子的话（即i&gt;2）就还需要在后面再添加数字因子和乘号，这就是for循环里面干的事情。例如2*3*4就要改成2 3 * 4 *，前面的2，3和第一个乘号是必做的，在for外，而后面的4和乘号是不一定需要的，而且可能有循环的，就在for中。</p>
+<p>最后利用toString方法把这个StringBuilder类给转换成String类输出。</p>
+<p>再看Expr类（表达式）：</p>
+<p>同样先构造了一个子串的容器（此处为Term类容器）：<code>private ArrayList&lt;Term&gt; terms = new ArrayList&lt;&gt;();</code>。同时专门给往这个容器里增加元素的命令写了一个方法addTerm：<code>public void addTerm(Term term) &#123;terms.add(term);&#125;</code></p>
+<p>然后在这里就也出现了toString方法，此处肯定针对的是表达式这一层次的方法，因此也有重载：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-comment">/* TODO */</span>) &#123;<br>        <span class="hljs-keyword">return</span> terms.get(<span class="hljs-number">0</span>).toString();<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        sb.append(terms.get(<span class="hljs-number">0</span>));<br>        sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>        <span class="hljs-comment">/* TODO */</span><br>        sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>        sb.append(<span class="hljs-string">&quot;+&quot;</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>; i &lt; terms.size(); i++) &#123;<br>            sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>            sb.append(terms.get(i));<br>            sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>            sb.append(<span class="hljs-string">&quot;+&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> sb.toString();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里的原理和刚才差不多：首先如果terms容器中只有一个元素，证明这个表达是就是一个项，直接套用项的toString方法就可以。因此判断条件应该要写：<code>if (terms.size() == 1) &#123;</code>。</p>
+<p>如果不是，则也需要一个StringBuilder类对象sb，这里我认为我们要做的就是把不同的项顺序放入并整合成一个字符串。所以第二个填空处应该是将第二个处理好的项放入字符串中：<code>sb.append(terms.get(1));</code>，其他的处理方法和刚才Term类中的处理方法很类似，将2及之后的项和加号按顺序连接并最终转换成字符串即可。</p>
+<p>最后看一下有main函数的MainClass类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MainClass</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">patternTerm</span> <span class="hljs-operator">=</span> <span class="hljs-comment">/* TODO */</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Pattern</span> <span class="hljs-variable">re</span> <span class="hljs-operator">=</span> Pattern.compile(patternTerm);<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Scanner</span> <span class="hljs-variable">scanner</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">inputExpr</span> <span class="hljs-operator">=</span> scanner.next();<br><br>        <span class="hljs-type">Matcher</span> <span class="hljs-variable">matcher</span> <span class="hljs-operator">=</span> re.matcher(inputExpr);<br><br>        <span class="hljs-type">Expr</span> <span class="hljs-variable">expr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Expr</span>();<br>        <span class="hljs-keyword">while</span> (matcher.find()) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">termStr</span> <span class="hljs-operator">=</span> matcher.group(<span class="hljs-number">0</span>);<br>            <span class="hljs-type">Term</span> <span class="hljs-variable">term</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Term</span>(termStr);<br>            expr.addTerm(term);<br>        &#125;<br><br>        System.out.println(expr.toString());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我先看一下Main函数中的代码是什么意思：首先用Scanner类和next方法将输入的字符串存入字符串变量inputExpr中，然后创建了一个Matcher类对象matcher，来将inputExpr套用re这一正则表达式。</p>
+<p>后面创建了一个Expr类对象expr（表达式类）。因为其为最高级，一定匹配输入，所以直接在Main函数中创建。</p>
+<p>如果说满足了re这一正则表达式，会创建一个字符串叫termStr，给它赋值为刚才inputExpr被正则表达式捕获的第一捕获组的内容。同时创建一个新Term类对象term，将termStr作为其初始化所需字符串，并把这个term放入expr对象的Term类容器中。</p>
+<p>要注意这里是<code>while (matcher.find()) &#123;&#125;</code>，程序运行中find方法是一直往后走的，并不是说只要一段匹配上了就会死循环，第二次循环会从当前位置往后走去匹配。</p>
+<p>因此我认为这里匹配的应该是项的正则表达式，整个程序的运行逻辑就是：输入捕获截断成一个一个项，在项中用toString处理完成就加入唯一的表达式对象中，最后把唯一的表达式对象toString处理了再输出。我写的是：<code>private static final String patternTerm = &quot;(\\d+)((\\*(\\d+))*)&quot;;</code>，一个项我认为一定有第一个因子，后面的乘号和因子作为一组可以有零到多组。</p>
+<h4 id="训练2"><a href="#训练2" class="headerlink" title="训练2"></a>训练2</h4><p>同训练1，补充给出的程序，使其能够读入带有括号且运算符只有+和*的表达式，然后输出后缀表达形式。举例如下：</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gcode">输入：<br><span class="hljs-comment">(1+2)</span>*<span class="hljs-comment">(3+4)</span><br>输出：<br><span class="hljs-number">1</span> <span class="hljs-number">2</span> + <span class="hljs-number">3</span> <span class="hljs-number">4</span> + *<br></code></pre></td></tr></table></figure>
+
+<p>教程同样给出了形式化定义的方式：</p>
+<ol>
+<li>表达式 → 表达式 ‘+’ 项 | 项</li>
+<li>项 → 项 ‘*‘ 因子 | 因子</li>
+<li>因子 → 数字因子 | 表达式因子</li>
+<li>数字因子 → [‘1’|’2’|’3’|’4’|’5’|’6’|’7’|’8’|’9’]{‘0’|’1’|’2’|’3’|’4’|’5’|’6’|’7’|’8’|’9’}</li>
+<li>表达式因子 → ‘(‘ 表达式 ‘)’</li>
+</ol>
+<p>在这里我们就要使用递归下降算法了，我们通过形式化定义已经将表达式分成了三层：表达式、项、因子并对应三种对象。针对不同对象用不同解析方式即可。</p>
+<ol>
+<li>数字因子的解析只用看下一个字符是不是数字。</li>
+<li>项的解析要分步：首先看开头一定是一个因子，然后把这段交给因子类；若下一个字符是乘除符号，就读入这个符号并处理，此时符号后肯定也是一个项，再回到第一步；其他情况就证明此项已经结束，退出处理并返回处理好的项。</li>
+<li>表达式和项类似：首先开头一定是项，就调用项的解析；之后也有两个可能，如果是加减符号就读入并处理，把后面的再当成一个表达式处理；如果是其他情况证明解析结束。</li>
+</ol>
+<p>这种通过形式化表述建立层次并互相调用的方法，通过方法间简介递归调用可以处理嵌套表达式，即为递归下降算法。现在研究一下给出的代码：</p>
+<p>首先看看Factor接口和Number类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Factor</span> &#123;<br>&#125;  <span class="hljs-comment">//Factor接口</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.math.BigInteger;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Number</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Factor</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> BigInteger num;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Number</span><span class="hljs-params">(BigInteger num)</span> &#123;<br>        <span class="hljs-built_in">this</span>.num = num;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.num.toString();<br>    &#125;<br>&#125;  <span class="hljs-comment">//Number类</span><br></code></pre></td></tr></table></figure>
+
+<p>我认为这里设定一个Factor接口就是用来统一数字因子和表达式因子的（还没有看其他代码），自然Number类需要接入Factor接口。Number类中包含一个私人的BigInteger变量num，并且在创建这类对象时就要求提供这个变量（见构建函数），同时也给出了处理方法toString，对于数字因子的处理方法自然就是转化成字符串。</p>
+<p>再看高一级的项（Term）类代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> HashSet&lt;Factor&gt; factors;<br><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">Term</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">this</span>.factors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addFactor</span><span class="hljs-params">(Factor factor)</span> &#123;<br>    <span class="hljs-built_in">this</span>.factors.add(factor);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这是开始的几行代码：首先创建了一个私人的Factor类哈希表叫做factors，来装因子。然后写了构建函数Term()，就是创建出一个空的哈希表来当作factors指代的容器。</p>
+<p>然后还写了一个addFactor的方法，就是用来简化将一个新的Factor类变量factor放入factors这一哈希表的过程。</p>
+<p>然后就是重写了toString方法（此处省略了@Override这一标识作用的伪代码）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>    Iterator&lt;Factor&gt; iter = factors.iterator();<br>    <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>    sb.append(iter.next().toString());<br>    <span class="hljs-keyword">if</span> (iter.hasNext()) &#123;<br>        sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>        sb.append(iter.next().toString());<br>        sb.append(<span class="hljs-string">&quot; *&quot;</span>);<br>        <span class="hljs-keyword">while</span> (iter.hasNext()) &#123;<br>            sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>            sb.append(iter.next().toString());<br>            sb.append(<span class="hljs-string">&quot; *&quot;</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> sb.toString();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>此处Iterator是一个迭代器。它并不是一个集合，而是一种访问集合的方法，可以用来迭代ArrayList和HashSet等集合。就像这里写的<code>Iterator&lt;Factor&gt; iter = factors.iterator();</code>，集合factors想获得迭代器要使用iterator()方法，用这种方法获取了迭代器iter。（迭代器其他的用法我看到了再查）</p>
+<p>然后就是和之前一样的用StringBuilder类创建一个对象sb。然后接上一个<code>iter.next().toString()</code>。iter这一迭代器拥有next()方法，可以一个个输出容器中的元素，这些元素都是Factor接口的，输出之后用写过的toString方法来将这些因子转化为字符串输出，连在sb后面。</p>
+<p>后面的判断条件是<code>iter.hasNext()</code>，如果容器中还有元素就会是True。如果没有元素，证明这一项就是因子，直接输出；如果有元素证明后面还有要处理的部分：就连上，如果再有更多就用循环完成。最后返回处理完成的字符串。</p>
+<p>然后我看了一下，用来处理表达式的Expr类的处理方式和Term类基本相同，就不再重新分析了，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Expr</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Factor</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> HashSet&lt;Term&gt; terms;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Expr</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">this</span>.terms = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addTerm</span><span class="hljs-params">(Term term)</span> &#123;<br>        <span class="hljs-built_in">this</span>.terms.add(term);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>        Iterator&lt;Term&gt; iter = terms.iterator();<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        sb.append(iter.next().toString());<br>        <span class="hljs-keyword">if</span> (iter.hasNext()) &#123;<br>            sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>            sb.append(iter.next().toString());<br>            sb.append(<span class="hljs-string">&quot; +&quot;</span>);<br>            <span class="hljs-keyword">while</span> (iter.hasNext()) &#123;<br>                sb.append(<span class="hljs-string">&quot; &quot;</span>);<br>                sb.append(iter.next().toString());<br>                sb.append(<span class="hljs-string">&quot; +&quot;</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> sb.toString();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我认为可能唯一的差别就是接入了Factor接口，也许是表达式加上括号就变成表达式因子的原因，之后分析好了。</p>
+<p>然后看一下Lexer（词法分析器）类的写法，开头是对一些私人变量和构建函数的定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String input;<br><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">pos</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><span class="hljs-keyword">private</span> String curToken;<br><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">Lexer</span><span class="hljs-params">(String input)</span> &#123;<br>    <span class="hljs-built_in">this</span>.input = input;<br>    <span class="hljs-built_in">this</span>.next();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>定义了一个输入字符串，同时在构建函数中也要求输入一个字符串储存在输入字符串input中。同时定义了一个整数变量pos并赋初值为0，还定义了一个字符串叫做curToken。</p>
+<p>然后是第一个方法getNumber()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> String <span class="hljs-title function_">getNumber</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>    <span class="hljs-keyword">while</span> (pos &lt; input.length() &amp;&amp; Character.isDigit(input.charAt(pos))) &#123;<br>        sb.append(<span class="hljs-comment">/* TODO */</span>);<br>        ++pos;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> sb.toString();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里<code>input.length()</code>的值肯定是字符串的长度，而<code>Character.isDigit(input.charAt(pos))</code>中isDigit方法在括号内字符是数字时返回true，否则false；而charAt方法返回指定索引处的字符（范围自然从0到length()-1）。所以这个循环应该是一位一位检测这个Input字符串某一段是不是都是数字，如果pos位是数字就直接放进sb内，这样就将这一段数字变成字符串并输出了。所以我觉得这里应该写<code>sb.append(input.charAt(pos));</code>。</p>
+<p>第二个方法next()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">next</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> (pos == input.length()) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> input.charAt(pos);<br>    <span class="hljs-keyword">if</span> (Character.isDigit(c)) &#123;<br>        curToken = <span class="hljs-comment">/* TODO */</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-comment">/* TODO */</span>) &#123;<br>        pos += <span class="hljs-number">1</span>;<br>        curToken = String.valueOf(c);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>第一个if段指的是如果分析位置pos达到了input字符串的最后以后，就证明不需要后续分析，直接return即可。</p>
+<p>在其他情况下，这个方法是用来提取下一个语法单元，例如数和符号的。如果检测到第一个字符是数字（即<code>Character.isDigit(c)</code>），则用getNumber()方法将这个数字放进curToken中。所以第一个todo位置我认为应该填<code>curToken = getNumber();</code>；第二个todo位置应该是用来判断检测到符号的情况的，如果检测到符号就把这个符号单独存入curToken输出。所以第二个位置我认为是<code>else if (c == &#39;(&#39; || c == &#39;)&#39; || c == &#39;+&#39; || c == &#39;*&#39;)</code>，判断符号即可。</p>
+<p>最后就是一个peek方法<code>public String peek() &#123;return this.curToken;&#125;</code>，将这个字符串curToken输出。</p>
+<p>然后看一下Parser类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Lexer lexer;<br><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">Parser</span><span class="hljs-params">(Lexer lexer)</span> &#123;<br>    <span class="hljs-built_in">this</span>.lexer = lexer;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>开始就是定义了一个Lexer类变量lexer并定义了一个构建函数Parser()，这个构建函数需要lexer，所以证明构建Parser类对象时需要输入一个Lexer类对象。</p>
+<p>然后定义了对于表达式、项和因子的三个处理方法：parseExpr()、parseTerm()、parseFactor()。首先考虑处理表达式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Expr <span class="hljs-title function_">parseExpr</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">Expr</span> <span class="hljs-variable">expr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Expr</span>();<br>    expr.addTerm(parseTerm());<br><br>    <span class="hljs-keyword">while</span> (<span class="hljs-comment">/* TODO */</span>) &#123;<br>        lexer.next();<br>        expr.addTerm(parseTerm());<br>    &#125;<br>    <span class="hljs-keyword">return</span> expr;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对于一个表达式的处理，首先建立一个表达式类expr，然后由于表达式只可能是项或者项相加的形式，则一定能找到第一个项，就用parseTerm()找到第一个项然后加入expr的项容器。</p>
+<p>后面就是判断还有没有后续项：方法就是看项后面是结束了还是有加号。所以判断加号即可，这里我认为该写：<code>while (lexer.peek().equals(&quot;+&quot;))</code></p>
+<p>然后考虑处理项：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Term <span class="hljs-title function_">parseTerm</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">Term</span> <span class="hljs-variable">term</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Term</span>();<br>    term.addFactor(parseFactor());<br><br>    <span class="hljs-keyword">while</span> (lexer.peek().equals(<span class="hljs-string">&quot;*&quot;</span>)) &#123;<br>        lexer.next();<br>            <span class="hljs-comment">/* TODO */</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> term;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里和表达式的方法类似，也是项只有两种可能：因子或者因子相乘，按照上面进行类比，应该将乘号后的新因子放入此项的因子容器中。则应该写：<code>term.addFactor(parseFactor());</code>，利用parseFactor()方法处理因子后放入项的因子容器中。</p>
+<p>最后考虑处理因子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Factor <span class="hljs-title function_">parseFactor</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">if</span> (lexer.peek().equals(<span class="hljs-string">&quot;(&quot;</span>)) &#123;<br>        lexer.next();<br>        <span class="hljs-type">Factor</span> <span class="hljs-variable">expr</span> <span class="hljs-operator">=</span> parseExpr();<br>        <span class="hljs-comment">/* TODO */</span><br>        <span class="hljs-keyword">return</span> expr;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">/* TODO */</span><br>        lexer.next();<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Number</span>(num);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>因子也有两种可能性：表达式因子和数字因子。如果是表达式因子就是括号括起表达式的方式，则需要脱去括号再进行内部的表达式处理。在处理完成之后我们自然需要忽略右括号，则在第一个空处填入<code>lexer.next();</code>跳过即可。</p>
+<p>如果没有括号证明是数字因子，则只需要将这个数字输出，就要将lexer中获取的数字字符串改成BigInteger型，由于Biginteger型构造用的就是字符串，就直接填入：<code>BigInteger num = new BigInteger(lexer.peek());</code>即可。</p>
+<p>最后看一下MainClass类中的主函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MainClass</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Scanner</span> <span class="hljs-variable">scanner</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">input</span> <span class="hljs-operator">=</span> scanner.next();<br><br>        <span class="hljs-type">Lexer</span> <span class="hljs-variable">lexer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Lexer</span>(input);<br>        <span class="hljs-type">Parser</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Parser</span>(lexer);<br><br>        <span class="hljs-type">Expr</span> <span class="hljs-variable">expr</span> <span class="hljs-operator">=</span> parser.parseExpr();<br>        System.out.println(expr);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>首先用scanner将输入存入input字符串，然后用这个输入字符串新建一个lexer对象用来分析，再用这个lexer中给出的分析方法来构建一个parser。由于给出的字符串一定是一个表达式，就新建一个表达式类对象expr，然后将这个parser对象先用parseExpr()方法进行分析，程序就会自动递归下降分析完毕。最后将这个处理完的表达式打印。</p>
+<p>要注意println()这个方法在打印某一个类时会自动调用其toString()方法，因此就可以将处理完的表达式进行输出。</p>
+<p>（注意本题由于使用了hashset，因此输出的结果可能顺序有所区别，但是优先级不会出现问题）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E4%BA%8C%E6%98%A5%E5%AD%A3/">#大二春季</a>
+      
+        <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">#面向对象</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/23/OS%E9%A2%84%E4%B9%A0%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/" title="OS预习教程笔记（1）">
+                        <span class="hidden-mobile">OS预习教程笔记（1）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
