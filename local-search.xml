@@ -4,13 +4,19 @@
   
   
   <entry>
-    <title>Hello World</title>
-    <link href="/2025/06/16/Hello-World/"/>
-    <url>/2025/06/16/Hello-World/</url>
+    <title>Hello World: 博客测试文章</title>
+    <link href="/2025/06/16/Blog1_HelloWorld/"/>
+    <url>/2025/06/16/Blog1_HelloWorld/</url>
     
-    <content type="html"><![CDATA[<p>Hello World!</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World!"></a>Hello World!</h2><p>从今天开始，我就要在这里更新文章了！</p><p><img src="/image/Blog1/MakiseKurisu_2.jpg"></p>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>其他</tag>
+      
+    </tags>
     
   </entry>
   
