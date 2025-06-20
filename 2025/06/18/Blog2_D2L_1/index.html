@@ -49,6 +49,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -243,7 +245,8 @@
             
               <div class="markdown-body">
                 
-                <h2 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h2><p><strong>N维数组</strong>是机器学习和神经网络的主要数据结构：</p>
+                <h2 id="数据操作">数据操作</h2>
+<p><strong>N维数组</strong>是机器学习和神经网络的主要数据结构：</p>
 <ul>
 <li>0-d（标量）：[1.0]</li>
 <li>1-d（向量）：[1.0, 2.7, 3.4]</li>
@@ -265,115 +268,93 @@
 <li>非连续子区域访问：如[::3, ::2]，即位于从第0行开始每三行（第0、3、6…行）上、且位于从第0列开始每两列（第0、2、4…列）上的所有元素</li>
 </ul>
 <p>后续要学习的是在Python中的数据操作实现与数据预处理实现。</p>
-<h2 id="数据操作实现"><a href="#数据操作实现" class="headerlink" title="数据操作实现"></a>数据操作实现</h2><p>Pytorch中的数据操作相关方法：</p>
+<h2 id="数据操作实现">数据操作实现</h2>
+<p>Pytorch中的数据操作相关方法：</p>
 <ul>
 <li><code>arrange()</code>函数可以根据指定范围及步长，生成一个包含等间隔数值的一维张量</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br>x = torch.arange(<span class="hljs-number">12</span>)<br><span class="hljs-built_in">print</span>(x) <span class="hljs-comment"># 输出：tensor([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>通过张量的<code>shape</code>属性可以访问张量的形状</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(x.shape) <span class="hljs-comment"># 输出：torch.Size([12])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
-<li>通过<code>numel()</code>函数可以返回张量中元素的总数量（即”number of elements”）</li>
+<li>通过<code>numel()</code>函数可以返回张量中元素的总数量（即&quot;number of elements&quot;）</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(x.numel()) <span class="hljs-comment"># 输出：12</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>通过<code>reshape()</code>函数可以不改变元素数量和元素值，而改变一个张量的形状</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">x = x.reshape(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br><span class="hljs-built_in">print</span>(x)<br><span class="hljs-comment"># 输出：tensor([[ 0,  1,  2,  3],</span><br><span class="hljs-comment">#              [ 4,  5,  6,  7],</span><br><span class="hljs-comment">#              [ 8,  9, 10, 11]])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>通过<code>zeros()</code>与<code>ones()</code>函数可以生成全0、全1的张量</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(torch.zeros(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>))<br><span class="hljs-comment"># 输出：tensor([[[0., 0., 0., 0.],</span><br><span class="hljs-comment">#               [0., 0., 0., 0.],</span><br><span class="hljs-comment">#               [0., 0., 0., 0.]],</span><br><br><span class="hljs-comment">#              [[0., 0., 0., 0.],</span><br><span class="hljs-comment">#               [0., 0., 0., 0.],</span><br><span class="hljs-comment">#               [0., 0., 0., 0.]]])</span><br><span class="hljs-built_in">print</span>(torch.ones(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>))<br><span class="hljs-comment"># 输出：tensor([[[1., 1., 1., 1.],</span><br><span class="hljs-comment">#               [1., 1., 1., 1.],</span><br><span class="hljs-comment">#               [1., 1., 1., 1.]],</span><br><br><span class="hljs-comment">#              [[1., 1., 1., 1.],</span><br><span class="hljs-comment">#               [1., 1., 1., 1.],</span><br><span class="hljs-comment">#               [1., 1., 1., 1.]]])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>通过<code>tensor()</code>方法与提供包含数值的Python列表或嵌套列表，可以为生成张量的每个元素赋予确定值</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(torch.tensor([[<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]]))<br><span class="hljs-comment"># 输出：tensor([[2, 1, 4, 3],</span><br><span class="hljs-comment">#              [1, 2, 3, 4],</span><br><span class="hljs-comment">#              [4, 3, 2, 1]])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
-<li>常见的算术预运算（+、-、*、&#x2F;、**（求幂））均可被升级为按元素运算</li>
+<li>常见的算术预运算（+、-、*、/、**（求幂））均可被升级为按元素运算</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">x = torch.tensor([<span class="hljs-number">1.0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>])<br>y = torch.tensor([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])<br><span class="hljs-built_in">print</span>(x + y, x - y, x * y, x / y, x ** y)<br><span class="hljs-comment"># 输出：tensor([ 3.,  4.,  6., 10.]) </span><br><span class="hljs-comment">#      tensor([-1.,  0.,  2.,  6.]) </span><br><span class="hljs-comment">#      tensor([ 2.,  4.,  8., 16.]) </span><br><span class="hljs-comment">#      tensor([0.5000, 1.0000, 2.0000, 4.0000]) </span><br><span class="hljs-comment">#      tensor([ 1.,  4., 16., 64.])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>可以使用<code>exp()</code>来按元素进行对e的指数运算</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(torch.exp(x)) <br><span class="hljs-comment"># 输出：tensor([2.7183e+00, 7.3891e+00, 5.4598e+01, 2.9810e+03])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>可以使用<code>cat()</code>将多个张量进行联结，并用<code>dim</code>参数指定联结方式</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">X = torch.arange(<span class="hljs-number">12</span>, dtype=torch.float32).reshape(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br>Y = torch.tensor([[<span class="hljs-number">2.0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]])<br><br><span class="hljs-built_in">print</span>(torch.cat((X, Y), dim=<span class="hljs-number">0</span>)) <span class="hljs-comment"># dim=0相当于在行上扩展</span><br><span class="hljs-comment"># 输出：tensor([[ 0.,  1.,  2.,  3.],</span><br><span class="hljs-comment">#              [ 4.,  5.,  6.,  7.],</span><br><span class="hljs-comment">#              [ 8.,  9., 10., 11.],</span><br><span class="hljs-comment">#              [ 2.,  1.,  4.,  3.],</span><br><span class="hljs-comment">#              [ 1.,  2.,  3.,  4.],</span><br><span class="hljs-comment">#              [ 4.,  3.,  2.,  1.]])</span><br><span class="hljs-built_in">print</span>(torch.cat((X, Y), dim=<span class="hljs-number">1</span>)) <span class="hljs-comment"># dim=1相当于在列上扩展</span><br><span class="hljs-comment"># 输出：tensor([[ 0.,  1.,  2.,  3.,  2.,  1.,  4.,  3.],</span><br><span class="hljs-comment">#              [ 4.,  5.,  6.,  7.,  1.,  2.,  3.,  4.],</span><br><span class="hljs-comment">#              [ 8.,  9., 10., 11.,  4.,  3.,  2.,  1.]])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>可以通过逻辑运算符构建张量</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(X == Y)<br><span class="hljs-comment"># 输出：tensor([[False,  True, False,  True],</span><br><span class="hljs-comment">#              [False, False, False, False],</span><br><span class="hljs-comment">#              [False, False, False, False]])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>使用<code>sum()</code>可以对张量中的所有元素进行求和，生成一个只有一个元素的张量（标量）</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(X.<span class="hljs-built_in">sum</span>()) <span class="hljs-comment"># 输出：tensor(66.)</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>在pytorch中，对于同维数但不同形状的张量，可以通过调用广播机制执行按元素操作。原理为将两个张量扩展至相同大小，扩展后新生成的元素使用原有元素进行复制</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">a = torch.arange(<span class="hljs-number">3</span>).reshape((<span class="hljs-number">3</span>, <span class="hljs-number">1</span>))<br>b = torch.arange(<span class="hljs-number">2</span>).reshape((<span class="hljs-number">1</span>, <span class="hljs-number">2</span>))<br><span class="hljs-built_in">print</span> (a + b) <span class="hljs-comment"># 原理是将a, b张量均扩展为一个三行两列张量再按元素操作</span><br><span class="hljs-comment"># 输出：tensor([[0, 1],</span><br><span class="hljs-comment">#              [1, 2],</span><br><span class="hljs-comment">#              [2, 3]])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>可以使用<code>[-1]</code>选择最后一个元素，可以使用<code>[1:3]</code>选择第二、第三个元素（左闭右开，如上文）</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(X[-<span class="hljs-number">1</span>]) <br><span class="hljs-comment"># 输出：tensor([ 8.,  9., 10., 11.])</span><br><span class="hljs-built_in">print</span>(X[<span class="hljs-number">1</span>:<span class="hljs-number">3</span>])<br><span class="hljs-comment"># 输出：tensor([[ 4.,  5.,  6.,  7.],</span><br><span class="hljs-comment">#              [ 8.,  9., 10., 11.]])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>可以通过指定张量索引将元素写入张量</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">X[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>] = <span class="hljs-number">9</span><br><span class="hljs-built_in">print</span>(X)<br><span class="hljs-comment"># 输出：tensor([[ 0.,  1.,  2.,  3.],</span><br><span class="hljs-comment">#              [ 4.,  5.,  9.,  7.],</span><br><span class="hljs-comment">#              [ 8.,  9., 10., 11.]])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>为多个元素赋相同的值，只需要索引全部这些元素并赋值即可</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python">X[<span class="hljs-number">0</span>:<span class="hljs-number">2</span>, :] = <span class="hljs-number">9</span><br><span class="hljs-built_in">print</span>(X)<br><span class="hljs-comment"># 输出：tensor([[ 9.,  9.,  9.,  9.],</span><br><span class="hljs-comment">#              [ 9.,  9.,  9.,  9.],</span><br><span class="hljs-comment">#              [ 8.,  9., 10., 11.]])</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>运行一些操作会导致为新结果分配新内存位置，举例如下</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">before = <span class="hljs-built_in">id</span>(Y) <span class="hljs-comment"># 可将id视作Y存放位置的指针</span><br>Y = Y + X <span class="hljs-comment"># 当Y进行了按元素相加操作后其存放位置改变</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>(Y) == before) <span class="hljs-comment"># 输出：False</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>如果想要操作后不改变内存位置（执行原地操作），需要提前设置一个空张量当作内存区域</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">Z = torch.zeros_like(Y) <span class="hljs-comment"># zeros_like()生成一个与输入张量形状相同但元素值全为0的新张量</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;id(Z):&#x27;</span>, <span class="hljs-built_in">id</span>(Z)) <span class="hljs-comment"># 输出：id(Z): 140225804033376</span><br>Z[:] = X + Y<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;id(Z):&#x27;</span>, <span class="hljs-built_in">id</span>(Z)) <span class="hljs-comment"># 输出：id(Z): 140225804033376，可见内存位置未改变</span><br></code></pre></td></tr></table></figure>
-
 <ul>
 <li>也可以通过<code>X[:] = X + Y</code>或<code>X += Y</code>的方式实现原地操作，减小内存开销</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">before = <span class="hljs-built_in">id</span>(X)<br>X += Y<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>(X) == before) <span class="hljs-comment"># 输出：True</span><br></code></pre></td></tr></table></figure>
-
 <p>Pytorch张量可以使用<code>numpy()</code>与<code>tensor()</code>和Numpy张量进行相互转化</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">A = X.numpy()<br>B = torch.tensor(A)<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(A), <span class="hljs-built_in">type</span>(B)) <span class="hljs-comment"># 输出：&lt;class &#x27;numpy.ndarray&#x27;&gt; &lt;class &#x27;torch.Tensor&#x27;&gt;</span><br></code></pre></td></tr></table></figure>
-
 <p>大小为1的张量可以使用不同手段转化为Python标量</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python">a = torch.tensor([<span class="hljs-number">3.5</span>])<br><span class="hljs-built_in">print</span>(a, a.item(), <span class="hljs-built_in">float</span>(a), <span class="hljs-built_in">int</span>(a)) <span class="hljs-comment"># 输出：tensor([3.5000]) 3.5 3.5 3</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="数据预处理实现"><a href="#数据预处理实现" class="headerlink" title="数据预处理实现"></a>数据预处理实现</h2><p>数据预处理用于读取原始数据，使之能够被后续处理。在本例中，首先创建一个人工数据集，并使用一个csv（每一行是一个数据，不同域由逗号分隔）文件进行储存：</p>
+<h2 id="数据预处理实现">数据预处理实现</h2>
+<p>数据预处理用于读取原始数据，使之能够被后续处理。在本例中，首先创建一个人工数据集，并使用一个csv（每一行是一个数据，不同域由逗号分隔）文件进行储存：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><br>os.makedirs(os.path.join(<span class="hljs-string">&#x27;..&#x27;</span>, <span class="hljs-string">&#x27;data&#x27;</span>), exist_ok=<span class="hljs-literal">True</span>) <span class="hljs-comment"># 构建文件路径，创建文件夹</span><br>data_file = os.path.join(<span class="hljs-string">&#x27;..&#x27;</span>, <span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-string">&#x27;house_tiny.csv&#x27;</span>) <span class="hljs-comment"># 定义文件路径</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(data_file, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f: <span class="hljs-comment"># 写入csv数据</span><br>	f.write(<span class="hljs-string">&#x27;NumRooms,Alley,Price\n&#x27;</span>) <span class="hljs-comment"># 列名</span><br>	f.write(<span class="hljs-string">&#x27;NA,Pave,127500\n&#x27;</span>) <span class="hljs-comment"># 数据样本，下同</span><br>	f.write(<span class="hljs-string">&#x27;2,NA,106000\n&#x27;</span>)<br>	f.write(<span class="hljs-string">&#x27;4,NA,178100\n&#x27;</span>)<br>	f.write(<span class="hljs-string">&#x27;NA,NA,140000\n&#x27;</span>)<br></code></pre></td></tr></table></figure>
-
 <p>可以使用Pandas库，使用其<code>read_csv()</code>方法，由创建的csv文件中读取数据集：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><br>data = pd.read_csv(data_file)<br><span class="hljs-built_in">print</span>(data)<br><span class="hljs-string">&quot;&quot;&quot; 输出：</span><br><span class="hljs-string">   NumRooms Alley   Price</span><br><span class="hljs-string">0       NaN  Pave  127500</span><br><span class="hljs-string">1       2.0   NaN  106000</span><br><span class="hljs-string">2       4.0   NaN  178100</span><br><span class="hljs-string">3       NaN   NaN  140000</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
-
 <p>为了处理丢失的数据（NaN），可以采取插值或删除（删除整行或整列）的方法。此处采取插值法。对于属性值为数的行，可以采用均值差值：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python">inputs, outputs = data.iloc[:, <span class="hljs-number">0</span>:<span class="hljs-number">2</span>], data.iloc[:, <span class="hljs-number">2</span>] <br><span class="hljs-comment"># 此处使用iloc属性分别将文件前两列和第三列存入inputs,outputs</span><br>inputs.iloc[:, <span class="hljs-number">0</span>] = inputs.iloc[:, <span class="hljs-number">0</span>].fillna(inputs.iloc[:, <span class="hljs-number">0</span>].mean()) <br><span class="hljs-comment"># 对于inputs第一行，现有属性全为数，因此可以使用mean方法将现有数平均后填入该行无数据位置</span><br><span class="hljs-built_in">print</span>(inputs)<br><span class="hljs-string">&quot;&quot;&quot; 输出：</span><br><span class="hljs-string">   NumRooms Alley</span><br><span class="hljs-string">0       3.0  Pave</span><br><span class="hljs-string">1       2.0   NaN</span><br><span class="hljs-string">2       4.0   NaN</span><br><span class="hljs-string">3       3.0   NaN</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
-
 <p>对于属性值为类别值或离散值（如Alley列中的值为字符串），可以使用Pandas的<code>get_dummies</code>方法，将每个离散值视为一个新属性，并用True、False（0、1）表示该行数据是否拥有该属性：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">inputs = pd.get_dummies(inputs, dummy_na=<span class="hljs-literal">True</span>, dtype=<span class="hljs-built_in">int</span>) <br><span class="hljs-comment"># 表示将NaN也视作一个新属性，且用整形0、1进行表征</span><br><span class="hljs-built_in">print</span>(inputs)<br><span class="hljs-string">&quot;&quot;&quot; 输出：</span><br><span class="hljs-string">   NumRooms  Alley_Pave  Alley_nan</span><br><span class="hljs-string">0       3.0           1          0</span><br><span class="hljs-string">1       2.0           0          1</span><br><span class="hljs-string">2       4.0           0          1</span><br><span class="hljs-string">3       3.0           0          1</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
-
 <p>至此inputs与outputs中包含所有内容均为数值类型，可以使用<code>torch.tensor()</code>转化为张量格式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br>X, y = torch.tensor(inputs.values), torch.tensor(outputs.values)<br><span class="hljs-built_in">print</span>(X, y)<br><span class="hljs-string">&quot;&quot;&quot; 输出（python默认浮点数为float64）：</span><br><span class="hljs-string">tensor([[3., 1., 0.],</span><br><span class="hljs-string">        [2., 0., 1.],</span><br><span class="hljs-string">        [4., 0., 1.],</span><br><span class="hljs-string">        [3., 0., 1.]], dtype=torch.float64) </span><br><span class="hljs-string">tensor([127500, 106000, 178100, 140000])</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
                 
@@ -471,6 +452,11 @@
 
 
   
+
+
+  
+  
+
 
 
 
